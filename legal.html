@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+    <title>As pessoas do QL — homenagens, história e créditos</title>
+    <link rel="stylesheet" href="./src/ui/author-contact.css">
+    <style>
+      :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #191a18; color: #eceee9; }
+      body { max-width: 780px; margin: 0 auto; padding: 36px 24px 64px; line-height: 1.65; }
+      a { color: #8ae0b8; text-underline-offset: .2em; }
+      a:focus-visible { outline: 2px solid #8ae0b8; outline-offset: 4px; }
+      h1 { font-size: clamp(1.8rem, 5vw, 2.7rem); font-weight: 450; line-height: 1.15; }
+      h2 { margin-top: 2rem; font-size: 1.2rem; }
+      .note { padding: 16px 20px; border: 1px solid #736344; border-radius: 12px; background: #29261e; }
+      .muted { color: #b7beb6; font-size: .9rem; }
+      li { margin-block: 8px; }
+      .tribute { position: relative; margin: 32px 0 48px; padding: clamp(24px, 5vw, 44px); border: 1px solid #635a48; border-radius: 4px 4px 18px 18px; background: linear-gradient(145deg, #302e28, #20211f 65%); scroll-margin-top: 24px; }
+      .tribute::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: linear-gradient(90deg, #ef394c 0 25%, #edbf59 25% 50%, #72c498 50% 75%, #79b3cc 75%); }
+      .tribute-label { margin: 0; color: #e7c98b; font-size: .75rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+      .tribute h2 { margin: 14px 0 8px; font-size: clamp(2.4rem, 8vw, 4.4rem); font-weight: 450; letter-spacing: -.045em; line-height: 1.05; }
+      .tribute-deck { margin: 0 0 28px; color: #c8c7bd; font-size: 1.1rem; }
+      .tribute-memory { margin: 30px 0; padding: 24px 0 24px 22px; border-block: 1px solid #565044; border-left: 3px solid #e7c98b; }
+      .tribute-memory h3 { margin: 0 0 14px; color: #e7c98b; font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+      .tribute-memory p { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.2rem, 3.5vw, 1.5rem); line-height: 1.65; color: #f4eee0; }
+      .tribute-thanks { font-size: 1.15rem; color: #e7c98b; }
+      .tribute-recollection { margin-block: 30px; padding-top: 22px; border-top: 1px solid #565044; }
+      .tribute-recollection h3 { margin: 0 0 14px; color: #e7c98b; font-size: 1.1rem; font-weight: 600; }
+      .tribute-signature { color: #c8c7bd; font-size: .9rem; }
+      .tribute-sources { margin-top: 28px; padding-top: 18px; border-top: 1px solid #4a4941; font-size: .88rem; color: #c8c7bd; }
+      .tribute-sources h3 { margin: 0; font-size: .88rem; }
+      .tribute-sources ul { padding-left: 20px; }
+      .tribute-sources p { margin-bottom: 0; }
+      .tribute-nav { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-block: 24px; }
+      .tribute-nav a { padding-block: 6px; }
+      .tribute-delhez { border-color: #47695e; background: linear-gradient(145deg, #24362f, #20211f 65%); }
+      .tribute-delhez .tribute-label, .tribute-delhez .tribute-thanks { color: #a1e0c3; }
+      .tribute-honorific { font-size: .45em; letter-spacing: 0; }
+      .tribute-project { padding-block: 24px; border-top: 1px solid #46554d; }
+      .tribute-project h3 { margin: 6px 0 14px; font-size: 1.35rem; font-weight: 550; line-height: 1.3; }
+      .tribute-project p:last-child { margin-bottom: 0; }
+      .tribute-project-meta { margin: 0; color: #a1e0c3; font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+      .tribute-reference { font-size: .86rem; }
+      .tribute-project code { color: #b9e6d1; font-size: .92em; }
+      .ql-people { border-color: #476573; background: linear-gradient(145deg, #253139, #20211f 65%); }
+      .ql-people .tribute-label { color: #a9d4e6; }
+      .ql-people h2 { font-size: clamp(2rem, 6vw, 3.2rem); }
+      .people-list { margin: 28px 0; }
+      .people-list article { padding-block: 22px; border-top: 1px solid #43515a; }
+      .people-list h3 { margin: 0 0 4px; font-size: 1.25rem; font-weight: 600; }
+      .people-role { margin: 0 0 12px; color: #a9d4e6; font-size: .9rem; }
+      .people-list article > p:last-child { margin-bottom: 0; }
+      .people-context { padding-left: 18px; border-left: 3px solid #79b3cc; color: #d2dbe0; }
+      @media (max-width: 480px) { body { padding-inline: 18px; } .tribute { padding-inline: 20px; } .tribute-memory { padding-left: 16px; } }
+    </style>
+  </head>
+  <body>
+    <a href="./index.html">← Voltar ao emulador</a>
+    <h1>Créditos, licenças e privacidade</h1>
+    <div id="contactar-autor" class="author-contact-entry">
+      <a href="./README.md#contacto-e-respeito-pela-comunidade" data-author-contact>Contactar o Autor</a>
+      <span>Direitos, conteúdos e respeito pela comunidade.</span>
+    </div>
+    <nav class="tribute-nav" aria-label="Homenagens e história do QL">
+      <a href="#rick-dickinson">Rick Dickinson · o design</a>
+      <a href="#carlo-delhez">Dr. Carlo Delhez · a programação e a emulação</a>
+      <a href="#pessoas-do-ql">As pessoas por detrás do QL</a>
+    </nav>
+    <section id="rick-dickinson" class="tribute" aria-labelledby="rick-dickinson-title">
+      <p class="tribute-label">Em memória · Design industrial Sinclair</p>
+      <h2 id="rick-dickinson-title">Rick Dickinson</h2>
+      <p class="tribute-deck">A forma de um computador. Uma memória para a vida.</p>
+
+      <p>Rick Dickinson foi o designer industrial responsável pela forma exterior
+        do <strong>Sinclair QL</strong>, apresentado em 1984. A sua caixa é
+        expressamente creditada a Dickinson pelo
+        <a href="https://www.computinghistory.org.uk/det/655/sinclair-ql/">Centre for Computing History</a>.
+        Neste emulador, o reconhecimento do seu trabalho tem um lugar especial.</p>
+      <p>O seu contributo merece ser entendido em toda a sua dimensão. Nas suas
+        <a href="https://polymathperspective.com/?p=3147">entrevistas sobre design</a>,
+        Dickinson explicava como a forma de um produto nasce também da ergonomia,
+        dos materiais, da organização dos componentes e das exigências de fabrico.
+        Os seus estudos para o QL mostram esse cuidado em dar uma forma coerente
+        a uma ideia técnica ambiciosa.</p>
+
+      <div class="tribute-memory">
+        <h3>A memória que queremos preservar</h3>
+        <p>O QL procurava inovar tecnicamente. Mas ver um Sinclair QL na montra
+          de uma loja de computadores, em 1985, é uma daquelas imagens que se
+          guardam para a vida. A presença, as linhas, a promessa de tudo o que
+          ali se poderia fazer. O mesmo lugar afetivo pertence ao ZX Spectrum +
+          e ao ZX81 / Timex Sinclair 1000: computadores cuja forma continua a
+          despertar a curiosidade e o deslumbramento de então.</p>
+      </div>
+
+      <p>Dickinson desenhou também o ZX81 e o ZX Spectrum, como recorda na
+        <a href="https://polymathperspective.com/?p=3139">entrevista sobre o seu percurso</a>.
+        O Timex Sinclair 1000 foi a versão norte-americana do ZX81, conforme
+        documenta o <a href="https://americanhistory.si.edu/collections/object/nmah_334354">Smithsonian</a>.
+        Preservar estes computadores é também lembrar as pessoas que lhes deram
+        forma e reconhecer o lugar do design industrial na sua história.</p>
+
+      <section class="tribute-recollection" aria-labelledby="personal-memory-title">
+        <h3 id="personal-memory-title">Uma recordação pessoal</h3>
+        <p>Trocava correspondência com Rick cerca de uma vez por ano. Procurava
+          não abusar da sua gentileza, que muito apreciava.</p>
+        <p>Quis o destino que lhe enviasse uma mensagem sem saber que estava
+          doente, e muito menos que a doença era terminal. Nessa mensagem,
+          dizia-lhe quanto admirava os seus designs, que via como obras de
+          arte moderna, destacando em particular o Sinclair QL.</p>
+        <p>Tanto quanto recordo, Rick viria a falecer nesse mesmo dia ou no dia
+          seguinte. Guardo a memória de lhe ter expressado essa admiração,
+          sem imaginar quão perto estava a despedida.</p>
+        <p class="tribute-signature">Luís Simões da Cunha · autor deste emulador</p>
+      </section>
+
+      <p class="tribute-thanks">Obrigado, Rick, pelo talento, pelo cuidado e por
+        tantas memórias que continuam connosco.</p>
+
+      <div class="tribute-sources">
+        <h3>Conhecer o seu trabalho</h3>
+        <ul>
+          <li><a href="https://www.computinghistory.org.uk/det/655/sinclair-ql/">Sinclair QL — coleção do Centre for Computing History</a></li>
+          <li><a href="https://polymathperspective.com/?p=3147">Rick Dickinson: The Enigma of Design, parte 2 — o processo de design e estudos do QL</a></li>
+          <li><a href="https://polymathperspective.com/?p=3149">Rick Dickinson: The Enigma of Design, parte 3 — entrevista com um retrato de Rick no início dos anos 1980</a></li>
+        </ul>
+        <p>A passagem sobre a montra é uma homenagem deste projeto; não é uma
+          citação de Rick Dickinson. A fotografia pode ser consultada na
+          entrevista original.</p>
+      </div>
+    </section>
+
+    <section id="carlo-delhez" class="tribute tribute-delhez" aria-labelledby="carlo-delhez-title">
+      <p class="tribute-label">Dedicação especial · ZX81 e Sinclair QL</p>
+      <h2 id="carlo-delhez-title"><span class="tribute-honorific">Dr.</span> Carlo Delhez</h2>
+      <p class="tribute-deck">Dar mais possibilidades a uma máquina. Dar mais tempo à sua história.</p>
+
+      <p>Esta é uma homenagem ao génio e à dedicação de Carlo Delhez. Num universo
+        Sinclair tão frequentemente recordado pelo ZX Spectrum, o seu trabalho
+        deu ao ZX81 e ao QL ferramentas para continuar a criar, experimentar e
+        surpreender. Os seus programas ligaram máquinas, gerações de utilizadores
+        e duas formas de preservar a informática: ampliar o que um computador
+        consegue fazer e permitir que o seu software continue vivo.</p>
+      <p>No manual do XTricator, Delhez conta que comprou o seu primeiro ZX81 em
+        1982, aprendeu código máquina Z80 com a ajuda do livro de Toni Baker e
+        adquiriu um QL em 1987. Apresenta-se como doutorado em Física e explica
+        a intenção que o levou à emulação: prolongar a vida do ZX81, quando via
+        diminuir o número dos seus utilizadores.
+        <a class="tribute-reference" href="#delhez-source-xtricator">[1]</a></p>
+
+      <section class="tribute-project" aria-labelledby="delhez-cbi">
+        <p class="tribute-project-meta">ZX81 · desde 1987</p>
+        <h3 id="delhez-cbi">Coral BASIC: uma nova maneira de programar</h3>
+        <p>O <strong>Coral Basic Interpreter (CBI)</strong> trouxe ao ZX81 um
+          editor em que as palavras das instruções se escrevem letra a letra,
+          com verificação imediata da sintaxe. A versão 7.0 documenta
+          <strong>43 novos comandos em cerca de 5 KB de código</strong>:
+          procedimentos com passagem de dados nos dois sentidos, ciclos
+          estruturados, blocos condicionais com <code>ELSE</code>,
+          <code>DATA</code>, <code>READ</code> e <code>RESTORE</code>.</p>
+        <p>Acrescentava ainda renumeração, acompanhamento da execução e recursos
+          para integrar rotinas em código máquina. Num computador de recursos
+          tão contidos, era um alargamento notável da liberdade de programar.
+          O manual identifica a Terminal Software, nos Países Baixos, como a
+          primeira editora comercial e data de 1987 o manual neerlandês.
+          <a class="tribute-reference" href="#delhez-source-cbi">[2]</a></p>
+      </section>
+
+      <section class="tribute-project" aria-labelledby="delhez-assembler">
+        <p class="tribute-project-meta">ZX81 · revisão de 1991</p>
+        <h3 id="delhez-assembler">ZX-Assembler-2: ferramentas para ir mais fundo</h3>
+        <p>Os arquivos identificam o assembler de Delhez como
+          <strong>ZX-Assembler-2</strong>, com o nome de ficheiro
+          <strong>ZXASSEM2</strong>. Era uma revisão do ZX-Assembler de
+          <strong>D. P. Aknai e M. Streeton</strong>, publicado pela Artic
+          Computing em 1982. Dar crédito a essa origem faz parte de reconhecer
+          com rigor o trabalho de Delhez.</p>
+        <p>A descrição que escreveu para a sua biblioteca de programas regista
+          uma versão em código máquina alojada na linha 0, com o código fonte
+          na linha 2 e o código gerado na linha 1. Acrescentava a diretiva
+          <code>ORG</code>, permitindo definir a origem do código produzido.
+          Era uma forma engenhosa de organizar uma ferramenta de desenvolvimento
+          dentro da estrutura de memória do ZX81.
+          <a class="tribute-reference" href="#delhez-source-assembler">[3]</a></p>
+      </section>
+
+      <section class="tribute-project" aria-labelledby="delhez-xtender">
+        <p class="tribute-project-meta">PC · MS-DOS</p>
+        <h3 id="delhez-xtender">XTender e XTender2: preservar também o comportamento</h3>
+        <p><strong>XTender</strong> levou o ZX81 aos PC, incluindo máquinas
+          XT, AT, 386 e 486. O pacote preservado da versão 1.22 inclui Coral
+          BASIC, ZX-Assembler-2, demonstrações e documentação: um pequeno
+          ambiente para voltar a usar e a programar o ZX81.
+          <a class="tribute-reference" href="#delhez-source-xtender">[4]</a></p>
+        <p>Com <strong>XTender2</strong>, a atenção ao funcionamento da máquina
+          tornou-se particularmente profunda. A documentação da beta 11,
+          de maio de 2002, descreve emulação do sistema de vídeo ao nível de
+          cada ciclo de relógio do Z80, configurações de memória e ROM,
+          modos <code>FAST</code> e <code>SLOW</code>, gráficos de alta
+          resolução, cassete virtual e múltiplas teclas premidas em simultâneo.</p>
+        <p>Incluía até a resposta de um televisor a sinais de sincronização
+          irregulares: a imagem podia tremer, piscar ou rolar como no equipamento
+          real. Esse pormenor dá a medida da ambição: conservar também a
+          experiência de estar diante da máquina.
+          <a class="tribute-reference" href="#delhez-source-xtender">[4]</a></p>
+      </section>
+
+      <section class="tribute-project" aria-labelledby="delhez-xtricator">
+        <p class="tribute-project-meta">Sinclair QL · primeira versão oficial em janeiro de 1992</p>
+        <h3 id="delhez-xtricator">XTricator: um ZX81 dentro do QL</h3>
+        <p>Escrito em assembly, <strong>XTricator</strong> executava software
+          ZX81 em sistemas QDOS. Na versão 1.75, de agosto de 1994, oferecia
+          gráficos de alta resolução, emulação da ZX Printer, acesso a
+          ficheiros através de QZ-DOS e integração com o Pointer Interface
+          para trabalhar em multitarefa.</p>
+        <p>Coral BASIC e ZX-Assembler-2 podiam ocupar a área entre 8 e 16 KB
+          da máquina emulada. O QL tornava-se, assim, um lugar onde o ZX81 podia
+          continuar a ser usado como instrumento de criação. O manual também
+          reconhece os limites de velocidade nos QL sem aceleração.
+          <a class="tribute-reference" href="#delhez-source-xtricator">[1]</a></p>
+      </section>
+
+      <section class="tribute-project" aria-labelledby="delhez-spectator">
+        <p class="tribute-project-meta">Confirmado · ZX Spectrum no Sinclair QL</p>
+        <h3 id="delhez-spectator">Spectator: sim, o Spectrum também</h3>
+        <p>Delhez escreveu igualmente <strong>Spectator</strong>, um emulador
+          de Spectrum para o QL. O seu manual da versão preliminar 0.56,
+          de março de 1992, descreve um ambiente <strong>ZX Spectrum de 48 KB</strong>
+          com a ROM do Interface 1, execução de código Z80, teclado, ecrã e
+          encaminhamento das operações de fita, Microdrive e porta série.</p>
+        <p>O programa suportava multitarefa e destinava-se também à Minerva.
+          Delhez foi claro sobre o custo da emulação: essa versão era lenta
+          num QL de origem e beneficiava de uma Gold Card. O mérito está na
+          ambição técnica documentada, com as limitações que o próprio autor
+          fazia questão de explicar.
+          <a class="tribute-reference" href="#delhez-source-spectator">[5]</a></p>
+      </section>
+
+      <p>Havia também o trabalho paciente de tornar os programas acessíveis.
+        A biblioteca que Delhez documentou em dezembro de 1993 reunia
+        <strong>240 programas em três discos</strong>, acompanhados de
+        descrições de utilização. Criar ferramentas e conservar o conhecimento
+        necessário para as usar eram partes da mesma dedicação.
+        <a class="tribute-reference" href="#delhez-source-library">[6]</a></p>
+      <p class="tribute-thanks">Obrigado, Carlo, por encontrares tantas
+        possibilidades nestas pequenas máquinas e por ajudares outros a
+        descobri-las. Este emulador presta homenagem a esse engenho e a essa
+        vontade de manter viva a curiosidade.</p>
+
+      <div class="tribute-sources">
+        <h3>Fontes e versões consultadas</h3>
+        <ol>
+          <li id="delhez-source-xtricator"><a href="https://morloch.hd.free.fr/smsq/">Arquivo QDOS/SMS — XTricator 1.75</a>:
+            manuais do autor <code>XTricator_txt</code> e <code>Updates_txt</code>,
+            no pacote <code>Xtricator.zip</code>. Biografia, funcionalidades e histórico.</li>
+          <li id="delhez-source-cbi"><a href="https://www.zophar.net/sinclair/xtender-xtender2.html">Arquivo XTender / XTender2</a>:
+            <code>CBI.txt</code>, manual original da versão 7.0, revisão 0.10 de
+            7 de dezembro de 1993, incluído no XTender 1.22.</li>
+          <li id="delhez-source-assembler"><a href="https://sinclairql.speccy.org/ceiuql/qliper/pdf/qliper42.pdf#page=31">QLíper 42, janeiro de 1993, pp. 31–32 (PDF)</a>:
+            reprodução das descrições de Delhez para a sua biblioteca de julho
+            de 1992; distingue o ZX-Assembler original da revisão ZX-Assembler-2.
+            O ficheiro <code>ProgInfo.txt</code> do XTender confirma esta revisão.</li>
+          <li id="delhez-source-xtender"><a href="https://www.zophar.net/sinclair/xtender-xtender2.html">Pacotes preservados de XTender 1.22 e XTender2 beta 11</a>:
+            ficheiros incluídos, <code>ReadMe.txt</code> e <code>Features.txt</code>
+            de maio de 2002. As características de XTender2 referem-se a essa beta.</li>
+          <li id="delhez-source-spectator"><a href="https://sinclairql.net/djw/spectrum/index.html">Arquivo de software QL — Spectator</a>:
+            <code>Spectator.txt</code>, manual original da versão preliminar 0.56,
+            março de 1992, no pacote <code>spectatr.zip</code>.</li>
+          <li id="delhez-source-library"><a href="https://www.zophar.net/sinclair/xtender-xtender2.html">Biblioteca distribuída com XTender</a>:
+            <code>Library.txt</code>, versão 0.06 de 15 de dezembro de 1993.</li>
+        </ol>
+        <p>Sobre o nome «ASM2»: a documentação consultada usa ZX-Assembler-2,
+          ZXASSEM2 e, no XTricator, ZXA2. Mantemos aqui os nomes documentados.
+          O reconhecimento pessoal é deste projeto; as informações técnicas
+          são baseadas nos documentos identificados acima.</p>
+      </div>
+    </section>
+
+    <section id="pessoas-do-ql" class="tribute ql-people" aria-labelledby="ql-people-title">
+      <p class="tribute-label">História · Uma criação coletiva</p>
+      <h2 id="ql-people-title">As pessoas por detrás do QL</h2>
+      <p class="tribute-deck">Por detrás de cada circuito, comando e linha da caixa, houve pessoas.</p>
+      <p>Conhecer o QL é também conhecer quem lhe deu forma, comportamento e
+        possibilidades. Este reconhecimento reúne contributos para a máquina
+        e para a sua expansão; não pretende ser uma lista completa de todos
+        os que participaram na sua história.</p>
+      <p class="people-context">Karlin recorda uma organização sem um único gestor
+        de projeto convencional: hardware, software e design tinham responsáveis
+        próprios. As atribuições abaixo distinguem testemunhos pessoais e registos documentais.
+        <a href="#people-source-karlin">[1]</a></p>
+
+      <div class="people-list">
+        <article aria-labelledby="person-karlin">
+          <h3 id="person-karlin">David Karlin</h3>
+          <p class="people-role">Responsável principal pelo hardware e pela eletrónica</p>
+          <p>Trabalhou na eletrónica, nos circuitos específicos ZX8301 e ZX8302 e
+            na placa de circuito impresso, acompanhando também os fabricantes.
+            <a href="#people-source-karlin">[1]</a></p>
+        </article>
+        <article aria-labelledby="person-tebby">
+          <h3 id="person-tebby">Tony Tebby</h3>
+          <p class="people-role">QDOS · Sistema operativo e firmware</p>
+          <p>Autor do QDOS, deu ao QL uma arquitetura com multitarefa preemptiva:
+            o sistema distribui tempo de processador entre programas. O guia
+            técnico que assinou com Karlin documenta os <em>jobs</em>, as suas
+            prioridades e o escalonamento — mecanismos que ajudam a perceber
+            a ambição deste computador de 1984.
+            <a href="#people-source-sqpp">[2]</a> <a href="#people-source-technical">[3]</a></p>
+        </article>
+        <article aria-labelledby="person-jones">
+          <h3 id="person-jones">Jan Jones</h3>
+          <p class="people-role">SuperBASIC</p>
+          <p>Escreveu o interpretador BASIC; segundo Karlin, foi recrutada por Tebby.
+            <a href="#people-source-karlin">[1]</a> O SuperBASIC é simultaneamente
+            uma linguagem de programação estruturada e o ambiente de comandos
+            com que o utilizador conversa com o QL.
+            <a href="#people-source-about">[4]</a></p>
+        </article>
+        <article aria-labelledby="person-dickinson">
+          <h3 id="person-dickinson">Rick Dickinson</h3>
+          <p class="people-role">Design industrial · Caixa e teclado</p>
+          <p>O seu trabalho abrangia desenhos, modelos, protótipos e especificações
+            para moldagem por injeção da caixa e do teclado.
+            <a href="#people-source-karlin">[1]</a> A nossa
+            <a href="#rick-dickinson">homenagem especial a Rick</a> recorda a
+            presença duradoura desse design na memória de quem conheceu estas máquinas.</p>
+        </article>
+        <article aria-labelledby="person-sinclair">
+          <h3 id="person-sinclair">Sir Clive Sinclair</h3>
+          <p class="people-role">Visão do produto e direção executiva</p>
+          <p>Presidia às reuniões de decisão. Karlin recorda, porém, diferenças
+            de visão sobre o mercado profissional a que o QL se destinaria.
+            <a href="#people-source-karlin">[1]</a> Foi Sinclair quem apresentou
+            publicamente a máquina em 12 de janeiro de 1984.
+            <a href="#people-source-sqpp">[2]</a></p>
+        </article>
+        <article aria-labelledby="person-westwood">
+          <h3 id="person-westwood">Jim Westwood</h3>
+          <p class="people-role">Direção do laboratório de engenharia</p>
+          <p>Dirigia o laboratório. Segundo Karlin, ele, Tebby e Dickinson
+            responderiam formalmente a Westwood, numa estrutura que funcionava
+            de maneira bastante informal.
+            <a href="#people-source-karlin">[1]</a></p>
+        </article>
+        <article aria-labelledby="person-southward">
+          <h3 id="person-southward">David Southward</h3>
+          <p class="people-role">Tecnologia Microdrive</p>
+          <p>Karlin atribui-lhe expressamente o contributo dos Microdrives,
+            o sistema de armazenamento incorporado no QL.
+            <a href="#people-source-karlin">[1]</a></p>
+        </article>
+        <article aria-labelledby="person-cheese">
+          <h3 id="person-cheese">Ben Cheese</h3>
+          <p class="people-role">Engenharia eletrónica · Hardware dos Microdrives</p>
+          <p>O diretório interno da Sinclair identifica-o como engenheiro de
+            eletrónica a desenvolver o hardware dos Microdrives.
+            <a href="#people-source-staff">[5]</a> Karlin destaca a importância
+            da sua colaboração.
+            <a href="#people-source-karlin">[1]</a></p>
+        </article>
+        <article aria-labelledby="person-mathieson">
+          <h3 id="person-mathieson">John Mathieson</h3>
+          <p class="people-role">Hardware · Interface de disco rígido</p>
+          <p>O Sinclair QL Preservation Project credita-lhe uma interface de disco
+            rígido criada em 1983 e demonstrada no lançamento do QL, sem chegar
+            a produto comercial. Regista também a sua posterior participação
+            no desenvolvimento da Atari Jaguar.
+            <a href="#people-source-sqpp">[2]</a></p>
+        </article>
+        <article aria-labelledby="person-oakley">
+          <h3 id="person-oakley">Jonathan Oakley</h3>
+          <p class="people-role">Engenharia de hardware</p>
+          <p>É identificado pelo Sinclair QL Preservation Project entre os
+            engenheiros adicionais de hardware. A fonte não individualiza
+            um circuito ou subsistema; o seu nome merece igualmente ficar
+            associado ao trabalho coletivo.
+            <a href="#people-source-sqpp">[2]</a></p>
+        </article>
+        <article aria-labelledby="person-miller">
+          <h3 id="person-miller">Richard Miller</h3>
+          <p class="people-role">Hardware e expansão · Interface de disquetes</p>
+          <p>Incluído nos créditos de hardware do projeto de preservação,
+            desenvolveu na Micro Peripherals, em 1985, uma interface de disquetes
+            para o QL, posteriormente vendida sob a marca Sinclair. Este
+            contributo pertence à expansão da máquina após o lançamento.
+            <a href="#people-source-sqpp">[2]</a></p>
+        </article>
+        <article aria-labelledby="person-turner">
+          <h3 id="person-turner">Aaron Turner</h3>
+          <p class="people-role">Firmware do IPC</p>
+          <p>Creditado pelo Sinclair QL Preservation Project pelo firmware do
+            IPC, o subsistema baseado no Intel 8049. É um reconhecimento
+            específico do software interno desse controlador.
+            <a href="#people-source-sqpp">[2]</a></p>
+        </article>
+        <article aria-labelledby="person-searle">
+          <h3 id="person-searle">Nigel Searle</h3>
+          <p class="people-role">Direção da empresa e decisões comerciais</p>
+          <p>Diretor-geral da Sinclair, participava nas reuniões e nas decisões;
+            Karlin associa-lhe um papel relevante nas escolhas comerciais.
+            <a href="#people-source-karlin">[1]</a></p>
+        </article>
+      </div>
+
+      <div class="tribute-sources">
+        <h3>Fontes e testemunhos</h3>
+        <ol>
+          <li id="people-source-karlin"><a href="https://www.sinclairql.net/story/The_long_lost_interview_with_David_Karlin.htm">The long lost interview with David Karlin</a>,
+            por Urs König: conversas de 2002 e 2013, publicadas em 2013 e
+            disponibilizadas em 2014. Testemunho retrospetivo de um dos criadores.</li>
+          <li id="people-source-sqpp"><a href="https://www.sinclairql.net/what.html">Sinclair QL Preservation Project — QL, what?</a>:
+            créditos da equipa, apresentação e história das interfaces.</li>
+          <li id="people-source-technical"><a href="https://www.sinclairql.net/djw/docs/manuals/qltm.pdf">QL Technical Guide (PDF)</a>,
+            Tony Tebby e David Karlin, edição de Michèle Wright, Sinclair Research,
+            1985. Secções 3.1 (Jobs) e 13.0 (Manager Traps).</li>
+          <li id="people-source-about"><a href="https://sinclairql.net/djw/gen/aboutql/aboutql.html">About the QL</a>,
+            arquivo de Dilwyn Jones: introdução ao sistema e ao SuperBASIC.</li>
+          <li id="people-source-staff"><a href="https://sinclairql.net/downloads/1984-00_Who%27s_who_at_Sinclair-OCRed-SQPP.pdf">Who's who at Sinclair (PDF)</a>:
+            diretório da empresa preservado pelo SQPP, entrada de Ben Cheese.</li>
+        </ol>
+        <p>Os nomes repetidos nas homenagens têm aqui outro propósito:
+          situar cada contributo na história partilhada do QL.</p>
+      </div>
+    </section>
+
+    <p>Emulador independente do Sinclair QL. Sem afiliação, patrocínio ou aprovação
+      dos titulares das marcas e dos produtos representados.</p>
+    <p class="note">O projeto preserva os créditos dos seus componentes,
+      inclui as fontes da Minerva e documenta as referências visuais.
+      As verificações e os pontos em revisão estão reunidos no
+      <a href="./docs/LEGAL_REVIEW.md">registo de distribuição</a>.</p>
+
+    <h2>Autores e licenças</h2>
+    <ul>
+      <li><strong>Emulador:</strong> Copyright (C) 2026 Luís Simões da Cunha.
+        Código e documentação originais sob <a href="./LICENSE">GNU GPL versão 2 apenas</a>.
+        <a href="./COPYRIGHT.md">Âmbito das licenças e autoria</a>.</li>
+      <li><strong>Minerva 1.98a1:</strong> Laurence Reeves; manutenção e publicação por
+        Marcel Kilgus. GPL versão 2 ou posterior.
+        <a href="./third_party/minerva/COPYRIGHT">Aviso original</a>,
+        <a href="./third_party/minerva/SOURCE.md">proveniência e construção</a> e
+        <a href="./third_party/minerva/minerva-source-29e5365.tar.gz" download>código-fonte correspondente completo</a>.</li>
+      <li><strong>Vetores de teste MC68000:</strong> Copyright (c) 2024 SingleStepTests,
+        licença <a href="./third_party/m68000-single-step/LICENSE">MIT</a>.
+        <a href="./third_party/m68000-single-step/SOURCE.md">Versão e transformações</a>.</li>
+      <li><strong>SkyQL 1.1:</strong> © 2026 Luis Cunha, código MIT.
+        Catálogo HYG de David Nash / Astronomy Nexus e figuras de constelações
+        da equipa Stellarium: dados adaptados CC BY-SA 4.0, com os avisos
+        originais preservados no ficheiro <code>credits</code> do cartucho.</li>
+      <li><strong>Psion Quill 2.35, Abacus 2.35, Easel 2.35 e Archive 2.38:</strong>
+        © Psion. Cópia gratuita para utilizadores QL, sem fins lucrativos, com
+        copyright conservado, segundo o <a href="https://sinclairql.net/djw/psions/index.html">arquivo QL de Dilwyn Jones</a>.
+        Os quatro pacotes para Microdrive são incluídos sem alterações.</li>
+      <li><strong>Jogos de exemplo:</strong> Psion Chess, de Richard Lang,
+        © 1984 Psion Ltd. — freeware; Spook, © 1985 Damon Chaplin — domínio público.
+        Autoria e termos segundo <a href="https://www.terdina.net/ql/software.html">QL software, de Daniele Terdina</a>.
+        A edição Chess da biblioteca é a executável de Jochen Hassler, com correção
+        3D de Marcel Kilgus, publicada no <a href="https://sinclairql.net/djw/games/index.html">arquivo QL</a>.</li>
+      <li><strong>Electric Dreams:</strong> composição de Philip Oakey e Giorgio
+        Moroder; MIDI original sequenciado por Roger St louis, (c)1993HM.
+        Cartucho de melodia incluído sem alterações, com fontes e créditos em
+        <code>readme_txt</code>. Leitor e programa de arranque CC0-1.0;
+        música e MIDI conservam os seus direitos existentes.</li>
+      <li><strong>Ilustrações do equipamento:</strong> produção assistida por IA,
+        com referências, créditos e inventário documentados.
+        <a href="./assets/PROVENANCE.md">Proveniência e condições de reutilização</a>,
+        separadas da licença do código.</li>
+      <li><strong>Referência visual do teclado:</strong>
+        <a href="https://commons.wikimedia.org/wiki/File:Sinclair_QL_Top.jpg">«Sinclair QL Top.jpg»</a>,
+        de EWX, com retoques de Ubcule, via Wikimedia Commons;
+        <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0 Unported</a>.
+        Utilizada como referência para transformação e geração assistida por IA;
+        o resultado difere da fotografia original. A atribuição não implica
+        aprovação pelos autores. As licenças das adaptações e as permissões
+        das referências do monitor continuam em revisão no registo visual.</li>
+    </ul>
+    <p><a href="./THIRD_PARTY_NOTICES.md">Avisos e referências completos</a> ·
+      <a href="https://github.com/luiscunhacsc/sinclair-ql-emulator-main">Repositório e histórico do projeto</a>.</p>
+    <p>O software é fornecido sem garantia, nos termos das licenças aplicáveis e
+      sem afastar direitos legais que não possam ser excluídos.</p>
+
+    <h2>Marcas e software carregado</h2>
+    <p>Os nomes Sinclair, QL, SuperBASIC, Minerva, Google e Gemini identificam
+      equipamentos, linguagens ou serviços. Os direitos que lhes sejam aplicáveis
+      pertencem aos respetivos titulares.</p>
+    <p>A distribuição inclui a ROM Minerva e os títulos da biblioteca acima,
+      cada um com os seus termos. Pode carregar outras ROMs e programas que
+      esteja autorizado a utilizar. As ROMs proprietárias QDOS/Sinclair não
+      integram o pacote.</p>
+
+    <h2>Privacidade e chat</h2>
+    <p>ROMs e cartuchos são processados no navegador. A aplicação não inclui
+      publicidade nem analítica. Guarda localmente preferências, progresso do guia
+      e a escolha de proteção dos cartuchos. Os projetos que escolher guardar,
+      incluindo o conteúdo dos cartuchos, também ficam no navegador.
+      Pode apagá-los no gestor ou nos dados do site; exporte primeiro os cartuchos
+      que pretende conservar. O histórico visível do chat desaparece ao recarregar a página.</p>
+    <p><strong>Para utilizar o Gemini, cada utilizador é responsável por obter
+      a sua própria chave API, através da sua conta no
+      <a href="https://aistudio.google.com/api-keys">Google AI Studio</a>.</strong>
+      Este projeto não fornece uma chave partilhada. A chave deve ser configurada
+      no servidor local, seguindo as <a href="./README.md">instruções de configuração</a>,
+      e mantida privada; não deve ser publicada nem incluída no código do navegador.
+      A demonstração local não exige chave.</p>
+    <p><a href="./PRIVACY.md">Descrição detalhada dos dados e retenção</a> ·
+      <a href="./docs/LEGAL_REVIEW.md">Licenças, proveniência e distribuição</a>.</p>
+    <p class="muted">Atualizado em 19 de setembro de 2026. Um serviço alojado
+      publicamente necessita de informação própria sobre o operador e o alojamento.</p>
+    <script type="module" src="./src/ui/author-contact.js"></script>
+  </body>
+</html>

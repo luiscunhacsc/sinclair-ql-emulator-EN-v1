@@ -1,0 +1,30 @@
+node_modules/
+coverage/
+*.rom
+*.bin
+*.mdv
+*.qxl
+*.win
+.DS_Store
+.env
+.env.*
+!.env.example
+upload/
+tmp/
+generated_images/
+local-software/*
+!local-software/PsionChess.qlpak
+!local-software/chess_mk.zip
+!local-software/Spook.zip
+!local-software/qui235m.zip
+!local-software/aba235m.zip
+!local-software/eas235m.zip
+!local-software/arc238m.zip
+!local-software/Electric_Dreams_Melody_QL.mdv
+!local-software/SkyQL.mdv
+!local-software/README.md
+*Key*.txt
+
+# The GPL-licensed Minerva image below is intentionally distributed together
+# with its corresponding source and notices.
+!roms/minerva/minerva-1.98a1.bin

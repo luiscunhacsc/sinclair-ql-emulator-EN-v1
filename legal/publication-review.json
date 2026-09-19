@@ -1,0 +1,11 @@
+{
+  "reviewDate": "2026-09-16",
+  "scope": "Public distribution, free of charge, with source code; Portugal/EU baseline",
+  "items": [
+    { "id": "artwork-rights", "status": "pending", "evidence": "assets/PROVENANCE.md", "reason": "Keyboard reference identified as EWX/Ubcule CC BY-SA 3.0; adaptation licensing and monitor-reference permissions remain unresolved." },
+    { "id": "trademarks-and-designs", "status": "pending", "evidence": "docs/LEGAL_REVIEW.md", "reason": "Current registrations, territories and visual presentation require a specific review." },
+    { "id": "public-hosting-privacy", "status": "pending", "evidence": "PRIVACY.md", "reason": "Hosting provider, operator contact and publication-specific data handling remain to be defined." },
+    { "id": "final-source-and-provenance-review", "status": "pending", "evidence": "docs/LEGAL_REVIEW.md", "reason": "Review the final distribution snapshot and external code/manual provenance; Minerva was hash-checked, not rebuilt." },
+    { "id": "gemini-free-only-eea", "status": "pending", "evidence": "docs/LEGAL_REVIEW.md", "reason": "Reconcile the provider's regional Paid Services requirement with the project's Free-only configuration before public availability of the integration." }
+  ]
+}

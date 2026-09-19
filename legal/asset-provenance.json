@@ -1,0 +1,145 @@
+{
+  "reviewDate": "2026-09-16",
+  "assets": [
+    {
+      "path": "assets/compositions/qlwithmonitor-mdv1-mdv2.png",
+      "sha256": "ab655330a7780eb68e0d87d3e3a9b9cdde165419d937372d1c05fb81711cf40f",
+      "status": "pending",
+      "origin": "AI-assisted image; four references supplied by project owner on 2026-09-16; mapping and permissions remain under review",
+      "generator": {
+        "reportedTool": "ChatGPT",
+        "reportedModel": "GPT-6 Astra",
+        "reportedSetting": "Extra-High",
+        "generationDate": null,
+        "imageModel": null
+      },
+      "referenceImages": [
+        "https://commons.wikimedia.org/wiki/File:Sinclair_QL_Top.jpg",
+        "https://www.worthpoint.com/worthopedia/sinclair-ql-monitor-keyboard-games-246618640",
+        "https://www.youtube.com/watch?v=eYoTSGvWf78",
+        "https://sinclairql.net/what.html"
+      ],
+      "license": null,
+      "evidence": [
+        "assets/PROVENANCE.md"
+      ],
+      "referenceMapping": "By keyboard/monitor role; exact per-output inputs not independently verified"
+    },
+    {
+      "path": "assets/compositions/qlwithmonitor-mdv1.png",
+      "sha256": "1791362957542118ab32aebf00e0a0f52131ee5ae104dd05f4c42089195973b7",
+      "status": "pending",
+      "origin": "AI-assisted image; four references supplied by project owner on 2026-09-16; mapping and permissions remain under review",
+      "generator": {
+        "reportedTool": "ChatGPT",
+        "reportedModel": "GPT-6 Astra",
+        "reportedSetting": "Extra-High",
+        "generationDate": null,
+        "imageModel": null
+      },
+      "referenceImages": [
+        "https://commons.wikimedia.org/wiki/File:Sinclair_QL_Top.jpg",
+        "https://www.worthpoint.com/worthopedia/sinclair-ql-monitor-keyboard-games-246618640",
+        "https://www.youtube.com/watch?v=eYoTSGvWf78",
+        "https://sinclairql.net/what.html"
+      ],
+      "license": null,
+      "evidence": [
+        "assets/PROVENANCE.md"
+      ],
+      "referenceMapping": "By keyboard/monitor role; exact per-output inputs not independently verified"
+    },
+    {
+      "path": "assets/compositions/qlwithmonitor-mdv2.png",
+      "sha256": "f625e10b826b36f3657f7451588ba6981f1709554b62dc9ded4cefa5bf3e7b50",
+      "status": "pending",
+      "origin": "AI-assisted image; four references supplied by project owner on 2026-09-16; mapping and permissions remain under review",
+      "generator": {
+        "reportedTool": "ChatGPT",
+        "reportedModel": "GPT-6 Astra",
+        "reportedSetting": "Extra-High",
+        "generationDate": null,
+        "imageModel": null
+      },
+      "referenceImages": [
+        "https://commons.wikimedia.org/wiki/File:Sinclair_QL_Top.jpg",
+        "https://www.worthpoint.com/worthopedia/sinclair-ql-monitor-keyboard-games-246618640",
+        "https://www.youtube.com/watch?v=eYoTSGvWf78",
+        "https://sinclairql.net/what.html"
+      ],
+      "license": null,
+      "evidence": [
+        "assets/PROVENANCE.md"
+      ],
+      "referenceMapping": "By keyboard/monitor role; exact per-output inputs not independently verified"
+    },
+    {
+      "path": "assets/compositions/qlwithmonitor.png",
+      "sha256": "25bbb9f5d9fe77f8d5d3ffad4da070109ee347f1bd1e74c7f9731428750cfafd",
+      "status": "pending",
+      "origin": "AI-assisted image; four references supplied by project owner on 2026-09-16; mapping and permissions remain under review",
+      "generator": {
+        "reportedTool": "ChatGPT",
+        "reportedModel": "GPT-6 Astra",
+        "reportedSetting": "Extra-High",
+        "generationDate": null,
+        "imageModel": null
+      },
+      "referenceImages": [
+        "https://commons.wikimedia.org/wiki/File:Sinclair_QL_Top.jpg",
+        "https://www.worthpoint.com/worthopedia/sinclair-ql-monitor-keyboard-games-246618640",
+        "https://www.youtube.com/watch?v=eYoTSGvWf78",
+        "https://sinclairql.net/what.html"
+      ],
+      "license": null,
+      "evidence": [
+        "assets/PROVENANCE.md"
+      ],
+      "referenceMapping": "By keyboard/monitor role; exact per-output inputs not independently verified"
+    },
+    {
+      "path": "assets/keyboard/ql-keyboard-case.png",
+      "sha256": "cf1dad1b595302fd14a7852a63ce28a74bbce7f9616a9afc8da92b349064bc93",
+      "status": "pending",
+      "origin": "AI-assisted image; four references supplied by project owner on 2026-09-16; mapping and permissions remain under review",
+      "generator": {
+        "reportedTool": "ChatGPT",
+        "reportedModel": "GPT-6 Astra",
+        "reportedSetting": "Extra-High",
+        "generationDate": null,
+        "imageModel": null
+      },
+      "referenceImages": [
+        "https://commons.wikimedia.org/wiki/File:Sinclair_QL_Top.jpg"
+      ],
+      "license": null,
+      "evidence": [
+        "assets/PROVENANCE.md"
+      ],
+      "referenceMapping": "By keyboard/monitor role; exact per-output inputs not independently verified"
+    },
+    {
+      "path": "assets/monitor/ql-monitor-frame.png",
+      "sha256": "4f4d282efb56ef8e15b8ebb9443d9c4a9721394da5555dd5a4c50e17e1014d43",
+      "status": "pending",
+      "origin": "AI-assisted image; four references supplied by project owner on 2026-09-16; mapping and permissions remain under review",
+      "generator": {
+        "reportedTool": "ChatGPT",
+        "reportedModel": "GPT-6 Astra",
+        "reportedSetting": "Extra-High",
+        "generationDate": null,
+        "imageModel": null
+      },
+      "referenceImages": [
+        "https://www.worthpoint.com/worthopedia/sinclair-ql-monitor-keyboard-games-246618640",
+        "https://www.youtube.com/watch?v=eYoTSGvWf78",
+        "https://sinclairql.net/what.html"
+      ],
+      "license": null,
+      "evidence": [
+        "assets/PROVENANCE.md"
+      ],
+      "referenceMapping": "By keyboard/monitor role; exact per-output inputs not independently verified"
+    }
+  ]
+}
