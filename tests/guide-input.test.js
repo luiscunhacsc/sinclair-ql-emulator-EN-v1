@@ -51,14 +51,14 @@ async function boot() {
 
 test("repeated guide commands and prepared input do not report not complete", async () => {
   const ql = await boot();
-  const command = { kind: "command", code: 'PRINT "OLA, SINCLAIR QL"' };
+  const command = { kind: "command", code: 'PRINT "HELLO, SINCLAIR QL"' };
   assert.equal(qlLineEditorActive(ql.bus), true);
   ql.send(command);
   ql.send(command);
   // Match placing a command, then clicking Execute (which sends it again).
   ql.send({ kind: "command", code: 'PRINT "DO NOT EXECUTE"' }, false);
   ql.send(command);
-  assert.equal(ql.output, "OLA, SINCLAIR QL\n".repeat(3));
+  assert.equal(ql.output, "HELLO, SINCLAIR QL\n".repeat(3));
   assert.equal(qlLineEditorActive(ql.bus), true);
 });
 

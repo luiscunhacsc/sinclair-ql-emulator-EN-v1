@@ -150,7 +150,7 @@ const originalQlMode = new OriginalQlModeDialog(document.querySelector("#origina
   restart: async () => {
     await restartWithoutChat({
       bridge: chatBridge,
-      cancelLoading: () => cancelGuideTyping("Carregamento do chat cancelado para regressar ao QL original."),
+      cancelLoading: () => cancelGuideTyping("Chat loading cancelled to return to the original QL."),
       loading: chatLaunchTask,
       reset: () => {
         resetMachine();
@@ -163,7 +163,7 @@ const originalQlMode = new OriginalQlModeDialog(document.querySelector("#origina
         chatHostToken = null;
         chatProvider.value = "demo";
       },
-      start: () => startExecution("De volta ao QL de sempre. Prima F1 no ecrã inicial para entrar no SuperBASIC — sem ligação a IA."),
+      start: () => startExecution("Back to the classic QL. Press F1 at the startup screen to enter SuperBASIC — without an AI connection."),
     });
   },
 });
@@ -181,7 +181,7 @@ let activeGuideLessonId = GUIDE_LESSONS[0].id;
 let guideTypingController = null;
 let guideTypingTask = null;
 let guideReplacementConfirmed = false;
-let guideCancelMessage = "Carregamento cancelado.";
+let guideCancelMessage = "Loading cancelled.";
 const completedGuideLessons = initialCompletedGuideLessons();
 const powerControl = new PowerControl({
   toggle: runButton,
@@ -218,17 +218,17 @@ const driveMenu = new MicrodriveMenu(document.querySelector("#drive-menu"), {
     if (await mountSoftware(slot, { file })) driveMenu.showView("home");
   },
   create: async (slot, name, format) => {
-    if (!/^[A-Za-z][A-Za-z0-9_]{0,9}$/.test(name)) throw new Error("Use até 10 letras, números ou sublinhados; comece por uma letra.");
-    if (format && (!bus.romLoaded || !machineStarted || guideTypingController || zx8302.microdriveSelection)) throw new Error("Deixe o QL pronto no SuperBASIC e aguarde que os motores parem antes de preparar o cartucho.");
+    if (!/^[A-Za-z][A-Za-z0-9_]{0,9}$/.test(name)) throw new Error("Use up to 10 letters, numbers or underscores; start with a letter.");
+    if (format && (!bus.romLoaded || !machineStarted || guideTypingController || zx8302.microdriveSelection)) throw new Error("Leave the QL ready in SuperBASIC and wait for the motors to stop before preparing the cartridge.");
     if (!await createVirginMicrodrive(slot, name)) return false;
     if (format) {
       // Only this newly-created medium is formatted; existing media go through
       // the replacement confirmation before creation succeeds.
       const loaded = await loadGuideExample({ run: true, example: {
-        kind: "command", title: `Preparar MDV${slot}`, code: `FORMAT mdv${slot}_${name}`,
+        kind: "command", title: `Prepare MDV${slot}`, code: `FORMAT mdv${slot}_${name}`,
       } });
-      const message = loaded ? `FORMAT enviado para o novo cartucho em MDV${slot}. Aguarde que a luz apague e confirme com DIR mdv${slot}_.`
-        : `O cartucho foi inserido, mas a preparação não terminou. Com o QL pronto, execute FORMAT mdv${slot}_${name}.`;
+      const message = loaded ? `FORMAT sent to the new cartridge in MDV${slot}. Wait for the light to go out and check with DIR mdv${slot}_.`
+        : `The cartridge was inserted, but preparation did not finish. Once the QL is ready, run FORMAT mdv${slot}_${name}.`;
       setSoftwareLibraryStatus(message, loaded ? "ready" : "error");
       setStatus(message, loaded ? "ready" : "error");
     }
@@ -237,20 +237,20 @@ const driveMenu = new MicrodriveMenu(document.querySelector("#drive-menu"), {
   saveProject: (slot, name) => {
     if (microdriveOperationBlocked(slot, "save")) return;
     const mounted = zx8302.microdriveAt(slot);
-    if (!mounted) throw new Error("Esta unidade não tem cartucho.");
+    if (!mounted) throw new Error("There is no cartridge in this drive.");
     try { cartridgeProjects.save(mounted, name); }
-    catch (error) { throw new Error(`Não foi possível guardar o projeto: ${error.message} Pode exportar .mdv para o computador ou remover cópias antigas de Os meus projetos.`); }
+    catch (error) { throw new Error(`Could not save the project: ${error.message} You can export .mdv to your computer or remove old copies from My projects.`); }
     mounted.markClean();
     updateControls();
-    setSoftwareLibraryStatus(`${name}: nova cópia guardada em Os meus projetos, neste navegador.`, "ready");
+    setSoftwareLibraryStatus(`${name}: new copy saved in My projects in this browser.`, "ready");
   },
   removeProject: (project) => {
-    if (window.confirm(`Remover a cópia guardada de ${project.name}? Os cartuchos já inseridos continuam na unidade.`)) cartridgeProjects.remove(project.id);
+    if (window.confirm(`Remove the saved copy of ${project.name}? Cartridges already inserted will stay in their drives.`)) cartridgeProjects.remove(project.id);
   },
   save: (slot) => saveMicrodrive(slot),
   protection: (slot) => toggleMicrodriveProtection(slot),
   eject: (slot) => { ejectMicrodrive(slot); driveMenu.showView("home"); },
-  resume: () => { if (!running) startExecution("QL retomado para concluir a operação nos cartuchos."); },
+  resume: () => { if (!running) startExecution("QL resumed to finish the cartridge operation."); },
   boot: async (slot) => {
     if (slot !== 1 || !zx8302.microdriveAt(slot) || !bus.romLoaded || microdriveOperationBlocked(slot, "boot")) return;
     await changePower(true);
@@ -320,7 +320,7 @@ function storeCompletedGuideLessons() {
 
 function renderGuideCourseProgress() {
   const completed = completedGuideLessons.size;
-  guideCourseStatus.textContent = `${completed} de ${GUIDE_LESSONS.length} lições experimentadas`;
+  guideCourseStatus.textContent = `${completed} of ${GUIDE_LESSONS.length} lessons tried`;
   guideCourseBar.style.width = `${(completed / GUIDE_LESSONS.length) * 100}%`;
 }
 
@@ -328,7 +328,7 @@ function renderGuideNavigation() {
   const matches = matchingGuideLessons(guideSearch.value);
   guideLessons.replaceChildren();
   if (matches.length === 0) {
-    guideLessons.append(element("p", "guide-no-results", "Nenhuma lição corresponde à pesquisa."));
+    guideLessons.append(element("p", "guide-no-results", "No lessons match your search."));
     return;
   }
   for (const lesson of matches) {
@@ -381,7 +381,7 @@ function renderGuideLesson(id) {
       block.append(commands);
     }
     if (section.source) {
-      const source = element("a", "guide-reference-source", "Consultar o manual de referência ↗");
+      const source = element("a", "guide-reference-source", "Read the reference manual ↗");
       source.href = section.source;
       source.target = "_blank";
       source.rel = "noopener";
@@ -391,10 +391,10 @@ function renderGuideLesson(id) {
   }
   guideNote.textContent = lesson.note ?? "";
   guideNote.hidden = !lesson.note;
-  guideCodeKind.textContent = lesson.kind === "command" ? "comando imediato" : "programa";
+  guideCodeKind.textContent = lesson.kind === "command" ? "immediate command" : "program";
   guideExperiment.textContent = lesson.experiment;
-  guideLoadButton.textContent = lesson.kind === "command" ? "Colocar comando" : "Carregar no QL";
-  guideRunButton.textContent = lesson.kind === "command" ? "Executar comando" : "Carregar e executar";
+  guideLoadButton.textContent = lesson.kind === "command" ? "Type command" : "Load into QL";
+  guideRunButton.textContent = lesson.kind === "command" ? "Run command" : "Load and run";
   guideCode.replaceChildren(...lesson.code.split("\n").map((line) => element("li", "", line)));
   guidePreviousButton.disabled = index === 0;
   guideNextButton.disabled = index === GUIDE_LESSONS.length - 1;
@@ -402,7 +402,7 @@ function renderGuideLesson(id) {
   guideNextButton.title = index < GUIDE_LESSONS.length - 1
     ? adjacentGuideLesson(lesson.id, 1).title
     : "";
-  guideSequence.textContent = `Lição ${index + 1} de ${GUIDE_LESSONS.length}`;
+  guideSequence.textContent = `Lesson ${index + 1} of ${GUIDE_LESSONS.length}`;
   renderGuideNavigation();
 }
 
@@ -444,7 +444,7 @@ function setGuideTypingState(busy, progress = 0) {
 }
 
 function abortableDelay(milliseconds, signal) {
-  if (signal.aborted) return Promise.reject(new DOMException("Operação cancelada.", "AbortError"));
+  if (signal.aborted) return Promise.reject(new DOMException("Operation cancelled.", "AbortError"));
   return new Promise((resolve, reject) => {
     const complete = () => {
       signal.removeEventListener("abort", cancel);
@@ -452,7 +452,7 @@ function abortableDelay(milliseconds, signal) {
     };
     const cancel = () => {
       clearTimeout(timer);
-      reject(new DOMException("Operação cancelada.", "AbortError"));
+      reject(new DOMException("Operation cancelled.", "AbortError"));
     };
     const timer = setTimeout(complete, milliseconds);
     signal.addEventListener("abort", cancel, { once: true });
@@ -463,13 +463,13 @@ async function waitForQlKeyboard(signal) {
   const started = performance.now();
   while (zx8302.keyboardQueue.length >= 2) {
     if (performance.now() - started > 5000) {
-      throw new Error("O QL não está a aceitar entrada do teclado.");
+      throw new Error("The QL is not accepting keyboard input.");
     }
     await abortableDelay(12, signal);
   }
 }
 
-function cancelGuideTyping(message = "Carregamento cancelado.") {
+function cancelGuideTyping(message = "Loading cancelled.") {
   if (!guideTypingController) return;
   guideCancelMessage = message;
   zx8302.clearKeyboardQueue();
@@ -487,13 +487,13 @@ async function loadGuideExample({ run = false, example = null, beforeLoad = () =
   const lesson = example ?? guideLesson(activeGuideLessonId);
   const warnings = [];
   if (lesson.replacesProgram || (lesson.kind === "program" && (!guideReplacementConfirmed || example))) {
-    warnings.push("Carregar este exemplo substitui o programa SuperBASIC atualmente na memória.");
+    warnings.push("Loading this example replaces the SuperBASIC program currently in memory.");
   }
   if (lesson.writesMicrodrive) {
     const drives = lesson.microdriveTargets ?? "mdv1_";
-    warnings.push(`Este exemplo escreve em ${drives}; confirme que está montado o cartucho correto e que pode ser alterado.${lesson.formatsMicrodrive ? " FORMAT apaga todo o conteúdo do cartucho de destino." : ""}`);
+    warnings.push(`This example writes to ${drives}; check that the correct cartridge is mounted and can be changed.${lesson.formatsMicrodrive ? " FORMAT erases all contents of the destination cartridge." : ""}`);
   } else if (lesson.kind === "program" && !guideReplacementConfirmed) {
-    warnings.push("Os Microdrives não serão alterados.");
+    warnings.push("The Microdrives will not be changed.");
   }
   if (warnings.length > 0 && !window.confirm(`${warnings.join("\n\n")}\n\nContinuar?`)) return;
   if (lesson.kind === "program") guideReplacementConfirmed = true;
@@ -506,22 +506,22 @@ async function loadGuideExample({ run = false, example = null, beforeLoad = () =
   guideTypingController = new AbortController();
   let finishTyping;
   guideTypingTask = new Promise((resolve) => { finishTyping = resolve; });
-  guideCancelMessage = "Carregamento cancelado.";
+  guideCancelMessage = "Loading cancelled.";
   const { signal } = guideTypingController;
   setGuideTypingState(true, 0);
-  setGuideStatus(`A enviar “${lesson.title}” para o teclado do QL…`);
-  if (!running) startExecution("Em execução — a receber um exemplo do guia.");
+  setGuideStatus(`Sending ‘${lesson.title}’ to the QL keyboard…`);
+  if (!running) startExecution("Running — receiving a guide example.");
 
   try {
     if (prepareInput) await prepareInput(signal);
     const events = guideExampleEvents(lesson, { run, editingLine: qlLineEditorActive(bus) });
     for (let index = 0; index < events.length; index += 1) {
       await waitForQlKeyboard(signal);
-      if (signal.aborted) throw new DOMException("Operação cancelada.", "AbortError");
+      if (signal.aborted) throw new DOMException("Operation cancelled.", "AbortError");
       const event = events[index];
       zx8302.enqueueKey(event.keyrow, event);
       setGuideTypingState(true, (index + 1) / events.length);
-      if (example) setStatus(`${lesson.title}: a carregar ${Math.round((index + 1) / events.length * 100)}% — aguarde; Reiniciar cancela.`);
+      if (example) setStatus(`${lesson.title}: loading ${Math.round((index + 1) / events.length * 100)}% — please wait; Restart cancels.`);
       onProgress((index + 1) / events.length);
       await waitForQlCycles(event.pauseAfter, { cpu, hz: CPU_HZ, signal, delay: abortableDelay, suspended: () => document.hidden });
     }
@@ -529,14 +529,14 @@ async function loadGuideExample({ run = false, example = null, beforeLoad = () =
     const drainStarted = performance.now();
     while (zx8302.keyboardQueue.length > 0) {
       if (performance.now() - drainStarted > 5000) {
-        throw new Error("O QL não concluiu a leitura do exemplo.");
+        throw new Error("The QL did not finish reading the example.");
       }
       await abortableDelay(12, signal);
     }
     if (waitUntilReady) await waitUntilReady(signal);
 
-    const action = run ? "carregado e executado" : "carregado";
-    const message = `${lesson.title}: exemplo ${action} no SuperBASIC.`;
+    const action = run ? "loaded and run" : "loaded";
+    const message = `${lesson.title}: example ${action} in SuperBASIC.`;
     if (!example) {
       completedGuideLessons.add(lesson.id);
       storeCompletedGuideLessons();
@@ -556,7 +556,7 @@ async function loadGuideExample({ run = false, example = null, beforeLoad = () =
       setStatus(guideCancelMessage);
     } else {
       setGuideStatus(error.message, "error");
-      setStatus(`Não foi possível carregar o exemplo: ${error.message}`, "error");
+      setStatus(`Could not load the example: ${error.message}`, "error");
     }
   } finally {
     guideTypingController = null;
@@ -589,8 +589,8 @@ function updateSoundControl() {
   soundButton.disabled = !qlAudio.supported;
   soundButton.setAttribute("aria-pressed", String(enabled));
   soundButton.querySelector(".sound-label").textContent = qlAudio.supported
-    ? `Som ${enabled ? "ligado" : "desligado"}`
-    : "Som indisponível";
+    ? `Sound ${enabled ? "on" : "off"}`
+    : "Sound unavailable";
 }
 
 function setSoftwareLibraryStatus(message, kind = "info") {
@@ -617,7 +617,7 @@ function renderSoftwareFiles() {
     softwareFileList.append(element(
       "p",
       "software-empty",
-      "Escolha uma pasta ou adicione ficheiros MDV, QLPAK ou ZIP.",
+      "Choose a folder or add MDV, QLPAK or ZIP files.",
     ));
     return;
   }
@@ -628,24 +628,24 @@ function renderSoftwareFiles() {
     icon.setAttribute("aria-hidden", "true");
     const identity = element("div", "software-file-identity");
     identity.append(element("h4", "software-file-name", file.displayName ?? file.name));
-    identity.append(element("p", "software-title-description", file.description ?? "Um cartucho para explorar no seu QL."));
+    identity.append(element("p", "software-title-description", file.description ?? "A cartridge to explore on your QL."));
     if (file.notice) identity.append(element("p", "software-title-notice", file.notice));
     const path = file.webkitRelativePath || file.name;
     if (path !== file.name) identity.append(element("span", "software-file-path", path));
     identity.append(element("span", "software-title-format", `${softwareFormat(file.name)} · ${formatFileSize(file.size)}`));
     const actions = element("div", "software-title-actions");
-    const launch = element("button", "primary-button", "Carregar e arrancar");
+    const launch = element("button", "primary-button", "Load and boot");
     launch.type = "button";
     launch.dataset.softwareLaunch = key;
-    launch.setAttribute("aria-label", `Carregar e arrancar ${file.displayName ?? file.name} no QL`);
+    launch.setAttribute("aria-label", `Load and boot ${file.displayName ?? file.name} on the QL`);
     launch.disabled = softwareBusy || powerTransition || !bus.romLoaded;
-    const choose = element("button", "quiet-button", "Escolher unidade…");
+    const choose = element("button", "quiet-button", "Choose drive…");
     choose.type = "button";
     choose.dataset.softwareKey = key;
     choose.setAttribute("aria-pressed", String(key === selectedSoftwareKey));
     choose.setAttribute("aria-controls", "software-destinations");
     choose.disabled = softwareBusy || powerTransition;
-    actions.append(launch, element("small", "software-launch-note", "MDV1 · reinicia o QL"), choose);
+    actions.append(launch, element("small", "software-launch-note", "MDV1 · restarts the QL"), choose);
     card.append(icon, identity, actions);
     softwareFileList.append(card);
   }
@@ -671,18 +671,18 @@ function renderMicrodriveRack() {
   for (const button of document.querySelectorAll("[data-open-drive]")) {
     const slot = Number(button.dataset.openDrive);
     const mounted = zx8302.microdriveAt(slot);
-    button.setAttribute("aria-label", `Gerir MDV${slot}: ${mounted?.name ?? "unidade vazia"}`);
-    button.title = `Gerir MDV${slot}: ${mounted?.name ?? "unidade vazia"}`;
+    button.setAttribute("aria-label", `Manage MDV${slot}: ${mounted?.name ?? "empty drive"}`);
+    button.title = `Manage MDV${slot}: ${mounted?.name ?? "empty drive"}`;
     const label = button.querySelector("[data-drive-label]");
-    if (label) label.textContent = mounted?.name ?? "vazia";
+    if (label) label.textContent = mounted?.name ?? "empty";
   }
 
   if (!microdriveRack) return;
   microdriveRack.replaceChildren();
   const selected = selectedSoftwareFile();
   selectedCartridge.textContent = selected
-    ? `Selecionado: ${selected.name}. Escolha abaixo onde o quer inserir.`
-    : "Escolha um título acima para o inserir sem reiniciar. Para criar um cartucho, abra o gestor da unidade.";
+    ? `Selected: ${selected.name}. Choose where to insert it below.`
+    : "Choose a title above to insert it without restarting. To create a cartridge, open the drive manager.";
   for (const button of softwareFileList.querySelectorAll("button")) {
     button.disabled = softwareBusy || powerTransition || (button.dataset.softwareLaunch !== undefined && !bus.romLoaded);
   }
@@ -692,9 +692,9 @@ function renderMicrodriveRack() {
     card.dataset.driveSlot = String(slot);
     const heading = element("div", "microdrive-card-heading");
     heading.append(element("span", "microdrive-number", microdriveName(slot)));
-    heading.append(element("span", "microdrive-purpose", slot === 1 ? "Habitualmente: programas e arranque" : "Habitualmente: dados e cópias"));
+    heading.append(element("span", "microdrive-purpose", slot === 1 ? "Usually: programs and startup" : "Usually: data and copies"));
     card.append(heading);
-    const mediumLabel = mounted ? mounted.name : "Sem cartucho — pronto para inserir";
+    const mediumLabel = mounted ? mounted.name : "No cartridge — ready to insert";
     const medium = element("span", "microdrive-medium", mediumLabel);
     medium.dataset.empty = String(!mounted);
     medium.title = mounted?.name ?? "";
@@ -703,10 +703,10 @@ function renderMicrodriveRack() {
     card.append(identity);
 
     const actions = element("div", "microdrive-actions");
-    const mount = driveAction(mounted ? `Trocar cartucho de MDV${slot}` : `Inserir em MDV${slot}`, "mount", slot, "mount-button");
+    const mount = driveAction(mounted ? `Replace cartridge in MDV${slot}` : `Insert into MDV${slot}`, "mount", slot, "mount-button");
     mount.disabled = !selected || softwareBusy;
     actions.append(mount);
-    const manage = driveAction(`Gerir MDV${slot}`, "manage", slot);
+    const manage = driveAction(`Manage MDV${slot}`, "manage", slot);
     manage.setAttribute("aria-haspopup", "dialog");
     manage.setAttribute("aria-controls", "drive-menu");
     actions.append(manage);
@@ -715,7 +715,7 @@ function renderMicrodriveRack() {
     hint.dataset.driveHint = String(slot);
     card.append(hint);
     if (mounted) {
-      const changes = element("span", "microdrive-changes", "Alterações por guardar");
+      const changes = element("span", "microdrive-changes", "Unsaved changes");
       changes.dataset.dirtySlot = String(slot);
       changes.hidden = !mounted.dirty;
       card.append(changes);
@@ -736,7 +736,7 @@ function updateMicrodriveActivity({ force = false } = {}) {
     const slot = Number(led.dataset.driveLed);
     const active = Boolean(selection & (1 << (slot - 1)));
     led.dataset.active = String(active);
-    led.setAttribute("aria-label", `MDV${slot}: motor ${active ? "em marcha" : "parado"}`);
+    led.setAttribute("aria-label", `MDV${slot}: motor ${active ? "running" : "stopped"}`);
   }
   if (!microdriveRack) return;
   const activeDrives = [];
@@ -756,15 +756,15 @@ function updateMicrodriveActivity({ force = false } = {}) {
       else button.removeAttribute("title");
     }
     card.querySelector("[data-drive-hint]").textContent = active
-      ? `MDV${slot} em uso. Espere que a luz apague. Se o QL estiver em pausa, retome a execução.`
+      ? `MDV${slot} in use. Wait for the light to go out. If the QL is paused, resume it.`
       : zx8302.microdriveAt(slot)
-        ? `Use Gerir MDV${slot} para guardar, proteger ou retirar este cartucho.`
-        : `Insira o software selecionado ou abra Gerir MDV${slot} para criar o seu próprio cartucho.`;
+        ? `Use Manage MDV${slot} to save, protect or eject this cartridge.`
+        : `Insert the selected software or open Manage MDV${slot} to create your own cartridge.`;
   }
   const available = [1, 2].filter((slot) => !zx8302.microdriveAt(slot) && !(selection & (1 << (slot - 1))));
   microdriveActivity.textContent = activeDrives.length
-    ? `${activeDrives.join(", ")}: em uso. ${available.length ? `Pode inserir um cartucho em MDV${available[0]}, que está vazia.` : "Espere pelo fim da operação antes de guardar ou trocar cartuchos."}`
-    : "Duas unidades independentes. Inserir um cartucho não reinicia o QL.";
+    ? `${activeDrives.join(", ")}: in use. ${available.length ? `You can insert a cartridge into MDV${available[0]}, which is empty.` : "Wait for the operation to finish before saving or replacing cartridges."}`
+    : "Two independent drives. Inserting a cartridge does not restart the QL.";
 }
 
 function microdriveOperationBlocked(slot, action) {
@@ -793,7 +793,7 @@ function toggleMicrodriveProtection(slot) {
   microdriveProtection.remember(mountedProtectionKeys.get(slot), image.writeProtected);
   renderMicrodriveRack();
   if (softwareLibrary.open) microdriveRack.querySelector(`[data-drive-action="protection"][data-slot="${slot}"]`)?.focus();
-  setSoftwareLibraryStatus(`${image.name} em ${microdriveName(slot)}: ${image.writeProtected ? "protegido contra escrita" : "gravável"}.`, "ready");
+  setSoftwareLibraryStatus(`${image.name} in ${microdriveName(slot)}: ${image.writeProtected ? "write-protected" : "writable"}.`, "ready");
 }
 
 function renderSoftwareLibrary() {
@@ -814,15 +814,15 @@ function addSoftwareFiles(files, { replace = false } = {}) {
   renderSoftwareLibrary();
 
   const ignored = candidates.length - supported.length;
-  const message = `${supported.length} ficheiro(s) suportado(s) adicionado(s)`
-    + (ignored ? `; ${ignored} ignorado(s).` : ".");
+  const message = `${supported.length} supported file(s) added`
+    + (ignored ? `; ${ignored} ignored.` : ".");
   setSoftwareLibraryStatus(message, supported.length ? "ready" : "error");
 }
 
 function createVirginMicrodrive(slot = null, cartridgeName = null) {
   if (softwareBusy || (slot !== null && microdriveOperationBlocked(slot, "new"))) return;
   virginMicrodriveCount += 1;
-  const name = cartridgeName ? `${cartridgeName}-${virginMicrodriveCount}.mdv` : `cartucho-virgem-${virginMicrodriveCount}.mdv`;
+  const name = cartridgeName ? `${cartridgeName}-${virginMicrodriveCount}.mdv` : `blank-cartridge-${virginMicrodriveCount}.mdv`;
   const bytes = new Uint8Array(MICRODRIVE_FORMAT.imageSize);
   const file = {
     name,
@@ -839,7 +839,7 @@ function createVirginMicrodrive(slot = null, cartridgeName = null) {
   selectedSoftwareKey = key;
   renderSoftwareLibrary();
   setSoftwareLibraryStatus(
-    `${name} criado e selecionado. Escolha Inserir em MDV1 ou Inserir em MDV2. Depois prepare-o com FORMAT, como explicado em Como usar os cartuchos.`,
+    `${name} created and selected. Choose Insert into MDV1 or Insert into MDV2. Then prepare it with FORMAT, as explained in How to use cartridges.`,
     "ready",
   );
   if (slot !== null) return mountSoftware(slot);
@@ -879,10 +879,10 @@ function initialPresentationMode() {
 function updateFullscreenControl() {
   const active = document.fullscreenElement === computerStage;
   fullscreenButton.setAttribute("aria-pressed", String(active));
-  fullscreenButton.textContent = active ? "Sair do ecrã inteiro" : "Ecrã inteiro";
+  fullscreenButton.textContent = active ? "Exit full screen" : "Full screen";
   fullscreenButton.setAttribute(
     "aria-label",
-    active ? "Sair do modo de ecrã inteiro" : "Mostrar a apresentação em ecrã inteiro",
+    active ? "Exit full screen mode" : "Show the emulator in full screen",
   );
 }
 
@@ -892,8 +892,8 @@ function cpuStatus(prefix) {
 }
 
 function updateMachineDiagnostics() {
-  machineDiagnostics.textContent = `PC=${hexadecimal(cpu.pc)}, ciclos=${cpu.cycles.toLocaleString("pt-PT")}, `
-    + `vídeo=MODE ${zx8301.mode}${zx8301.blanked ? " (apagado)" : ""}, `
+  machineDiagnostics.textContent = `PC=${hexadecimal(cpu.pc)}, cycles=${cpu.cycles.toLocaleString("en-GB")}, `
+    + `video=MODE ${zx8301.mode}${zx8301.blanked ? " (blanked)" : ""}, `
     + `banco=${hexadecimal(zx8301.screenBase, 5)}.`;
 }
 
@@ -920,7 +920,7 @@ function stop(message, kind = "ready") {
   if (message) setStatus(message, kind);
 }
 
-function startExecution(message = cpuStatus(machineStarted ? "QL em execução." : "QL ligado. Clique no ecrã e prima F1 no arranque.")) {
+function startExecution(message = cpuStatus(machineStarted ? "QL running." : "QL switched on. Click the screen and press F1 at startup.")) {
   if (!bus.romLoaded || powerTransition || running) return;
   void qlAudio.resume();
   running = true;
@@ -941,7 +941,7 @@ function resetMachine() {
   chatLaunchStatus.textContent = "";
   chatLaunchProgress.hidden = true;
   chatRetry.hidden = true;
-  cancelGuideTyping("Carregamento interrompido pelo reinício do QL.");
+  cancelGuideTyping("Loading interrupted by QL restart.");
   machineStarted = false;
   stop();
   bus.resetRam();
@@ -949,7 +949,7 @@ function resetMachine() {
   cpu.reset();
   render();
   screenMessage.hidden = true;
-  setStatus(cpuStatus(`${loadedRomName} pronta. Coloque o interruptor em ON para começar.`), "ready");
+  setStatus(cpuStatus(`${loadedRomName} ready. Set the switch to ON to begin.`), "ready");
 }
 
 async function changePower(restart) {
@@ -959,7 +959,7 @@ async function changePower(restart) {
     await powerOffMachine({
       stop: () => stop(),
       bridge: chatBridge,
-      cancelLoading: () => cancelGuideTyping("Carregamento cancelado ao desligar o QL."),
+      cancelLoading: () => cancelGuideTyping("Loading cancelled when the QL was switched off."),
       loading: chatLaunchTask ?? guideTypingTask,
       reset: resetMachine,
     });
@@ -970,10 +970,10 @@ async function changePower(restart) {
     updateControls();
   }
   if (restart) {
-    startExecution("QL ligado de novo. Prima F1 no arranque para entrar no SuperBASIC.");
+    startExecution("QL switched on again. Press F1 at startup to enter SuperBASIC.");
     canvas.focus();
   } else {
-    setStatus("QL desligado. A memória foi apagada e o chat encerrado. Coloque o interruptor em ON para voltar a ligar.", "ready");
+    setStatus("QL switched off. Memory has been cleared and the chat ended. Set the switch to ON to switch it on again.", "ready");
   }
 }
 
@@ -990,8 +990,8 @@ async function loadDefaultRom() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     installRom(new Uint8Array(await response.arrayBuffer()), "Minerva 1.98a1");
   } catch (error) {
-    screenMessage.textContent = "Não foi possível carregar a Minerva";
-    setStatus(`Falha ao carregar a ROM incluída: ${error.message}. Pode selecionar outra ROM.`, "error");
+    screenMessage.textContent = "Could not load Minerva";
+    setStatus(`Failed to load the included ROM: ${error.message}. You can select another ROM.`, "error");
   }
 }
 
@@ -1008,7 +1008,7 @@ function runFrame(time) {
       bus.tick(cycles);
       cpu.setInterruptLevel(bus.interruptLevel);
       if (cycles === 0 && cpu.stopped) {
-        stop(cpuStatus("CPU em STOP"));
+        stop(cpuStatus("CPU in STOP"));
         break;
       }
     }
@@ -1039,13 +1039,13 @@ async function mountSoftware(slot, { boot = false, file = selectedSoftwareFile()
   const drive = microdriveName(slot);
   const mounted = zx8302.microdriveAt(slot);
   if (mounted) {
-    const warning = mounted.dirty ? " As alterações ainda não foram guardadas." : "";
-    if (!window.confirm(`Substituir ${mounted.name} em ${drive} por ${file.name}?${warning}`)) return;
+    const warning = mounted.dirty ? " Changes have not yet been saved." : "";
+    if (!window.confirm(`Replace ${mounted.name} in ${drive} with ${file.name}?${warning}`)) return;
   }
 
   softwareBusy = true;
   updateControls();
-  setSoftwareLibraryStatus(`A preparar ${file.name} para ${drive}…`);
+  setSoftwareLibraryStatus(`Preparing ${file.name} for ${drive}…`);
   try {
     const bytes = new Uint8Array(await file.arrayBuffer());
     const protectionKey = await microdriveProtection.keyFor(file, bytes);
@@ -1056,9 +1056,9 @@ async function mountSoftware(slot, { boot = false, file = selectedSoftwareFile()
     if (!isMicrodrive) {
       const imported = await importQlPackage(bytes, { name: file.name, microdrive: slot });
       imageBytes = imported.image;
-      packageSummary = ` ${imported.files.length} ficheiro(s) convertido(s)`
-        + (imported.bootReplacements ? `; BOOT adaptado para ${drive}` : "")
-        + (imported.generatedBoot ? `; arranque do executável preparado para ${drive}` : "")
+      packageSummary = ` ${imported.files.length} file(s) converted`
+        + (imported.bootReplacements ? `; BOOT adapted for ${drive}` : "")
+        + (imported.generatedBoot ? `; executable startup prepared for ${drive}` : "")
         + ".";
     }
 
@@ -1073,13 +1073,13 @@ async function mountSoftware(slot, { boot = false, file = selectedSoftwareFile()
       spliceSector: file.virgin ? Math.floor((MICRODRIVE_FORMAT.sectorCount - 1) / 2) : file.spliceSector,
     });
     mountedProtectionKeys.set(slot, protectionKey);
-    const accessSummary = ` montado em ${drive}, ${writeProtected ? "protegido contra escrita" : "gravável"}.`
-      + (file.virgin && !writeProtected ? ` Use FORMAT mdv${slot}_nome antes de o utilizar.` : "");
+    const accessSummary = ` mounted in ${drive}, ${writeProtected ? "write-protected" : "writable"}.`
+      + (file.virgin && !writeProtected ? ` Use FORMAT mdv${slot}_name before using it.` : "");
     const message = `${file.name}${accessSummary}${packageSummary}`;
     if (boot) {
       await changePower(true);
       zx8302.enqueueKey(57);
-      setStatus(`${message} A arrancar pela tecla F1…`, "ready");
+      setStatus(`${message} Booting with the F1 key…`, "ready");
       softwareLibrary.close();
       canvas.focus();
     } else {
@@ -1088,7 +1088,7 @@ async function mountSoftware(slot, { boot = false, file = selectedSoftwareFile()
     setSoftwareLibraryStatus(message, "ready");
     return true;
   } catch (error) {
-    const message = `Não foi possível montar ${file.name} em ${drive}: ${error.message}`;
+    const message = `Could not mount ${file.name} in ${drive}: ${error.message}`;
     setStatus(message, "error");
     setSoftwareLibraryStatus(message, "error");
   } finally {
@@ -1103,12 +1103,12 @@ function ejectMicrodrive(slot) {
   const current = zx8302.microdriveAt(slot);
   if (
     current?.dirty
-    && !window.confirm(`${current.name} tem alterações não guardadas. Ejetar mesmo assim?`)
+    && !window.confirm(`${current.name} has unsaved changes. Eject anyway?`)
   ) return;
   const image = zx8302.unmountMicrodrive(slot);
   mountedProtectionKeys.delete(slot);
   updateControls();
-  const message = image ? `${image.name} ejetado de ${drive}.` : `${drive} já se encontra vazio.`;
+  const message = image ? `${image.name} ejected from ${drive}.` : `${drive} is already empty.`;
   setStatus(message, "ready");
   setSoftwareLibraryStatus(message, "ready");
 }
@@ -1132,7 +1132,7 @@ function saveMicrodrive(slot) {
   setTimeout(() => URL.revokeObjectURL(url), 0);
   image.markClean();
   updateControls();
-  const message = `${image.name}, de ${drive}, guardado como imagem .mdv.`;
+  const message = `${image.name} from ${drive} saved as an .mdv image.`;
   setStatus(message, "ready");
   setSoftwareLibraryStatus(message, "ready");
 }
@@ -1157,7 +1157,7 @@ async function refreshChatConfiguration() {
   chatProvider.value = "demo";
   chatProvider.querySelector('[value="gemini"]').disabled = true;
   chatHostToken = null;
-  chatConnection.textContent = "A verificar o host local…";
+  chatConnection.textContent = "Checking the local host…";
   try {
     const response = await fetch("/api/chat/config", { cache: "no-store", signal: AbortSignal.timeout(3000) });
     if (!response.ok) throw new Error();
@@ -1167,11 +1167,11 @@ async function refreshChatConfiguration() {
       chatProvider.querySelector('[value="gemini"]').disabled = false;
     }
     chatConnection.textContent = config.enabled
-      ? "Gemini 3.5 Flash-Lite disponível. O host declara projeto Free sem faturação."
-      : config.paused ? "Gemini suspenso por quota ou configuração. Consulte o README antes de desbloquear. Demonstração disponível."
-      : "Demonstração pronta. Para usar Gemini, clique em Configurar a minha chave Gemini, abaixo. Cole a sua chave API — atenção: o ID do projeto, como gen-lang-client-…, não é a chave. Confirme que o projeto está no plano Free sem faturação e escolha Guardar neste computador. Pode continuar a usar o emulador sem Gemini.";
+      ? "Gemini 3.5 Flash-Lite available. The host declares a Free project with billing disabled."
+      : config.paused ? "Gemini suspended due to quota or configuration. See the README before unlocking. Demo available."
+      : "Demo ready. To use Gemini, click Set up my Gemini key below. Paste your API key — please note: a project ID such as gen-lang-client-… is not the key. Confirm that the project is on the Free plan with billing disabled and choose Save on this computer. You can continue using the emulator without Gemini.";
   } catch {
-    chatConnection.textContent = "Demonstração pronta. A ligação Gemini requer o servidor local do projeto (npm start).";
+    chatConnection.textContent = "Demo ready. A Gemini connection requires the project’s local server (npm start).";
   }
 }
 function startChat() {
@@ -1202,14 +1202,14 @@ async function startChatProgram() {
       chatRetry.hidden = true;
       chatLaunchProgress.hidden = false;
       chatLaunchProgress.value = 0;
-      chatLaunchStatus.textContent = "A entrar no SuperBASIC… O programa será escrito quando o QL estiver pronto. Reiniciar cancela.";
+      chatLaunchStatus.textContent = "Entering SuperBASIC… The program will be typed once the QL is ready. Restart cancels.";
       chatBridge = new QLChatBridge({ device: zx8302, reply, onStatus: (message) => {
         setStatus(message);
         if (!chatBridge.active) {
           chatHistory.hide();
           chatLaunch.hidden = true;
           chatType.disabled = true;
-          chatLaunchStatus.textContent = "Terminal fechado. Abra novamente QL Chat para iniciar outra conversa.";
+          chatLaunchStatus.textContent = "Terminal closed. Open QL Chat again to start another conversation.";
         }
       }, onMessage: (message) => chatHistory.append(message) });
       chatSettings.close();
@@ -1218,16 +1218,16 @@ async function startChatProgram() {
       await waitForSuperBasic({ bus, device: zx8302, signal,
         delay: (ms) => waitForQlCycles(ms, { cpu, hz: CPU_HZ, signal, delay: abortableDelay, suspended: () => document.hidden }),
       });
-      chatLaunchStatus.textContent = "SuperBASIC pronto. A escrever o programa no ecrã do QL…";
+      chatLaunchStatus.textContent = "SuperBASIC ready. Typing the program on the QL screen…";
     }, onProgress: (progress) => {
       const percentage = Math.floor(progress * 100);
       // Announce whole percentages, not every character sent to the keyboard.
       if (chatLaunchProgress.value !== percentage) {
         chatLaunchProgress.value = percentage;
-        chatLaunchStatus.textContent = `A escrever o programa SuperBASIC: ${percentage}%. Aguarde antes de escrever; Reiniciar cancela.`;
+        chatLaunchStatus.textContent = `Typing the SuperBASIC program: ${percentage}%. Wait before typing; Restart cancels.`;
       }
     }, waitUntilReady: async (signal) => {
-      chatLaunchStatus.textContent = "Programa enviado. A aguardar a confirmação do terminal…";
+      chatLaunchStatus.textContent = "Program sent. Waiting for the terminal to confirm…";
       await waitForChatReady({ bridge: chatBridge, signal,
         delay: (ms) => waitForQlCycles(ms, { cpu, hz: CPU_HZ, signal, delay: abortableDelay, suspended: () => document.hidden }),
       });
@@ -1237,11 +1237,11 @@ async function startChatProgram() {
     if (loaded) {
       chatType.disabled = false;
       chatLaunch.dataset.state = "ready";
-      chatLaunchStatus.textContent = "Terminal pronto. Clique em Escrever no QL e escreva a sua mensagem após >.";
+      chatLaunchStatus.textContent = "Terminal ready. Click Type in QL and type your message after >.";
     } else {
       chatBridge.stop();
       chatLaunch.dataset.state = "error";
-      chatLaunchStatus.textContent = `${status.textContent} O chat ainda não está pronto. Escolha F1 se estiver no arranque do QL e tente novamente.`;
+      chatLaunchStatus.textContent = `${status.textContent} The chat is not ready yet. Choose F1 if you are at the QL startup screen and try again.`;
       chatRetry.hidden = false;
     }
   } catch (error) {
@@ -1250,10 +1250,10 @@ async function startChatProgram() {
       chatType.disabled = true;
       chatLaunchProgress.hidden = true;
       chatLaunch.dataset.state = "error";
-      chatLaunchStatus.textContent = "Não foi possível iniciar o terminal. Tente novamente.";
+      chatLaunchStatus.textContent = "Could not start the terminal. Please try again.";
       chatRetry.hidden = false;
     }
-    setStatus(`Não foi possível iniciar o chat: ${error.message}`, "error");
+    setStatus(`Could not start chat: ${error.message}`, "error");
   } finally {
     chatLaunching = false;
     if (!chatBridge?.active) chatHistory.hide();
@@ -1331,7 +1331,7 @@ softwareFolderInput.addEventListener("change", () => {
 });
 
 resumeMicrodrives.addEventListener("click", () => {
-  if (!running) startExecution("QL retomado para concluir a operação nos cartuchos.");
+  if (!running) startExecution("QL resumed to finish the cartridge operation.");
 });
 
 softwareFileList.addEventListener("click", async (event) => {
@@ -1347,7 +1347,7 @@ softwareFileList.addEventListener("click", async (event) => {
   renderSoftwareLibrary();
   softwareDestinations.open = true;
   microdriveRack.querySelector('[data-drive-action="mount"]')?.focus();
-  setSoftwareLibraryStatus(`${selectedSoftwareFile().name} selecionado. Escolha uma unidade.`);
+  setSoftwareLibraryStatus(`${selectedSoftwareFile().name} selected. Choose a drive.`);
 });
 
 microdriveRack.addEventListener("click", async (event) => {
@@ -1394,8 +1394,8 @@ stepButton.addEventListener("click", () => {
     cpu.setInterruptLevel(bus.interruptLevel);
     render();
     const exception = cpu.lastException ? `, vetor=${cpu.lastException.vector}` : "";
-    setStatus(cpuStatus("Uma instrução executada. Consulte o estado da máquina nos controlos avançados."), "ready");
-    machineDiagnostics.textContent += ` Último passo=${cycles} ciclos${exception}.`;
+    setStatus(cpuStatus("One instruction executed. Check machine status in Advanced controls."), "ready");
+    machineDiagnostics.textContent += ` Last step=${cycles} cycles${exception}.`;
     updateControls();
   } catch (error) {
     stop(`${error.name}: ${error.message}`, "error");
@@ -1429,7 +1429,7 @@ document.addEventListener("visibilitychange", () => {
 canvas.addEventListener("keydown", (event) => {
   if (!machineStarted || powerTransition) return;
   if (chatLoadingConsumesKey(event, chatLaunching)) return;
-  if (guideTypingController) cancelGuideTyping("Carregamento interrompido para aceitar o teclado.");
+  if (guideTypingController) cancelGuideTyping("Loading interrupted to accept keyboard input.");
   if (running) void qlAudio.resume();
   if (qlKeyboard.keyDown(event)) event.preventDefault();
 });
@@ -1474,7 +1474,7 @@ if (typeof computerStage.requestFullscreen !== "function") {
       if (document.fullscreenElement === computerStage) await document.exitFullscreen();
       else await computerStage.requestFullscreen();
     } catch {
-      setStatus("O navegador não permitiu ativar o ecrã inteiro.", "error");
+      setStatus("The browser did not allow full screen mode.", "error");
     }
   });
   document.addEventListener("fullscreenchange", updateFullscreenControl);
@@ -1494,5 +1494,5 @@ initializeGeminiSetup({ onSaved: () => { if (chatSettings.open) void refreshChat
 void loadSoftwareExamples().then((files) => {
   for (const file of files.filter(Boolean)) softwareFiles.set(softwareFileKey(file), file);
   renderSoftwareLibrary();
-  if (files.some((file) => !file)) setSoftwareLibraryStatus("Para disponibilizar os exemplos locais, reinicie o servidor com npm start. Também pode adicionar os ficheiros pelo botão acima.");
+  if (files.some((file) => !file)) setSoftwareLibraryStatus("To make the local examples available, restart the server with npm start. You can also add the files using the button above.");
 });

@@ -29,7 +29,7 @@ test("stalled CPU reports an error and reset aborts an in-flight load", async ()
   let elapsed = 0;
   await assert.rejects(waitForQlCycles(500, { cpu, hz: 1000, signal: new AbortController().signal,
     now: () => elapsed, delay: async () => { elapsed += 1000; },
-  }), /QL parou/);
+  }), /QL stopped/);
   const controller = new AbortController();
   await assert.rejects(waitForQlCycles(500, { cpu, hz: 1000, signal: controller.signal,
     delay: async () => controller.abort(),
@@ -52,7 +52,7 @@ test("drained keyboard is not enough: startup waits for BASIC acknowledgement or
   let ticks = 0;
   await waitForChatReady({ bridge, signal, delay: async () => { if (++ticks === 3) bridge.ready = true; } });
   assert.equal(ticks, 3);
-  await assert.rejects(waitForChatReady({ bridge: { ready: false }, signal, timeout: 40, delay: async () => {} }), /não confirmou/);
+  await assert.rejects(waitForChatReady({ bridge: { ready: false }, signal, timeout: 40, delay: async () => {} }), /did not confirm/);
 });
 
 test("an unavailable BASIC editor times out without sending program text, and cancellation sends no keys", async () => {
@@ -60,7 +60,7 @@ test("an unavailable BASIC editor times out without sending program text, and ca
   const keys = [];
   const device = { enqueueKey(...key) { keys.push(key); } };
   const controller = new AbortController();
-  await assert.rejects(waitForSuperBasic({ bus, device, signal: controller.signal, delay: async () => {}, timeout: 2000 }), /programa não foi enviado/);
+  await assert.rejects(waitForSuperBasic({ bus, device, signal: controller.signal, delay: async () => {}, timeout: 2000 }), /program was not sent/);
   assert.equal(keys.length, 3, "only BREAK, F1, BREAK are allowed before the editor is ready");
   keys.length = 0;
   controller.abort();

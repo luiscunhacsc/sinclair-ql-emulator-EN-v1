@@ -40,17 +40,17 @@ export function createPersonalSettings({ root, apiKey = "", freePlanConfirmed = 
   return {
     get status() { return { editable: !locked, hasKey: Boolean(key), freePlanConfirmed: confirmed }; },
     async save(data) {
-      if (locked) throw new ChatError("A configuração foi definida no ambiente do sistema. Remova essas variáveis e reinicie para usar este diálogo.", 409);
-      if (saving) throw new ChatError("Aguarde que a configuração termine de guardar.", 409);
+      if (locked) throw new ChatError("Configuration was set in the system environment. Remove those variables and restart to use this dialogue.", 409);
+      if (saving) throw new ChatError("Wait for the settings to finish saving.", 409);
       if (!data || typeof data.apiKey !== "string" || typeof data.freePlanConfirmed !== "boolean"
         || (data.remove !== undefined && typeof data.remove !== "boolean")) {
-        throw new ChatError("Configuração inválida.", 400);
+        throw new ChatError("Invalid configuration.", 400);
       }
       const nextKey = data.remove ? "" : normalizeGeminiKey(data.apiKey) || key;
       const nextConfirmed = !data.remove && data.freePlanConfirmed;
       const problem = geminiKeyProblem(nextKey);
       if (problem) throw new ChatError(problem, 400);
-      if (!data.remove && !nextKey) throw new ChatError("Introduza a sua chave API.", 400);
+      if (!data.remove && !nextKey) throw new ChatError("Enter your API key.", 400);
       saving = true;
       let temporary;
       try {
@@ -70,7 +70,7 @@ export function createPersonalSettings({ root, apiKey = "", freePlanConfirmed = 
         confirmed = nextConfirmed;
         return { apiKey: key, freePlanConfirmed: confirmed };
       } catch {
-        throw new ChatError("Não foi possível atualizar o .env na raiz do projeto. Verifique as permissões da pasta e o formato do ficheiro; não use um atalho ou ligação simbólica para .env.", 503);
+        throw new ChatError("Could not update .env in the project root. Check the folder permissions and file format; do not use a shortcut or symbolic link for .env.", 503);
       } finally {
         if (temporary) await rm(temporary, { force: true }).catch(() => {});
         saving = false;

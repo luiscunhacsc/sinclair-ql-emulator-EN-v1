@@ -38,7 +38,7 @@ test("distingue ficheiros homónimos em pastas diferentes", () => {
 
 test("apresenta tamanhos legíveis e valida apenas MDV1 e MDV2", () => {
   assert.equal(formatFileSize(512), "512 B");
-  assert.match(formatFileSize(1536), /1[,.]5 KB/u);
+  assert.equal(formatFileSize(1536), "1.5 KB");
   assert.equal(microdriveName(1), "MDV1");
   assert.equal(MICRODRIVE_COUNT, 2);
   assert.equal(microdriveName(MICRODRIVE_COUNT), "MDV2");

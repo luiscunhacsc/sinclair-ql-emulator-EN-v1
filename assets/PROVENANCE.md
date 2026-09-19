@@ -1,33 +1,33 @@
-# Proveniência dos recursos visuais
+# Visual asset provenance
 
-Documentação atualizada em 19 de setembro de 2026.
+Documentation updated on 19 September 2026.
 
-As ilustrações do teclado, monitor e conjunto QL foram produzidas com assistência
-de IA, a partir das referências abaixo. O registo conserva as fontes comunicadas
-pelo responsável pelo projeto, os créditos identificados e o inventário dos
-ficheiros finais.
+The keyboard, monitor and complete QL illustrations were produced with AI
+assistance using the references below. This record preserves the sources
+reported by the project owner, identified credits and final file inventory.
 
-## Referências e créditos
+## References and credits
 
-| Referência | Autoria e informação registada |
+| Reference | Recorded authorship and information |
 | --- | --- |
-| [Sinclair QL Top.jpg — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Sinclair_QL_Top.jpg) | EWX; retoques por Ubcule. Referência do teclado, disponível sob [CC BY-SA 3.0 Unported](https://creativecommons.org/licenses/by-sa/3.0/). |
-| [Sinclair QL monitor and keyboard — WorthPoint](https://www.worthpoint.com/worthopedia/sinclair-ql-monitor-keyboard-games-246618640) | Referência visual fornecida; autoria e licença da fotografia por confirmar. |
-| [Vídeo eYoTSGvWf78 — YouTube](https://www.youtube.com/watch?v=eYoTSGvWf78) | Referência visual fornecida; autoria, fotogramas utilizados e licença por confirmar. |
-| [QL, what? — SinclairQL.net](https://sinclairql.net/what.html) | Página com copyright de Urs König, 2013–2018; identificação e condições de utilização da fotografia por confirmar. |
+| [Sinclair QL Top.jpg — Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Sinclair_QL_Top.jpg) | EWX; retouched by Ubcule. Keyboard reference under [CC BY-SA 3.0 Unported](https://creativecommons.org/licenses/by-sa/3.0/). |
+| [Sinclair QL monitor and keyboard — WorthPoint](https://www.worthpoint.com/worthopedia/sinclair-ql-monitor-keyboard-games-246618640) | Supplied visual reference; photograph authorship and licence to be confirmed. |
+| [Video eYoTSGvWf78 — YouTube](https://www.youtube.com/watch?v=eYoTSGvWf78) | Supplied visual reference; authorship, frames used and licence to be confirmed. |
+| [QL, what? — SinclairQL.net](https://sinclairql.net/what.html) | Page with copyright by Urs König, 2013–2018; photograph identity and usage conditions to be confirmed. |
 
-**Crédito da referência do teclado:** «Sinclair QL Top.jpg», de EWX, com retoques
-por Ubcule, via Wikimedia Commons, CC BY-SA 3.0 Unported. Utilizada como referência
-para transformação e geração assistida por IA; as ilustrações resultantes diferem
-da fotografia original. Esta atribuição não implica aprovação pelos autores.
+**Keyboard reference credit:** ‘Sinclair QL Top.jpg’, by EWX, retouched by
+Ubcule, via Wikimedia Commons, CC BY-SA 3.0 Unported. Used as a reference for
+AI-assisted transformation and generation; the resulting illustrations differ
+from the original photograph. This attribution does not imply endorsement
+by the authors.
 
-## Produção e inventário
+## Production and inventory
 
-A ferramenta indicada pelo responsável foi ChatGPT, com a designação
-«GPT-6 Astra / Extra-High». Esta informação é conservada como registo de produção;
-o modelo de imagem e as datas de geração não estão identificados.
+The tool reported by the owner was ChatGPT, designated ‘GPT-6 Astra /
+Extra-High’. This information is retained as a production record; the image
+model and generation dates are not identified.
 
-Os recursos abrangidos são:
+The assets covered are:
 
 - `assets/monitor/ql-monitor-frame.png`
 - `assets/keyboard/ql-keyboard-case.png`
@@ -36,17 +36,17 @@ Os recursos abrangidos são:
 - `assets/compositions/qlwithmonitor-mdv2.png`
 - `assets/compositions/qlwithmonitor-mdv1-mdv2.png`
 
-O [inventário de recursos](../legal/asset-provenance.json) associa a cada ficheiro
-o seu hash SHA-256, as referências e o estado da documentação. A correspondência
-exata entre referências e cada resultado permanece por completar.
+The [asset inventory](../legal/asset-provenance.json) associates each file with
+its SHA-256 hash, references and documentation status. The exact mapping
+between references and each output remains incomplete.
 
-## Condições de reutilização
+## Reuse conditions
 
-As licenças das referências são registadas separadamente da licença do código.
-A atribuição CC BY-SA acima refere-se à fotografia identificada; a licença das
-adaptações e as permissões das referências do monitor continuam em revisão.
-Por esse motivo, não é atribuída neste registo uma licença global aos seis PNG.
-As condições confirmadas serão acrescentadas ao inventário por ficheiro.
+Reference licences are recorded separately from the code licence. The CC BY-SA
+attribution above concerns the identified photograph; licensing of adaptations
+and permissions for monitor references remain under review. Consequently,
+this record does not assign a blanket licence to the six PNGs. Confirmed
+conditions will be added to the per-file inventory.
 
-Consulte também os [avisos de terceiros](../THIRD_PARTY_NOTICES.md) e o
-[registo de distribuição](../docs/LEGAL_REVIEW.md).
+See also [third-party notices](../THIRD_PARTY_NOTICES.md) and the
+[distribution record](../docs/LEGAL_REVIEW.md).

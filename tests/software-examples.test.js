@@ -8,7 +8,7 @@ test("example files keep their exact bytes, titles, caveat and stable library id
   const files = await loadSoftwareExamples(fetchImpl);
   assert.deepEqual(files.map((file) => file.displayName), ["SkyQL", "Psion Quill", "Psion Abacus", "Psion Easel", "Psion Archive", "Psion Chess", "Spook", "Electric Dreams"]);
   assert.deepEqual(files.map((file) => file.name), ["SkyQL.mdv", "qui235m.zip", "aba235m.zip", "eas235m.zip", "arc238m.zip", "chess_mk.zip", "Spook.zip", "Electric_Dreams_Melody_QL.mdv"]);
-  assert.match(files.find((file) => file.displayName === "Psion Chess").notice, /sem cartucho mestre/);
+  assert.match(files.find((file) => file.displayName === "Psion Chess").notice, /no master cartridge/);
   assert.equal(files.find((file) => file.displayName === "Spook").notice, undefined);
   assert.deepEqual([...new Uint8Array(await files[0].arrayBuffer())], [0, 255, 2, 3]);
   assert.equal(softwareFileKey(files[0]), softwareFileKey((await loadSoftwareExamples(fetchImpl))[0]));

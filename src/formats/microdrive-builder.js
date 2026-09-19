@@ -9,10 +9,10 @@ const LAST_SECTOR = MICRODRIVE_FORMAT.sectorCount - 1;
 
 export class MicrodriveCapacityError extends Error {
   constructor(requiredSectors, availableSectors) {
-    const kib = (sectors) => (sectors * DATA_SIZE / 1024).toLocaleString("pt-PT");
-    super(`O pacote necessita de ${requiredSectors} setores (${kib(requiredSectors)} KiB); `
-      + `um Microdrive só dispõe de ${availableSectors} setores (${kib(availableSectors)} KiB). `
-      + "A capacidade é por cartucho; MDV1 e MDV2 não formam um único disco.");
+    const kib = (sectors) => (sectors * DATA_SIZE / 1024).toLocaleString("en-GB");
+    super(`The package requires ${requiredSectors} sectors (${kib(requiredSectors)} KiB); `
+      + `a Microdrive has only ${availableSectors} sectors (${kib(availableSectors)} KiB). `
+      + "Capacity is per cartridge; MDV1 and MDV2 do not form a single disc.");
     this.name = "MicrodriveCapacityError";
     this.requiredSectors = requiredSectors;
     this.availableSectors = availableSectors;
@@ -43,13 +43,13 @@ function alternatingPattern() {
 function qlNameBytes(name) {
   const normalised = String(name).replaceAll(".", "_").slice(0, 36);
   const bytes = new TextEncoder().encode(normalised);
-  if (bytes.some((byte) => byte > 0x7f)) throw new Error(`O nome ${name} não pode ser representado no QL.`);
+  if (bytes.some((byte) => byte > 0x7f)) throw new Error(`The name ${name} cannot be represented on the QL.`);
   return { name: normalised, bytes };
 }
 
 export function buildQlFileHeader(file) {
   const content = file.bytes;
-  if (!(content instanceof Uint8Array)) throw new TypeError("O conteúdo de cada ficheiro deve ser Uint8Array.");
+  if (!(content instanceof Uint8Array)) throw new TypeError("Each file’s contents must be a Uint8Array.");
   const encoded = qlNameBytes(file.name);
   const header = new Uint8Array(FILE_HEADER_SIZE);
   writeBe32(header, 0, content.byteLength + FILE_HEADER_SIZE);
@@ -102,15 +102,15 @@ function writeSector(image, physicalIndex, sectorNumber, mediumName, mediumId, f
 
 /** Build a deterministic, read-only QLAY image from ordinary QL files. */
 export function buildMicrodriveImage(files, { mediumName = "QLPACKAGE", mediumId = 0x514c } = {}) {
-  if (!Array.isArray(files) || files.length === 0) throw new Error("O pacote não contém ficheiros para o QL.");
-  if (files.length > 127) throw new Error("O pacote contém demasiados ficheiros para um Microdrive.");
+  if (!Array.isArray(files) || files.length === 0) throw new Error("The package contains no QL files.");
+  if (files.length > 127) throw new Error("The package contains too many files for a Microdrive.");
   qlNameBytes(mediumName.slice(0, 10));
 
   const names = new Set();
   const normalisedFiles = files.map((file) => {
     const name = qlNameBytes(file.name).name;
     const key = name.toLocaleLowerCase("en");
-    if (names.has(key)) throw new Error(`Dois ficheiros do pacote resultam no mesmo nome QL: ${name}.`);
+    if (names.has(key)) throw new Error(`Two files in the package produce the same QL name: ${name}.`);
     names.add(key);
     return { ...file, name, header: buildQlFileHeader({ ...file, name }) };
   });

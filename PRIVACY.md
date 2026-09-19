@@ -1,80 +1,78 @@
-# Dados e privacidade
+# Data and privacy
 
-Atualizado em 19 de setembro de 2026. Este documento descreve a execução local
-do emulador através de `npm start`.
+Updated on 19 September 2026. This document describes local execution of the
+emulator through `npm start`.
 
-## Emulador e ficheiros
+## Emulator and files
 
-As ROMs e os cartuchos selecionados são lidos no navegador. Os seus conteúdos
-não são enviados ao autor do projeto nem ao Google. Exportar um cartucho cria
-um download, preservando o ficheiro original. A aplicação não inclui contas de
-utilizador, publicidade, telemetria, fontes remotas ou ferramentas de análise.
+Selected ROMs and cartridges are read in the browser. Their contents are not
+sent to the project author or Google. Exporting a cartridge creates a download,
+preserving the original file. The application includes no user accounts,
+advertising, telemetry, remote fonts or analytics tools.
 
-O navegador guarda os seguintes dados em `localStorage`:
+The browser stores the following data in `localStorage`:
 
-| Chave | Conteúdo e finalidade |
+| Key | Contents and purpose |
 | --- | --- |
-| `sinclair-ql-presentation` | Modo de apresentação escolhido |
-| `sinclair-ql-sound` | Preferência de som |
-| `sinclair-ql-guide-progress` | Identificadores das lições experimentadas |
-| `sinclair-ql-microdrive-protection` | Hash SHA-256 e preferência de proteção dos cartuchos; este registo não contém os ficheiros nem os seus nomes |
-| `sinclair-ql-project:…` | Projetos guardados pelo utilizador: nome, data, conteúdo completo do cartucho e propriedades da imagem |
-| `sinclair-ql-welcome-seen` | Indicação de que a apresentação inicial já foi vista, sem segredos |
+| `sinclair-ql-presentation` | Selected view |
+| `sinclair-ql-sound` | Sound preference |
+| `sinclair-ql-guide-progress` | Identifiers of lessons tried |
+| `sinclair-ql-microdrive-protection` | SHA-256 hash and cartridge protection preference; this record contains neither files nor filenames |
+| `sinclair-ql-project:…` | User-saved projects: name, date, complete cartridge contents and image properties |
+| `sinclair-ql-welcome-seen` | Whether the introduction has been seen; no secrets |
 
-Estes dados ficam no navegador até serem removidos. Os projetos podem ser
-apagados no gestor; os restantes registos podem ser removidos nas definições
-de dados do site. Antes de limpar esses dados, exporte os cartuchos que pretende
-conservar. A aplicação não transmite estes registos e não usa cookies de analítica.
+This data stays in the browser until removed. Projects can be deleted in the
+manager; other records can be removed in site data settings. Before clearing
+data, export cartridges you want to keep. The application does not transmit
+these records and does not use analytics cookies.
 
-## Conversa local e Gemini
+## Local conversation and Gemini
 
-A demonstração local funciona sem IA, chave API ou transmissão de mensagens a
-fornecedores. O histórico visível fica na memória da página e desaparece ao
-recarregá-la. `/new` inicia uma nova conversa lógica, conservando o histórico
-já visível.
+The local demo works without AI, an API key or sending messages to providers.
+Visible history remains in page memory and disappears on reload. `/new`
+starts a new logical conversation while keeping visible history.
 
-O Gemini é uma opção adicional, escolhida pelo utilizador. Quando utilizado,
-recebe as mensagens e o contexto recente através do servidor local. O servidor
-mantém até oito sessões em memória e não grava transcrições em ficheiros.
-`/new` limpa o contexto da sessão; sair do chat não elimina imediatamente todas
-as sessões guardadas pelo processo. Reiniciar o servidor elimina essa memória.
+Gemini is an additional option selected by the user. When used, it receives
+messages and recent context through the local server. The server keeps up to
+eight sessions in memory and does not write transcripts to files.
+`/new` clears session context; leaving chat does not immediately delete all
+sessions held by the process. Restarting the server clears that memory.
 
-O tratamento dos dados enviados ao Google segue os
-[termos da Gemini API](https://ai.google.dev/gemini-api/terms).
-As condições de disponibilização da integração estão descritas no
-[registo de distribuição](docs/LEGAL_REVIEW.md#gemini-opcional).
+Data sent to Google is handled under the
+[Gemini API terms](https://ai.google.dev/gemini-api/terms).
+Conditions for making the integration available are described in the
+[distribution record](docs/LEGAL_REVIEW.md#optional-gemini).
 
-## Chave pessoal e configuração
+## Personal key and settings
 
-Cada utilizador obtém a sua chave através da própria conta no
-[Google AI Studio](https://aistudio.google.com/api-keys). O projeto não distribui
-uma chave partilhada. A configuração exige a confirmação de projeto Free;
-não ativa faturação nem recorre automaticamente a uma alternativa paga.
+Each user obtains their own key through their account in
+[Google AI Studio](https://aistudio.google.com/api-keys). The project does not
+distribute a shared key. Setup requires confirmation of a Free project;
+it neither enables billing nor automatically falls back to a paid option.
 
-O diálogo de configuração guarda a chave e a confirmação no ficheiro `.env`,
-junto de `package.json`. A proteção da configuração assenta em medidas concretas:
+The setup dialogue saves the key and confirmation to `.env` alongside
+`package.json`. Configuration is protected by these measures:
 
-- O `.gitignore` exclui o `.env` das adições normais ao Git.
-- O servidor web bloqueia o acesso ao ficheiro.
-- A chave é enviada do campo protegido para o servidor local, sem ser devolvida
-  nas respostas ou guardada no armazenamento do navegador.
-- O campo é limpo ao guardar ou fechar o diálogo.
-- Guardar a configuração não contacta o Google; a chave é utilizada quando
-  o utilizador escolhe conversar com Gemini.
+- `.gitignore` excludes `.env` from normal Git additions.
+- The web server blocks access to the file.
+- The key is sent from the protected field to the local server, never returned
+  in responses or saved in browser storage.
+- The field is cleared when the dialogue is saved or closed.
+- Saving does not contact Google; the key is used when the user chooses Gemini chat.
 
-O `.env` é um ficheiro local sem encriptação. Mantenha o acesso à pasta reservado
-e exclua-o de arquivos ou cópias partilhadas; a regra do Git não filtra ficheiros
-ZIP nem adições forçadas. Pode remover a chave guardada no mesmo diálogo.
-A revogação da chave na conta Google é uma operação separada.
+`.env` is an unencrypted local file. Restrict access to the folder and exclude
+it from shared archives or copies; Git rules do not filter ZIP files or forced
+additions. You can remove the saved key in the same dialogue. Revoking it in
+your Google account is a separate operation.
 
-## Âmbito de uma instalação pública
+## Scope of a public installation
 
-Esta descrição refere-se ao servidor local. Uma instalação alojada publicamente
-deve documentar o seu operador, contacto, prestadores, registos de acesso e
-prazos de retenção. O servidor local de chat foi concebido para uso no computador
-do utilizador, não para exposição através de um proxy público.
+This description concerns the local server. A publicly hosted installation
+must document its operator, contact, providers, access logs and retention
+periods. The chat server is designed for use on the user’s computer, not
+exposure through a public proxy.
 
-Questões sobre o funcionamento podem ser comunicadas no
-[repositório do projeto](https://github.com/luiscunhacsc/sinclair-ql-emulator-main).
-Ao abrir uma issue pública, partilhe apenas a informação técnica necessária,
-sem chaves API nem dados pessoais.
+Questions about operation can be raised in the
+[project repository](https://github.com/luiscunhacsc/sinclair-ql-emulator-main).
+In a public issue, share only necessary technical information, without API
+keys or personal data.

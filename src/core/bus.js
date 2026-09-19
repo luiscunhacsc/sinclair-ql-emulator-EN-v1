@@ -15,7 +15,7 @@ export class QLBus {
 
   registerDevice(device) {
     if (!device || typeof device.handles !== "function") {
-      throw new TypeError("Um dispositivo deve implementar handles(address).");
+      throw new TypeError("A device must implement handles(address).");
     }
     this.devices.push(device);
     if (typeof device.ramWaitCycles === "function") this.ramTiming = device;
@@ -35,10 +35,10 @@ export class QLBus {
 
   loadRom(bytes) {
     if (!(bytes instanceof Uint8Array)) {
-      throw new TypeError("A ROM deve ser fornecida como Uint8Array.");
+      throw new TypeError("The ROM must be supplied as a Uint8Array.");
     }
     if (bytes.byteLength !== INTERNAL_ROM_SIZE) {
-      throw new RangeError("A ROM interna deve ter exatamente 48 KiB.");
+      throw new RangeError("The internal ROM must be exactly 48 KiB.");
     }
     this.rom.set(bytes);
     this.romLoaded = true;
@@ -64,12 +64,12 @@ export class QLBus {
 
   loadRam(address, bytes) {
     if (!(bytes instanceof Uint8Array)) {
-      throw new TypeError("Os dados devem ser fornecidos como Uint8Array.");
+      throw new TypeError("Data must be supplied as a Uint8Array.");
     }
     const normalized = address & ADDRESS_MASK;
     const offset = normalized - INTERNAL_RAM_START;
     if (offset < 0 || offset + bytes.byteLength > INTERNAL_RAM_SIZE) {
-      throw new RangeError("O bloco não cabe na RAM interna do QL.");
+      throw new RangeError("The block does not fit in the QL’s internal RAM.");
     }
     this.ram.set(bytes, offset);
   }

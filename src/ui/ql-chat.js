@@ -89,7 +89,7 @@ export class QLChatBridge {
     const overflow = this.overflow;
     this.line = [];
     this.overflow = false;
-    if (prompt === "/quit") { this.stop(); this.onStatus("Chat fechado."); return; }
+    if (prompt === "/quit") { this.stop(); this.onStatus("Chat closed."); return; }
     if (this.controller) return; // The terminal sends one request at a time.
     this.onMessage({ role: "user", text: prompt });
     void this.respond(prompt, overflow);
@@ -98,7 +98,7 @@ export class QLChatBridge {
   async respond(prompt, overflow) {
     const controller = new AbortController();
     this.controller = controller;
-    this.onStatus("O QL está à espera da resposta do host…");
+    this.onStatus("The QL is waiting for the host’s reply…");
     let text;
     try {
       text = overflow ? "Message too long (maximum 1024 characters)."
@@ -118,10 +118,10 @@ export class QLChatBridge {
     framed.set(bytes);
     framed[bytes.length] = 3;
     if (!this.device.receiveSerial(1, framed)) {
-      this.onStatus("O terminal deixou de aceitar dados. Reinicie o chat.");
+      this.onStatus("The terminal has stopped accepting data. Restart the chat.");
     } else {
       this.onMessage({ role: "assistant", text: new TextDecoder().decode(bytes) });
-      this.onStatus("Resposta entregue ao QL.");
+      this.onStatus("Reply delivered to the QL.");
     }
   }
 }

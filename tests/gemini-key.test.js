@@ -12,16 +12,16 @@ test("keys are opaque values: punctuation and length do not imply a project ID",
 
 test("validation explains the actual problem without echoing the credential", () => {
   const cases = [
-    ["gen-lang-client-123456789", /identificador/],
-    ["1234567890", /número de projeto/],
-    ["fixture…hidden", /abreviada/],
-    ["fixture...hidden", /abreviada/],
-    ["fixture***hidden", /ocultada/],
-    ["fixture has spaces", /espaços/],
-    ["fixture\nOTHER=value", /quebras de linha/],
-    ["GEMINI_API_KEY=fixture", /apenas o valor/],
-    ["a".repeat(4097), /demasiado longo/],
-    ...["#", '"', "'", "`", "\\", "\0", "\x7f", "é"].map((char) => [`fixture${char}private`, /caracteres/]),
+    ["gen-lang-client-123456789", /project ID/],
+    ["1234567890", /project ID or number/],
+    ["fixture…hidden", /shortened/],
+    ["fixture...hidden", /shortened/],
+    ["fixture***hidden", /masked/],
+    ["fixture has spaces", /spaces/],
+    ["fixture\nOTHER=value", /line breaks/],
+    ["GEMINI_API_KEY=fixture", /only the key value/],
+    ["a".repeat(4097), /too long/],
+    ...["#", '"', "'", "`", "\\", "\0", "\x7f", "é"].map((char) => [`fixture${char}private`, /characters/]),
   ];
   for (const [key, message] of cases) {
     const problem = geminiKeyProblem(key);

@@ -7,14 +7,14 @@ const MAX_UNCOMPRESSED_SIZE = 16 * 1024 * 1024;
 
 function viewOf(bytes) {
   if (!(bytes instanceof Uint8Array)) {
-    throw new TypeError("O arquivo ZIP deve ser fornecido como Uint8Array.");
+    throw new TypeError("The ZIP archive must be supplied as a Uint8Array.");
   }
   return new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
 }
 
 function decodeName(bytes, utf8) {
   if (!utf8 && bytes.some((byte) => byte > 0x7f)) {
-    throw new Error("O ZIP contém nomes não ASCII sem indicação UTF-8.");
+    throw new Error("The ZIP contains non-ASCII names without a UTF-8 flag.");
   }
   return new TextDecoder("utf-8", { fatal: utf8 }).decode(bytes);
 }
@@ -22,7 +22,7 @@ function decodeName(bytes, utf8) {
 function normalisePath(name) {
   const path = name.replaceAll("\\", "/");
   if (path.startsWith("/") || path.split("/").includes("..")) {
-    throw new Error(`O ZIP contém um caminho inseguro: ${name}.`);
+    throw new Error(`The ZIP contains an unsafe path: ${name}.`);
   }
   return path;
 }
@@ -35,12 +35,12 @@ function findEndOfCentralDirectory(bytes, view) {
       && offset + 22 + view.getUint16(offset + 20, true) === bytes.byteLength
     ) return offset;
   }
-  throw new Error("Não foi encontrado um diretório ZIP válido.");
+  throw new Error("No valid ZIP directory was found.");
 }
 
 async function inflateRaw(bytes) {
   if (typeof DecompressionStream !== "function") {
-    throw new Error("Este navegador não suporta a descompressão necessária para este ZIP.");
+    throw new Error("This browser does not support the decompression required for this ZIP.");
   }
   const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
   return new Uint8Array(await new Response(stream).arrayBuffer());
@@ -60,23 +60,23 @@ function crc32(bytes) {
 async function unpackEntry(bytes, view, entry) {
   const offset = entry.localOffset;
   if (offset + 30 > bytes.byteLength || view.getUint32(offset, true) !== LOCAL_SIGNATURE) {
-    throw new Error(`A entrada ${entry.name} aponta para um cabeçalho ZIP inválido.`);
+    throw new Error(`The entry ${entry.name} points to an invalid ZIP header.`);
   }
 
   const nameLength = view.getUint16(offset + 26, true);
   const extraLength = view.getUint16(offset + 28, true);
   const dataStart = offset + 30 + nameLength + extraLength;
   const dataEnd = dataStart + entry.compressedSize;
-  if (dataEnd > bytes.byteLength) throw new Error(`A entrada ${entry.name} está truncada.`);
+  if (dataEnd > bytes.byteLength) throw new Error(`The entry ${entry.name} is truncated.`);
 
   const compressed = bytes.slice(dataStart, dataEnd);
   let content;
   if (entry.method === 0) content = compressed;
   else if (entry.method === 8) content = await inflateRaw(compressed);
-  else throw new Error(`O método de compressão ZIP ${entry.method} não é suportado.`);
+  else throw new Error(`ZIP compression method ${entry.method} is not supported.`);
 
   if (content.byteLength !== entry.uncompressedSize || crc32(content) !== entry.crc) {
-    throw new Error(`A verificação de integridade falhou para ${entry.name}.`);
+    throw new Error(`The integrity check failed for ${entry.name}.`);
   }
   return {
     bytes: content,
@@ -107,7 +107,7 @@ function concatenate(left, right) {
 /** Read the safe, non-encrypted subset of ZIP used by QDOS archives and QLPAK files. */
 export async function readZipArchive(bytes) {
   const view = viewOf(bytes);
-  if (bytes.byteLength < 22) throw new Error("O ficheiro é demasiado pequeno para ser um ZIP.");
+  if (bytes.byteLength < 22) throw new Error("The file is too small to be a ZIP.");
 
   const eocd = findEndOfCentralDirectory(bytes, view);
   const disk = view.getUint16(eocd + 4, true);
@@ -118,17 +118,17 @@ export async function readZipArchive(bytes) {
   const directoryOffset = view.getUint32(eocd + 16, true);
 
   if (disk !== 0 || directoryDisk !== 0 || entriesOnDisk !== entryCount) {
-    throw new Error("ZIPs repartidos por vários volumes não são suportados.");
+    throw new Error("Multi-volume ZIP archives are not supported.");
   }
-  if (entryCount > MAX_ENTRIES) throw new Error("O ZIP contém demasiadas entradas.");
-  if (directoryOffset + directorySize > eocd) throw new Error("O diretório ZIP está truncado.");
+  if (entryCount > MAX_ENTRIES) throw new Error("The ZIP contains too many entries.");
+  if (directoryOffset + directorySize > eocd) throw new Error("The ZIP directory is truncated.");
 
   const metadata = [];
   let offset = directoryOffset;
   let totalSize = 0;
   for (let index = 0; index < entryCount; index += 1) {
     if (offset + 46 > bytes.byteLength || view.getUint32(offset, true) !== CENTRAL_SIGNATURE) {
-      throw new Error("O diretório central do ZIP é inválido.");
+      throw new Error("The ZIP central directory is invalid.");
     }
     const flags = view.getUint16(offset + 8, true);
     const method = view.getUint16(offset + 10, true);
@@ -141,13 +141,13 @@ export async function readZipArchive(bytes) {
     const localOffset = view.getUint32(offset + 42, true);
     const end = offset + 46 + nameLength + extraLength + commentLength;
 
-    if (flags & 1) throw new Error("ZIPs encriptados não são suportados.");
+    if (flags & 1) throw new Error("Encrypted ZIP archives are not supported.");
     if ([compressedSize, uncompressedSize, localOffset].includes(0xffff_ffff)) {
-      throw new Error("O formato ZIP64 não é suportado.");
+      throw new Error("The ZIP64 format is not supported.");
     }
-    if (end > bytes.byteLength) throw new Error("O diretório central do ZIP está truncado.");
+    if (end > bytes.byteLength) throw new Error("The ZIP central directory is truncated.");
     totalSize += uncompressedSize;
-    if (totalSize > MAX_UNCOMPRESSED_SIZE) throw new Error("O conteúdo descomprimido é demasiado grande.");
+    if (totalSize > MAX_UNCOMPRESSED_SIZE) throw new Error("The decompressed contents are too large.");
 
     const nameStart = offset + 46;
     const name = normalisePath(decodeName(bytes.slice(nameStart, nameStart + nameLength), flags & 0x800));

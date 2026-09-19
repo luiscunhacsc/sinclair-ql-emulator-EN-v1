@@ -149,10 +149,10 @@ test("lê entradas ZIP armazenadas e Deflate e valida a integridade", async () =
 
   const corrupted = zip.slice();
   corrupted[35] ^= 1;
-  await assert.rejects(() => readZipArchive(corrupted), /integridade/u);
+  await assert.rejects(() => readZipArchive(corrupted), /integrity/u);
   await assert.rejects(
     () => readZipArchive(makeZip([{ name: "../escape", content: "x" }])),
-    /caminho inseguro/u,
+    /unsafe path/u,
   );
 });
 
@@ -275,7 +275,7 @@ test("a Minerva arranca um BOOT importado de QLPAK", async () => {
 
 test("recusa pacotes que não cabem num Microdrive", async () => {
   const zip = makeZip([{ name: "huge", content: new Uint8Array(130_000), method: 8 }]);
-  await assert.rejects(() => importQlPackage(zip), /necessita de .* setores/u);
+  await assert.rejects(() => importQlPackage(zip), /requires .* sectors/u);
 });
 
 test("explica capacidade por cartucho e configuração dos pacotes SMSQ/E grandes", async () => {
@@ -288,8 +288,8 @@ test("explica capacidade por cartucho e configuração dos pacotes SMSQ/E grande
     assert.equal(error.name, "MicrodriveCapacityError");
     assert.ok(error.requiredSectors > error.availableSectors);
     assert.match(error.message, /KiB/u);
-    assert.match(error.message, /MDV1 e MDV2 não formam um único disco/u);
-    assert.match(error.message, /RAM 8064K; vídeo Q60; disco WIN/u);
+    assert.match(error.message, /MDV1 and MDV2 do not form a single disc/u);
+    assert.match(error.message, /RAM 8064K; video Q60; disc WIN/u);
     assert.match(error.message, /128 KiB/u);
     return true;
   });

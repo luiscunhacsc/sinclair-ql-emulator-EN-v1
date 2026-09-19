@@ -5,7 +5,7 @@ import { QL_KEYBOARD } from "./ql-keyboard.js";
 // QDOS's actual console editor, never from an empty keyboard queue or a timer.
 export async function waitForSuperBasic({ bus, device, signal, delay, timeout = 15_000 }) {
   const checkCancelled = () => {
-    if (signal.aborted) throw new DOMException("Operação cancelada.", "AbortError");
+    if (signal.aborted) throw new DOMException("Operation cancelled.", "AbortError");
   };
   checkCancelled();
   if (qlLineEditorActive(bus)) return;
@@ -20,7 +20,7 @@ export async function waitForSuperBasic({ bus, device, signal, delay, timeout = 
     await delay(20, signal);
   }
   checkCancelled();
-  if (!qlLineEditorActive(bus)) throw new Error("O SuperBASIC ainda não está pronto. O programa não foi enviado. Entre no SuperBASIC e tente novamente.");
+  if (!qlLineEditorActive(bus)) throw new Error("SuperBASIC is not ready yet. The program was not sent. Enter SuperBASIC and try again.");
 }
 
 // Pace injected keys by QL time, not browser timer time. A slow frame must not
@@ -32,13 +32,13 @@ export async function waitForQlCycles(milliseconds, {
   let lastCycles = cpu.cycles;
   let lastProgress = now();
   while (cpu.cycles < target) {
-    if (signal.aborted) throw new DOMException("Operação cancelada.", "AbortError");
+    if (signal.aborted) throw new DOMException("Operation cancelled.", "AbortError");
     await delay(12, signal);
     if (cpu.cycles !== lastCycles || suspended()) {
       lastCycles = cpu.cycles;
       lastProgress = now();
     } else if (now() - lastProgress > 5000) {
-      throw new Error("O QL parou durante o carregamento. Retome a execução ou tente novamente.");
+      throw new Error("The QL stopped during loading. Resume it or try again.");
     }
   }
 }
@@ -46,8 +46,8 @@ export async function waitForQlCycles(milliseconds, {
 export async function waitForChatReady({ bridge, signal, delay, timeout = 10_000 }) {
   let elapsed = 0;
   while (!bridge.ready) {
-    if (signal.aborted) throw new DOMException("Operação cancelada.", "AbortError");
-    if (elapsed >= timeout) throw new Error("O terminal não confirmou o arranque. Escolha F1 no QL e tente novamente.");
+    if (signal.aborted) throw new DOMException("Operation cancelled.", "AbortError");
+    if (elapsed >= timeout) throw new Error("The terminal did not confirm startup. Choose F1 on the QL and try again.");
     await delay(20, signal);
     elapsed += 20;
   }

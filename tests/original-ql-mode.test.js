@@ -46,7 +46,7 @@ test("both destinations wait for reset completion and repeated clicks cannot sta
     let resets = 0;
     const { root, elements, dialog } = harness(() => true, () => { resets++; return new Promise((resolve) => { finish = resolve; }); });
     const answer = dialog.request(destination);
-    assert.match(elements.confirm.textContent, destination === "guide" ? /guia/ : /biblioteca/);
+    assert.match(elements.confirm.textContent, destination === "guide" ? /guide/ : /library/);
     assert.equal(await dialog.request("guide"), false);
     elements.confirm.click();
     elements.confirm.click();
@@ -68,7 +68,7 @@ test("a failed restart keeps the destination closed and lets the user retry or c
   await dialog.accept();
   assert.equal(root.open, true);
   assert.equal(elements.confirm.disabled, false);
-  assert.match(elements.status.textContent, /Não foi possível/);
+  assert.match(elements.status.textContent, /Could not/);
   elements.cancel.click();
   assert.equal(await answer, false);
 });

@@ -16,10 +16,10 @@ function writePixel(frame, offset, red, green, blue) {
 }
 
 /**
- * Primeiro bloco do ZX8301: controlo do ecrã e conversão da display RAM.
+ * First ZX8301 block: screen control and display RAM conversion.
  *
- * MC_STAT é write-only. Só os bits 1 (blank), 3 (MODE 8) e 7 (segundo
- * banco) têm significado documentado; os restantes ficam mascarados.
+ * MC_STAT is write-only. Only bits 1 (blank), 3 (MODE 8) and 7 (second
+ * bank) have documented meanings; the remaining bits are masked out.
  */
 export class ZX8301 {
   constructor() {
@@ -76,7 +76,7 @@ export class ZX8301 {
   renderFrame(bus, { flashPhase = false, target } = {}) {
     const frame = target ?? new Uint8ClampedArray(FRAME_WIDTH * FRAME_HEIGHT * 4);
     if (!(frame instanceof Uint8ClampedArray) || frame.length !== FRAME_WIDTH * FRAME_HEIGHT * 4) {
-      throw new RangeError("O frame RGBA deve ter exatamente 512 × 256 × 4 bytes.");
+      throw new RangeError("The RGBA frame must be exactly 512 × 256 × 4 bytes.");
     }
 
     if (this.blanked) {

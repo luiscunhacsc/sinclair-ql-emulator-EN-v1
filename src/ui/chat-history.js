@@ -18,7 +18,7 @@ export class ChatHistory {
     this.target = null;
     this.toggle.addEventListener("click", () => this.setCollapsed(!this.collapsed));
     this.setCollapsed(true);
-    this.status.textContent = "Inicie QL Chat para começar uma conversa.";
+    this.status.textContent = "Start QL Chat to begin a conversation.";
     this.viewport.addEventListener("scroll", () => this.update());
     this.viewport.addEventListener("scrollend", () => { this.target = null; });
     // Native wheel/touch scrolling takes over from button animations.
@@ -51,7 +51,7 @@ export class ChatHistory {
     this.collapsed = collapsed;
     this.content.hidden = collapsed;
     this.toggle.setAttribute("aria-expanded", String(!collapsed));
-    this.toggleLabel.textContent = collapsed ? "Mostrar conversa" : "Recolher conversa";
+    this.toggleLabel.textContent = collapsed ? "Show conversation" : "Hide conversation";
     this.toggleIcon.textContent = collapsed ? "▼" : "▲";
     if (!collapsed) {
       this.viewport.scrollTop = this.following ? this.viewport.scrollHeight : this.savedPosition;
@@ -75,15 +75,15 @@ export class ChatHistory {
     this.target = null;
     this.savedPosition = 0;
     this.setCollapsed(false);
-    this.status.textContent = "As mensagens aparecem aqui depois de o terminal arrancar.";
-    this.latest.textContent = "Mais recente ↓";
+    this.status.textContent = "Messages appear here after the terminal starts.";
+    this.latest.textContent = "Latest ↓";
   }
 
   append({ role, text }) {
     const message = this.root.ownerDocument.createElement("article");
     message.className = `chat-message chat-message-${role}`;
     const author = this.root.ownerDocument.createElement("strong");
-    author.textContent = role === "user" ? "Você" : "QL";
+    author.textContent = role === "user" ? "You" : "QL";
     const body = this.root.ownerDocument.createElement("p");
     body.textContent = text;
     message.append(author, body);
@@ -91,10 +91,10 @@ export class ChatHistory {
     if (this.following && !this.collapsed) {
       this.target = null;
       this.viewport.scrollTop = this.viewport.scrollHeight;
-      this.status.textContent = "A acompanhar as mensagens mais recentes.";
+      this.status.textContent = "Following the latest messages.";
     } else {
       this.unread++;
-      this.status.textContent = "Novas mensagens — a sua posição foi mantida.";
+      this.status.textContent = "New messages — your position has been kept.";
     }
     this.updateLabel();
   }
@@ -119,12 +119,12 @@ export class ChatHistory {
     this.following = this.viewport.scrollHeight - this.viewport.clientHeight - position <= 2;
     if (this.following) {
       this.unread = 0;
-      this.status.textContent = "A acompanhar as mensagens mais recentes.";
-    } else if (!this.unread) this.status.textContent = "A ler o histórico. Mais recente volta ao fim da conversa.";
+      this.status.textContent = "Following the latest messages.";
+    } else if (!this.unread) this.status.textContent = "Reading the history. Latest returns to the end of the conversation.";
     this.updateLabel();
   }
 
   updateLabel() {
-    this.latest.textContent = this.unread ? `Mais recente (${this.unread}) ↓` : "Mais recente ↓";
+    this.latest.textContent = this.unread ? `Latest (${this.unread}) ↓` : "Latest ↓";
   }
 }

@@ -44,9 +44,9 @@ test("percorre as lições e respeita os limites do curso", () => {
 });
 
 test("pesquisa títulos, descrições e palavras-chave sem distinguir maiúsculas", () => {
-  assert.ok(matchingGuideLessons("GRÁFICO").some((lesson) => lesson.id === "estrela-de-cores"));
+  assert.ok(matchingGuideLessons("GRAPHICS").some((lesson) => lesson.id === "estrela-de-cores"));
   assert.ok(matchingGuideLessons("PRINT").some((lesson) => lesson.id === "primeiro-comando"));
-  assert.deepEqual(matchingGuideLessons("insercao").map((lesson) => lesson.id), ["ordenacao-por-insercao"]);
+  assert.deepEqual(matchingGuideLessons("insertion").map((lesson) => lesson.id), ["ordenacao-por-insercao"]);
   assert.ok(matchingGuideLessons("microdrive").some((lesson) => lesson.id === "ficheiro-sequencial"));
   assert.equal(matchingGuideLessons("").length, GUIDE_LESSONS.length);
 });

@@ -42,7 +42,7 @@ export const M68K_SR = Object.freeze({
 
 export class AddressError extends Error {
   constructor(address, operation) {
-    super(`Acesso ${operation} não alinhado em 0x${address.toString(16)}.`);
+    super(`Unaligned ${operation} access at 0x${address.toString(16)}.`);
     this.name = "AddressError";
     this.address = address >>> 0;
     this.operation = operation;
@@ -154,7 +154,7 @@ export class MC68008 {
 
   setInterruptLevel(level) {
     if (!Number.isInteger(level) || level < 0 || level > 7) {
-      throw new RangeError("O nível de interrupção deve ser um inteiro entre 0 e 7.");
+      throw new RangeError("The interrupt level must be an integer between 0 and 7.");
     }
     if (level === 7 && this.interruptLevel !== 7) this.level7Pending = true;
     if (level !== 7 && this.interruptLevel === 7) this.level7Pending = false;
@@ -179,12 +179,12 @@ export class MC68008 {
   }
 
   read16(address) {
-    if (address & 1) throw new AddressError(address, "de palavra");
+    if (address & 1) throw new AddressError(address, "word");
     return (this.read8(address) << 8) | this.read8(address + 1);
   }
 
   read32(address) {
-    if (address & 1) throw new AddressError(address, "de palavra longa");
+    if (address & 1) throw new AddressError(address, "long word");
     return (this.read16(address) * 0x1_0000 + this.read16(address + 2)) >>> 0;
   }
 
@@ -194,13 +194,13 @@ export class MC68008 {
   }
 
   write16(address, value) {
-    if (address & 1) throw new AddressError(address, "de escrita de palavra");
+    if (address & 1) throw new AddressError(address, "word write");
     this.write8(address, value >>> 8);
     this.write8(address + 1, value);
   }
 
   write32(address, value) {
-    if (address & 1) throw new AddressError(address, "de escrita de palavra longa");
+    if (address & 1) throw new AddressError(address, "long word write");
     this.write16(address, value >>> 16);
     this.write16(address + 2, value);
   }

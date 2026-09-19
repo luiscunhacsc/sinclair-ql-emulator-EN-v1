@@ -22,7 +22,7 @@ test("percorre os modos de apresentação em ambas as direções", () => {
 });
 
 test("fornece uma descrição acessível para cada modo", () => {
-  assert.equal(presentationLabel("screen"), "Apenas o ecrã do Sinclair QL");
-  assert.equal(presentationLabel("monitor"), "Ecrã no monitor Sinclair QL");
-  assert.equal(presentationLabel("computer"), "Sinclair QL completo com monitor");
+  assert.equal(presentationLabel("screen"), "Sinclair QL screen only");
+  assert.equal(presentationLabel("monitor"), "Screen in the Sinclair QL monitor");
+  assert.equal(presentationLabel("computer"), "Full Sinclair QL with monitor");
 });

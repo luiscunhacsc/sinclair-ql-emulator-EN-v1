@@ -1,19 +1,19 @@
 # ROMs
 
-Este diretório distingue explicitamente ROMs livres de ROMs proprietárias.
+This directory explicitly distinguishes free ROMs from proprietary ROMs.
 
-## Incluída
+## Included
 
-- [`minerva/minerva-1.98a1.bin`](minerva/minerva-1.98a1.bin): Minerva inglesa,
-  48 KiB, GPL-2.0-or-later. O código-fonte correspondente e os avisos legais
-  encontram-se em [`third_party/minerva/`](../third_party/minerva/).
+- [`minerva/minerva-1.98a1.bin`](minerva/minerva-1.98a1.bin): English Minerva,
+  48 KiB, GPL-2.0-or-later. Corresponding source code and legal notices are in
+  [`third_party/minerva/`](../third_party/minerva/).
 
-## Não incluídas
+## Not included
 
-As ROMs QDOS/Sinclair (por exemplo, JM, JS e MG) não são distribuídas neste
-repositório. Quem pretenda usá-las deve obter legalmente a sua própria imagem e
-carregá-la localmente no navegador.
+QDOS/Sinclair ROMs (for example JM, JS and MG) are not distributed in this
+repository. Anyone wishing to use them must obtain their own image lawfully
+and load it locally in the browser.
 
-Não adicione uma ROM a este diretório sem documentar a sua proveniência,
-licença, versão e hash e, quando a licença o exigir, sem incluir o código-fonte
-correspondente.
+Do not add a ROM to this directory without documenting its provenance,
+licence, version and hash, and including the corresponding source code where
+required by the licence.

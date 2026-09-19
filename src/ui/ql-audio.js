@@ -60,7 +60,7 @@ export class QLAudio {
     this.initializing = (async () => {
       try {
         this.context = new this.AudioContextClass();
-        if (!this.context.audioWorklet) throw new Error("AudioWorklet indisponível");
+        if (!this.context.audioWorklet) throw new Error("AudioWorklet unavailable");
         // Resume immediately while the browser still considers this call part
         // of the user gesture; loading the worklet may otherwise outlive it.
         await Promise.all([

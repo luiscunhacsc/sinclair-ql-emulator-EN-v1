@@ -56,25 +56,25 @@ function tarEntry(archive, wantedPath) {
     offset = dataStart + Math.ceil(size / 512) * 512;
   }
 
-  throw new Error(`As fontes Minerva não contêm ${wantedPath}.`);
+  throw new Error(`The Minerva sources do not contain ${wantedPath}.`);
 }
 
 const romStat = await stat(files.rom);
 if (romStat.size !== expected.romSize) {
   throw new Error(
-    `ROM Minerva: esperados ${expected.romSize} bytes, obtidos ${romStat.size}.`,
+    `Minerva ROM: expected ${expected.romSize} bytes, got ${romStat.size}.`,
   );
 }
 
 const rom = await readFile(files.rom);
 const source = await readFile(files.source);
 for (const [name, bytes, hash] of [
-  ["ROM Minerva", rom, expected.romSha256],
-  ["fontes Minerva", source, expected.sourceSha256],
+  ["Minerva ROM", rom, expected.romSha256],
+  ["Minerva sources", source, expected.sourceSha256],
 ]) {
   const actual = sha256(bytes);
   if (actual !== hash) {
-    throw new Error(`${name}: SHA-256 inesperado ${actual}.`);
+    throw new Error(`${name}: unexpected SHA-256 ${actual}.`);
   }
 }
 
@@ -86,23 +86,23 @@ tarEntry(sourceTar, `${sourcePrefix}ROM/link`);
 tarEntry(sourceTar, `${sourcePrefix}make.bas`);
 
 if (!rom.subarray(0, upstreamRom.length).equals(upstreamRom)) {
-  throw new Error("A ROM distribuída não corresponde ao binário das fontes fixadas.");
+  throw new Error("The distributed ROM does not match the binary in the pinned sources.");
 }
 if (!rom.subarray(upstreamRom.length).every((byte) => byte === 0)) {
-  throw new Error("O preenchimento da ROM Minerva não contém apenas bytes nulos.");
+  throw new Error("The Minerva ROM padding does not contain only zero bytes.");
 }
 if (!upstreamLicense.includes("GNU GENERAL PUBLIC LICENSE")) {
-  throw new Error("O arquivo de fontes Minerva não preserva a sua licença.");
+  throw new Error("The Minerva source archive does not preserve its licence.");
 }
 
 const copyright = await readFile(files.copyright, "utf8");
 if (!copyright.includes("Laurence Reeves") || !copyright.includes("either version 2")) {
-  throw new Error("O aviso de copyright/licença da Minerva está incompleto.");
+  throw new Error("The Minerva copyright/licence notice is incomplete.");
 }
 
 const license = await readFile(files.license, "utf8");
 if (!license.includes("GNU GENERAL PUBLIC LICENSE") || !license.includes("Version 2")) {
-  throw new Error("O ficheiro LICENSE não contém a GNU GPL versão 2.");
+  throw new Error("The LICENSE file does not contain GNU GPL version 2.");
 }
 
 const singleStepFixture = JSON.parse(await readFile(files.singleStepFixture, "utf8"));
@@ -110,20 +110,20 @@ if (
   singleStepFixture.commit !== "64b253116a3de04aaac4346c43680960dc9b67e5" ||
   singleStepFixture.tests?.length !== 56
 ) {
-  throw new Error("A amostra SingleStepTests não corresponde à versão fixada.");
+  throw new Error("The SingleStepTests sample does not match the pinned version.");
 }
 const singleStepLicense = await readFile(files.singleStepLicense, "utf8");
 if (
   !singleStepLicense.includes("MIT License") ||
   !singleStepLicense.includes("Copyright (c) 2024 SingleStepTests")
 ) {
-  throw new Error("A licença da amostra SingleStepTests está incompleta.");
+  throw new Error("The SingleStepTests sample licence is incomplete.");
 }
 const singleStepSource = await readFile(files.singleStepSource, "utf8");
 if (!singleStepSource.includes(singleStepFixture.commit)) {
-  throw new Error("A proveniência da amostra SingleStepTests está incompleta.");
+  throw new Error("The SingleStepTests sample provenance is incomplete.");
 }
 
 console.log(
-  "Integridade verificada: Minerva GPL e amostra SingleStepTests MIT. Para pendências de publicação: npm run audit:legal.",
+  "Integrity verified: GPL Minerva and MIT SingleStepTests sample. For outstanding publication matters: npm run audit:legal.",
 );

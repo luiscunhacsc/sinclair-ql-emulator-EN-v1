@@ -43,14 +43,14 @@ test("switch cuts power even when the CPU has halted, and reflects a fresh start
   toggle.click();
   assert.equal(toggle.attributes["aria-checked"], "false");
   assert.equal(state.started, false);
-  assert.equal(toggle.status.textContent, "Desligado");
+  assert.equal(toggle.status.textContent, "Off");
   toggle.click();
   assert.deepEqual(calls, ["start", "stop", "start"]);
   // Other reset paths must also update the power state.
   state.running = state.started = false;
   control.update();
   assert.equal(toggle.attributes["aria-checked"], "false");
-  assert.equal(toggle.status.textContent, "Desligado");
+  assert.equal(toggle.status.textContent, "Off");
 });
 
 test("instruction shortcuts are idempotent and leave a modal before focusing the QL", () => {

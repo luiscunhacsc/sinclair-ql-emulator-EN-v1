@@ -68,7 +68,7 @@ test("conversation toggle preserves history and follows arrivals when reopened",
   assert.equal(history.root.hidden, false, "collapsing an active conversation keeps its toggle available");
   assert.equal(history.content.hidden, true);
   assert.equal(history.toggle.attributes["aria-expanded"], "false");
-  assert.equal(history.toggleLabel.textContent, "Mostrar conversa");
+  assert.equal(history.toggleLabel.textContent, "Show conversation");
   // A hidden browser viewport reports zero dimensions and can fire scroll events.
   viewport.clientHeight = 0;
   viewport.scrollTop = 0;
@@ -78,7 +78,7 @@ test("conversation toggle preserves history and follows arrivals when reopened",
   viewport.clientHeight = 240;
   history.toggle.dispatchEvent(new Event("click"));
   assert.equal(history.toggle.attributes["aria-expanded"], "true");
-  assert.equal(history.toggleLabel.textContent, "Recolher conversa");
+  assert.equal(history.toggleLabel.textContent, "Hide conversation");
   assert.equal(viewport.children.length, 11);
   assert.equal(viewport.scrollTop, 1080);
   assert.equal(history.unread, 0);

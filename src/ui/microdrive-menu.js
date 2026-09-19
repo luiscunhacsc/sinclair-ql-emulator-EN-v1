@@ -58,7 +58,7 @@ export class MicrodriveMenu {
     if (slot !== 1 && slot !== 2) return;
     this.slot = slot;
     this.opener = opener;
-    this.status.textContent = "Escolha o cartucho para esta unidade. Os comandos no QL continuam a usar mdv1_ ou mdv2_.";
+    this.status.textContent = "Choose the cartridge for this drive. Commands on the QL still use mdv1_ or mdv2_.";
     this.showView("home");
     this.actions.select(slot);
     if (!this.root.open) this.root.showModal();
@@ -80,14 +80,14 @@ export class MicrodriveMenu {
   refresh() {
     const { mounted, selection, busy, running, canFormat, canBoot } = this.actions.state(this.slot);
     const active = Boolean(selection & (1 << (this.slot - 1)));
-    this.title.textContent = `Gestor de MDV${this.slot}`;
-    this.medium.textContent = mounted ? `${mounted.name} · ${mounted.writeProtected ? "só leitura" : "escrita permitida"}${mounted.dirty ? " · alterações por guardar" : ""}` : "Unidade vazia";
+    this.title.textContent = `MDV${this.slot} manager`;
+    this.medium.textContent = mounted ? `${mounted.name} · ${mounted.writeProtected ? "read-only" : "writing enabled"}${mounted.dirty ? " · unsaved changes" : ""}` : "Empty drive";
     const mountReason = microdriveActionBlockReason({ slot: this.slot, action: "mount", mounted, selection });
-    this.activity.textContent = active ? `MDV${this.slot} em uso. Aguarde que a luz apague.${!running ? " Retome o QL para terminar a operação." : ""}`
-      : mountReason || (selection ? "Pode inserir aqui: esta unidade está vazia e parada." : "Motor parado. Escolha uma origem abaixo.");
+    this.activity.textContent = active ? `MDV${this.slot} in use. Wait for the light to go out.${!running ? " Resume the QL to finish the operation." : ""}`
+      : mountReason || (selection ? "You can insert here: this drive is empty and stopped." : "Motor stopped. Choose a source below.");
     this.root.dataset.active = String(active);
     this.root.querySelector("#drive-mounted-actions").hidden = !mounted;
-    this.root.querySelector('[data-menu-action="protection"]').textContent = mounted?.writeProtected ? "Permitir escrita" : "Proteger";
+    this.root.querySelector('[data-menu-action="protection"]').textContent = mounted?.writeProtected ? "Allow writing" : "Protect";
     const resume = this.root.querySelector('[data-menu-action="resume"]');
     resume.hidden = running || !selection;
     for (const button of this.root.querySelectorAll("button")) {
@@ -98,9 +98,9 @@ export class MicrodriveMenu {
       const reason = guardAction ? microdriveActionBlockReason({ slot: this.slot, action: guardAction, mounted, selection }) : "";
       button.disabled = this.busy || busy || Boolean(reason) || (button.value === "format" && !canFormat)
         || (action === "boot" && (!mounted || !canBoot || this.slot !== 1));
-      button.title = reason || (button.value === "format" && !canFormat ? "Requer o QL pronto no SuperBASIC, sem operações em curso." : "");
-      if (action === "new") button.textContent = mounted ? "Trocar por novo cartucho" : "Novo cartucho";
-      if (action === "boot" && !reason) button.title = "Apaga o programa em memória e procura o programa boot do cartucho em MDV1.";
+      button.title = reason || (button.value === "format" && !canFormat ? "Requires the QL to be ready in SuperBASIC, with no operations in progress." : "");
+      if (action === "new") button.textContent = mounted ? "Replace with new cartridge" : "New cartridge";
+      if (action === "boot" && !reason) button.title = "Clears the program in memory and looks for the boot program on the MDV1 cartridge.";
     }
     for (const input of this.root.querySelectorAll("input")) input.disabled = this.busy || busy;
   }
@@ -111,8 +111,8 @@ export class MicrodriveMenu {
     this.saveForm.hidden = view !== "project";
     this.results.hidden = !["projects", "library"].includes(view);
     this.results.replaceChildren();
-    if (view === "new") this.root.querySelector("#drive-new-name").value = `trabalho${this.slot}`;
-    if (view === "project") this.root.querySelector("#drive-project-name").value = this.actions.state(this.slot).mounted?.name.replace(/\.mdv$/i, "") ?? "Meu projeto";
+    if (view === "new") this.root.querySelector("#drive-new-name").value = `work${this.slot}`;
+    if (view === "project") this.root.querySelector("#drive-project-name").value = this.actions.state(this.slot).mounted?.name.replace(/\.mdv$/i, "") ?? "My project";
     if (view === "projects" || view === "library") this.renderFiles(view);
     this.refresh();
     if (this.root.open && !this.busy) {
@@ -124,14 +124,14 @@ export class MicrodriveMenu {
   renderFiles(view) {
     const doc = this.root.ownerDocument;
     const heading = doc.createElement("h3");
-    heading.textContent = view === "projects" ? "Os meus projetos" : "Biblioteca de software";
+    heading.textContent = view === "projects" ? "My projects" : "Software library";
     this.results.append(heading);
     try {
       const entries = view === "projects" ? this.actions.projects() : this.actions.library();
       if (!entries.length) {
         const empty = doc.createElement("p");
-        empty.textContent = view === "projects" ? "Ainda não guardou projetos. Insira um cartucho e escolha Guardar projeto para conservar uma cópia neste navegador."
-          : "Ainda não há software na biblioteca desta sessão. Use Abrir do computador ou Abrir biblioteca de software para adicionar ficheiros ou uma pasta.";
+        empty.textContent = view === "projects" ? "You have not saved any projects yet. Insert a cartridge and choose Save project to keep a copy in this browser."
+          : "There is no software in this session’s library yet. Use Open from computer or Open software library to add files or a folder.";
         this.results.append(empty);
       }
       for (const entry of entries) {
@@ -144,7 +144,7 @@ export class MicrodriveMenu {
         button.textContent = `${entry.name} → MDV${this.slot}`;
         if (entry.savedAt) {
           const date = doc.createElement("small");
-          date.textContent = new Date(entry.savedAt).toLocaleString("pt-PT");
+          date.textContent = new Date(entry.savedAt).toLocaleString("en-GB");
           button.append(date);
         }
         button.addEventListener("click", () => void this.run((slot) => this.actions.mount(slot, view === "projects" ? this.actions.projectFile(entry) : entry)));
@@ -152,8 +152,8 @@ export class MicrodriveMenu {
         if (view === "projects") {
           const remove = doc.createElement("button");
           remove.type = "button";
-          remove.textContent = "Remover";
-          remove.setAttribute("aria-label", `Remover projeto ${entry.name}`);
+          remove.textContent = "Remove";
+          remove.setAttribute("aria-label", `Remove project ${entry.name}`);
           remove.addEventListener("click", () => void this.run(async () => {
             await this.actions.removeProject(entry);
             this.showView("projects");
@@ -162,7 +162,7 @@ export class MicrodriveMenu {
         }
         this.results.append(row);
       }
-    } catch { this.message("Não foi possível ler os projetos neste navegador. Pode continuar a abrir e exportar ficheiros .mdv no computador."); }
+    } catch { this.message("Could not read projects in this browser. You can still open and export .mdv files on your computer."); }
   }
 
   async perform(action) {

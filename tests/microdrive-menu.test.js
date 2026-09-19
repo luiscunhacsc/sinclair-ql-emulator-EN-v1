@@ -118,7 +118,7 @@ test("manager identifies the selected unit and only offers boot from an idle mou
   assert.equal(buttons.boot.disabled, false);
   assert.equal(units[0].attributes["aria-pressed"], "true");
   menu.open(2);
-  assert.equal(menu.title.textContent, "Gestor de MDV2");
+  assert.equal(menu.title.textContent, "MDV2 manager");
   assert.equal(units[0].attributes["aria-pressed"], "false");
   assert.equal(units[1].attributes["aria-pressed"], "true");
   assert.equal(buttons.boot.hidden, true);

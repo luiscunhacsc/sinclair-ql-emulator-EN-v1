@@ -34,13 +34,13 @@ export class PowerControl {
     const { enabled, running, started } = this.state();
     this.toggle.disabled = !enabled;
     this.toggle.setAttribute("aria-checked", String(started));
-    this.toggle.title = started ? "Desligar o QL — apaga o programa em memória e encerra o chat" : "Ligar o QL";
-    this.toggle.querySelector("[data-power-status]").textContent = !enabled ? "A preparar…"
-      : running ? "Ligado" : started ? "Ligado · CPU parada" : "Desligado";
+    this.toggle.title = started ? "Switch off the QL — clears the program in memory and ends the chat" : "Switch on the QL";
+    this.toggle.querySelector("[data-power-status]").textContent = !enabled ? "Getting ready…"
+      : running ? "On" : started ? "On · CPU stopped" : "Off";
     for (const action of this.actions) {
       action.disabled = !enabled;
-      action.title = running ? "O QL já está ligado — ir para o ecrã"
-        : started ? "Retomar o QL e ir para o ecrã" : "Ligar o QL e ir para o ecrã";
+      action.title = running ? "The QL is already on — go to the screen"
+        : started ? "Resume the QL and go to the screen" : "Switch on the QL and go to the screen";
     }
   }
 }

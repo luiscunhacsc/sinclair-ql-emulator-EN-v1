@@ -199,7 +199,7 @@ export class ZX8302 {
 
   validateMicrodriveSlot(slot) {
     if (!Number.isInteger(slot) || slot < 1 || slot > MICRODRIVE_DRIVE_COUNT) {
-      throw new RangeError("O número do Microdrive deve ser 1 ou 2.");
+      throw new RangeError("The Microdrive number must be 1 or 2.");
     }
   }
 
@@ -370,7 +370,7 @@ export class ZX8302 {
 
   enqueueKey(keyrow, { shift = false, control = false, alt = false } = {}) {
     if (!Number.isInteger(keyrow) || keyrow < 0 || keyrow > 0x3f) {
-      throw new RangeError("A tecla do QL deve estar entre 0 e 63.");
+      throw new RangeError("The QL key must be between 0 and 63.");
     }
     const modifiers = (shift ? 0x04 : 0) | (control ? 0x02 : 0) | (alt ? 0x01 : 0);
     this.keyboardQueue.push({ keyrow, modifiers });
@@ -384,7 +384,7 @@ export class ZX8302 {
     const rows = new Uint8Array(8);
     for (const keycode of keycodes) {
       if (!Number.isInteger(keycode) || keycode < 0 || keycode > 63) {
-        throw new RangeError("A tecla do QL deve estar entre 0 e 63.");
+        throw new RangeError("The QL key must be between 0 and 63.");
       }
       // IPC key codes enumerate the matrix from row 7 down to row 0.
       rows[7 - (keycode >>> 3)] |= 1 << (keycode & 7);
@@ -520,7 +520,7 @@ export class ZX8302 {
 
   tick(cycles) {
     if (!Number.isFinite(cycles) || cycles < 0) {
-      throw new RangeError("O avanço do ZX8302 requer um número de ciclos não negativo.");
+      throw new RangeError("Advancing the ZX8302 requires a non-negative number of cycles.");
     }
     this.frameCycleAccumulator += cycles;
     if (this.serialTransmit) {

@@ -24,9 +24,9 @@ export class CartridgeProjects {
 
   save(image, name) {
     const bytes = image.toUint8Array();
-    if (bytes.length !== MICRODRIVE_FORMAT.imageSize) throw new Error("Imagem de Microdrive inválida.");
+    if (bytes.length !== MICRODRIVE_FORMAT.imageSize) throw new Error("Invalid Microdrive image.");
     name = String(name).trim();
-    if (!name || name.length > 80) throw new Error("Escolha um nome de projeto entre 1 e 80 caracteres.");
+    if (!name || name.length > 80) throw new Error("Choose a project name between 1 and 80 characters.");
     let binary = "";
     for (let offset = 0; offset < bytes.length; offset += 8192) {
       binary += String.fromCharCode(...bytes.subarray(offset, offset + 8192));

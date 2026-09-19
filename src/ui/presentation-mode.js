@@ -1,9 +1,9 @@
 export const PRESENTATION_MODES = Object.freeze(["screen", "monitor", "computer"]);
 
 const PRESENTATION_LABELS = Object.freeze({
-  screen: "Apenas o ecrã do Sinclair QL",
-  monitor: "Ecrã no monitor Sinclair QL",
-  computer: "Sinclair QL completo com monitor",
+  screen: "Sinclair QL screen only",
+  monitor: "Screen in the Sinclair QL monitor",
+  computer: "Full Sinclair QL with monitor",
 });
 
 export function normalizePresentationMode(value, fallback = "monitor") {

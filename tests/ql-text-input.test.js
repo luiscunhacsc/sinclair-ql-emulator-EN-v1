@@ -31,7 +31,7 @@ test("converte texto ASCII nos códigos e modificadores físicos do QL", () => {
 test("ignora carriage returns e rejeita caracteres não representáveis", () => {
   assert.equal(qlKeyForCharacter("\r"), null);
   assert.equal(qlTextEvents("A\r\nB").length, 3);
-  assert.throws(() => qlKeyForCharacter("á"), /ainda não pode/u);
+  assert.throws(() => qlKeyForCharacter("á"), /cannot yet/u);
 });
 
 test("um programa começa com BREAK e NEW, podendo terminar com RUN", () => {

@@ -53,7 +53,7 @@ const SHIFTED_CHARACTERS = Object.freeze({
 
 function keyEvent(code, { shift = false, control = false, pauseAfter = 14 } = {}) {
   const keyrow = KEY[code];
-  if (keyrow === undefined) throw new Error(`A tecla ${code} não existe na matriz do QL.`);
+  if (keyrow === undefined) throw new Error(`The key ${code} does not exist in the QL matrix.`);
   return { keyrow, shift, control, alt: false, pauseAfter };
 }
 
@@ -67,7 +67,7 @@ export function qlKeyForCharacter(character) {
   }
   const shifted = SHIFTED_CHARACTERS[character];
   if (shifted) return keyEvent(shifted, { shift: true });
-  throw new Error(`O carácter ${JSON.stringify(character)} ainda não pode ser escrito no QL.`);
+  throw new Error(`The character ${JSON.stringify(character)} cannot yet be typed on the QL.`);
 }
 
 export function qlTextEvents(text) {
@@ -98,7 +98,7 @@ export function qlLineEditorActive(bus) {
 
 export function guideExampleEvents(example, { run = false, editingLine = false } = {}) {
   if (!example || !["command", "program"].includes(example.kind)) {
-    throw new TypeError("O exemplo deve ser um comando ou um programa SuperBASIC.");
+    throw new TypeError("The example must be a SuperBASIC command or program.");
   }
 
   const source = String(example.code).replaceAll("\r\n", "\n").replaceAll("\r", "\n").trimEnd();

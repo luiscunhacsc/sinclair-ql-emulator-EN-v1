@@ -30,14 +30,14 @@ export function initializeGeminiSetup({ onSaved = () => {} } = {}) {
     fields.disabled = !config.settings?.editable;
     confirmation.checked = Boolean(config.settings?.freePlanConfirmed);
     key.required = !config.settings?.hasKey;
-    key.placeholder = config.settings?.hasKey ? "Chave guardada · deixe vazio para manter" : "Cole a chave API, não o ID do projeto";
+    key.placeholder = config.settings?.hasKey ? "Key saved · leave blank to keep it" : "Paste the API key, not the project ID";
     remove.hidden = !config.settings?.hasKey;
     status.textContent = !config.settings?.editable
-      ? "As definições são geridas pelo ambiente do servidor. Remova as variáveis do sistema e reinicie para configurar aqui."
-      : config.paused ? "Gemini está suspenso. Guardar não remove a suspensão; consulte o README."
-      : config.enabled ? "Gemini configurado. Pode continuar e abrir QL Chat quando quiser."
-      : config.settings?.hasKey ? "Chave guardada. Gemini fica desligado enquanto não confirmar o plano Free."
-      : "A configuração é opcional. Pode continuar já para o emulador.";
+      ? "Settings are managed by the server environment. Remove the system variables and restart to configure them here."
+      : config.paused ? "Gemini is suspended. Saving does not remove the suspension; see the README."
+      : config.enabled ? "Gemini configured. You can continue and open QL Chat whenever you like."
+      : config.settings?.hasKey ? "Key saved. Gemini stays disabled until you confirm the Free plan."
+      : "Setup is optional. You can continue to the emulator now.";
   }
 
   async function open() {
@@ -47,7 +47,7 @@ export function initializeGeminiSetup({ onSaved = () => {} } = {}) {
     fields.disabled = true;
     token = null;
     dialog.showModal();
-    status.textContent = "A verificar as definições locais…";
+    status.textContent = "Checking local settings…";
     try {
       if (!local) throw new Error();
       const response = await fetch("/api/chat/config", { cache: "no-store", signal: AbortSignal.timeout(3000) });
@@ -57,7 +57,7 @@ export function initializeGeminiSetup({ onSaved = () => {} } = {}) {
       token = config.token;
       applySettings(config);
     } catch {
-      status.textContent = "Para guardar uma chave só no seu computador, execute npm start na sua cópia do projeto e abra http://localhost:8080. Aqui pode continuar a usar o emulador e a demonstração local.";
+      status.textContent = "To save a key only on your computer, run npm start in your copy of the project and open http://localhost:8080. Here you can continue using the emulator and local demo.";
     }
   }
 
@@ -74,7 +74,7 @@ export function initializeGeminiSetup({ onSaved = () => {} } = {}) {
     key.removeAttribute("aria-invalid");
     busy = true;
     fields.disabled = true;
-    status.textContent = "A guardar no .env na raiz do projeto…";
+    status.textContent = "Saving to .env in the project root…";
     try {
       const response = await fetch("/api/chat/settings", {
         method: "POST", cache: "no-store", redirect: "error", signal: AbortSignal.timeout(5000),
@@ -82,18 +82,18 @@ export function initializeGeminiSetup({ onSaved = () => {} } = {}) {
         body: JSON.stringify({ apiKey, freePlanConfirmed: confirmation.checked, remove: removing }),
       });
       const result = await response.json();
-      if (!response.ok) throw new Error(result.error || "Não foi possível guardar. Abra novamente este diálogo e tente de novo.");
+      if (!response.ok) throw new Error(result.error || "Could not save. Reopen this dialogue and try again.");
       key.value = "";
       applySettings(result);
-      if (removing) status.textContent = "Chave removida do .env do projeto. Gemini desligado.";
+      if (removing) status.textContent = "Key removed from the project’s .env. Gemini disabled.";
       else if (!result.paused) status.textContent = result.enabled
-        ? "Chave e confirmação guardadas no .env junto de package.json. Gemini está pronto em QL Chat — não precisa de reiniciar."
-        : "Guardado no .env junto de package.json. Gemini permanece desligado até confirmar o plano Free.";
+        ? "Key and confirmation saved in .env alongside package.json. Gemini is ready in QL Chat — no restart needed."
+        : "Saved in .env alongside package.json. Gemini stays disabled until you confirm the Free plan.";
       onSaved();
     } catch (error) {
       fields.disabled = false;
       status.textContent = error.name === "TimeoutError" || error instanceof TypeError
-        ? "Não foi possível confirmar a gravação. Reabra as definições para verificar; nenhuma tentativa automática será feita."
+        ? "Could not confirm the save. Reopen settings to check; no automatic retry will be made."
         : error.message;
     } finally { busy = false; }
   }

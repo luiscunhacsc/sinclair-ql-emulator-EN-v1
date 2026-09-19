@@ -107,7 +107,7 @@ test("complete opaque keys reach the server intact; masked keys fail locally wit
   e["gemini-setup-form"].dispatchEvent(new Event("submit", { cancelable: true }));
   await settle();
   assert.equal(requests.length, 1);
-  assert.match(e["gemini-setup-status"].textContent, /abreviada/);
+  assert.match(e["gemini-setup-status"].textContent, /shortened/);
   assert.equal(e["gemini-api-key"].attributes["aria-invalid"], "true");
   const key = "fixture.opaque/" + "a".repeat(600) + "+=";
   e["gemini-api-key"].value = '"' + key + '"';

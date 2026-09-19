@@ -27,23 +27,23 @@ export class MicrodriveImage {
     } = {},
   ) {
     if (!(bytes instanceof Uint8Array)) {
-      throw new TypeError("A imagem de Microdrive deve ser fornecida como Uint8Array.");
+      throw new TypeError("The Microdrive image must be supplied as a Uint8Array.");
     }
     if (bytes.byteLength !== IMAGE_SIZE) {
-      throw new RangeError(`Uma imagem .mdv deve ter exatamente ${IMAGE_SIZE} bytes.`);
+      throw new RangeError(`An .mdv image must be exactly ${IMAGE_SIZE} bytes.`);
     }
     if (
       !Number.isInteger(physicalSectorCount)
       || physicalSectorCount < 1
       || physicalSectorCount > SECTOR_COUNT
     ) {
-      throw new RangeError(`O percurso físico deve conter entre 1 e ${SECTOR_COUNT} setores.`);
+      throw new RangeError(`The physical track must contain between 1 and ${SECTOR_COUNT} sectors.`);
     }
     if (
       spliceSector !== null
       && (!Number.isInteger(spliceSector) || spliceSector < 0 || spliceSector >= physicalSectorCount)
     ) {
-      throw new RangeError("A emenda deve ficar dentro do percurso físico do cartucho.");
+      throw new RangeError("The splice must be within the cartridge’s physical track.");
     }
 
     this.#bytes = bytes.slice();
@@ -55,7 +55,7 @@ export class MicrodriveImage {
   }
 
   readHeaderByte(sector, offset) {
-    this.validatePosition(sector, offset, HEADER_SIZE, "cabeçalho");
+    this.validatePosition(sector, offset, HEADER_SIZE, "header");
     if (sector === this.spliceSector) return 0;
     return this.#bytes[sector * SECTOR_SIZE + HEADER_PREAMBLE_SIZE + offset];
   }
@@ -98,10 +98,10 @@ export class MicrodriveImage {
 
   validatePosition(sector, offset, length, region) {
     if (!Number.isInteger(sector) || sector < 0 || sector >= SECTOR_COUNT) {
-      throw new RangeError("O setor de Microdrive deve estar entre 0 e 254.");
+      throw new RangeError("The Microdrive sector must be between 0 and 254.");
     }
     if (!Number.isInteger(offset) || offset < 0 || offset >= length) {
-      throw new RangeError(`A posição no ${region} está fora dos limites.`);
+      throw new RangeError(`The position in the ${region} is out of bounds.`);
     }
   }
 }

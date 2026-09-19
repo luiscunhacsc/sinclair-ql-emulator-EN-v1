@@ -51,7 +51,7 @@ function removeInlineHeader(bytes) {
   if (!startsWith(bytes, QDOS_INLINE_MAGIC) || bytes.byteLength < 20) return { bytes, metadata: {} };
   const headerSize = bytes[19] * 2;
   if (bytes[18] !== 0 || headerSize < 30 || headerSize > bytes.byteLength) {
-    throw new Error("Foi encontrado um cabeçalho QDOS inline inválido.");
+    throw new Error("An invalid inline QDOS header was found.");
   }
   return {
     bytes: bytes.slice(headerSize),
@@ -102,7 +102,7 @@ function rewriteBootDevice(bytes, sourceDevice, microdrive) {
 /** Convert a QL-aware ZIP or QLPAK into a read-only QLAY Microdrive image. */
 export async function importQlPackage(bytes, { name = "software.qlpak", microdrive = 1 } = {}) {
   if (!Number.isInteger(microdrive) || microdrive < 1 || microdrive > MICRODRIVE_COUNT) {
-    throw new RangeError("A unidade de destino deve ser MDV1 ou MDV2.");
+    throw new RangeError("The destination drive must be MDV1 or MDV2.");
   }
   const entries = await readZipArchive(bytes);
   const config = parseConfig(entries);
@@ -113,7 +113,7 @@ export async function importQlPackage(bytes, { name = "software.qlpak", microdri
     if (lower.endsWith(".qcf")) return false;
     return !rootPrefix || lower.startsWith(rootPrefix);
   });
-  if (packageFiles.length === 0) throw new Error("O pacote não contém ficheiros acessíveis ao QL.");
+  if (packageFiles.length === 0) throw new Error("The package contains no files accessible to the QL.");
 
   const sourceDevice = (config.floppyname ?? "flp").slice(0, 3).toLocaleLowerCase("en");
   let bootReplacements = 0;
@@ -149,11 +149,11 @@ export async function importQlPackage(bytes, { name = "software.qlpak", microdri
     if (error instanceof MicrodriveCapacityError) {
       const settings = [
         config.ram && `RAM ${config.ram}`,
-        config.videocard && `vídeo ${config.videocard}`,
-        config.useharddiskname?.toLocaleLowerCase("en") === "yes" && `disco ${config.harddiskname || "WIN"}`,
+        config.videocard && `video ${config.videocard}`,
+        config.useharddiskname?.toLocaleLowerCase("en") === "yes" && `disc ${config.harddiskname || "WIN"}`,
       ].filter(Boolean);
-      if (settings.length) error.message += ` Configuração QCF do pacote: ${settings.join("; ")}.`;
-      error.message += " Este emulador disponibiliza 128 KiB de RAM, vídeo QL e Microdrives; não emula SMSQ/E, vídeo Q60 ou discos WIN.";
+      if (settings.length) error.message += ` Package QCF configuration: ${settings.join("; ")}.`;
+      error.message += " This emulator provides 128 KiB of RAM, QL video and Microdrives; it does not emulate SMSQ/E, Q60 video or WIN discs.";
     }
     throw error;
   }

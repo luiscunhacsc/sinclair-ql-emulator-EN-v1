@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt">
+<html lang="en-GB">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,26 +27,26 @@
       <main>
       <header class="app-header">
         <div class="app-intro">
-        <span class="eyebrow">EMULAÇÃO INDEPENDENTE</span>
+        <span class="eyebrow">INDEPENDENT EMULATION</span>
         <h1>QL Emulator</h1>
-        <p><button type="button" class="power-link" data-power-on disabled>Ligar QL</button>, clicar no ecrã e premir <kbd>F1</kbd>: está pronto para começar.</p>
-        <p class="optional-chat">SuperBASIC, software clássico e, se quiser, uma conversa com IA. <button type="button" class="text-button" data-open-gemini aria-haspopup="dialog" aria-controls="gemini-setup">Configurar Gemini opcional</button></p>
+        <p><button type="button" class="power-link" data-power-on disabled>Switch on QL</button>, click the screen and press <kbd>F1</kbd>: you are ready to begin.</p>
+        <p class="optional-chat">SuperBASIC, classic software and, if you like, a chat with AI. <button type="button" class="text-button" data-open-gemini aria-haspopup="dialog" aria-controls="gemini-setup">Set up optional Gemini</button></p>
         </div>
 
-      <section class="controls machine-console" aria-label="Controlos principais">
+      <section class="controls machine-console" aria-label="Main controls">
           <div class="power-control">
-            <button id="run" class="power-switch" type="button" role="switch" aria-checked="false" aria-label="Alimentação do QL" aria-describedby="power-help" disabled>
-              <span class="power-switch-heading"><strong>Alimentação <span class="power-machine-name">QL</span></strong><span class="power-switch-mechanism" aria-hidden="true"><span class="power-off">OFF</span><span class="power-track"></span><span class="power-on">ON</span></span></span>
-              <span class="power-status" data-power-status aria-hidden="true">A preparar…</span>
+            <button id="run" class="power-switch" type="button" role="switch" aria-checked="false" aria-label="QL power" aria-describedby="power-help" disabled>
+              <span class="power-switch-heading"><strong><span class="power-machine-name">QL</span> power</strong><span class="power-switch-mechanism" aria-hidden="true"><span class="power-off">OFF</span><span class="power-track"></span><span class="power-on">ON</span></span></span>
+              <span class="power-status" data-power-status aria-hidden="true">Getting ready…</span>
             </button>
-            <small id="power-help">Desligar apaga o programa em memória.</small>
+            <small id="power-help">Switching off clears the program in memory.</small>
           </div>
         <div class="machine-actions">
-          <button id="sound-toggle" class="sound-toggle quiet-button" type="button" aria-pressed="true" title="Ativar ou silenciar o altifalante do QL">
+          <button id="sound-toggle" class="sound-toggle quiet-button" type="button" aria-pressed="true" title="Enable or mute the QL speaker">
             <svg class="console-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path class="sound-waves" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="sound-mute" d="m16 9 5 6m0-6-5 6"/></svg>
-            <span class="sound-label">Som ligado</span>
+            <span class="sound-label">Sound on</span>
           </button>
-          <button id="reset" class="quiet-button" type="button" title="Desligar e voltar a ligar o QL — apaga a memória e encerra o chat" disabled><svg class="console-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 10a8 8 0 1 1 1 7M4 4v6h6"/></svg>Reiniciar</button>
+          <button id="reset" class="quiet-button" type="button" title="Switch the QL off and on again — clears memory and ends the chat" disabled><svg class="console-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 10a8 8 0 1 1 1 7M4 4v6h6"/></svg>Restart</button>
         </div>
         <button id="open-chat" class="console-chat" type="button" aria-haspopup="dialog" aria-controls="chat-settings"><svg class="console-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 11a8 8 0 0 1-8 8H4l-2 3V11a9 9 0 0 1 18 0Z"/><path d="M7 10h8m-8 4h5"/></svg><span>QL Chat</span><span class="console-chat-arrow" aria-hidden="true">↗</span></button>
       </section>
@@ -54,7 +54,7 @@
 
       <section class="presentation" aria-labelledby="presentation-label">
         <div class="presentation-toolbar">
-          <span id="presentation-label" class="presentation-label">Apresentação</span>
+          <span id="presentation-label" class="presentation-label">View</span>
           <div class="presentation-switch" role="radiogroup" aria-labelledby="presentation-label">
             <button
               type="button"
@@ -62,7 +62,7 @@
               aria-checked="false"
               tabindex="-1"
               data-presentation-option="screen"
-            >Ecrã</button>
+            >Screen</button>
             <button
               type="button"
               role="radio"
@@ -75,20 +75,20 @@
               aria-checked="false"
               tabindex="-1"
               data-presentation-option="computer"
-            >QL completo</button>
+            >Full QL</button>
           </div>
           <button
             id="fullscreen"
             class="fullscreen-button"
             type="button"
             aria-pressed="false"
-            aria-label="Mostrar a apresentação em ecrã inteiro"
+            aria-label="Show the emulator in full screen"
           >
-            Ecrã inteiro
+            Full screen
           </button>
         </div>
 
-        <div class="computer-stage" data-presentation="monitor" aria-label="Sinclair QL com monitor">
+        <div class="computer-stage" data-presentation="monitor" aria-label="Sinclair QL with monitor">
           <div class="stage-surface">
             <img
               class="presentation-art monitor-frame"
@@ -109,84 +109,84 @@
                 width="512"
                 height="256"
                 tabindex="0"
-                aria-label="Ecrã do Sinclair QL; clique para usar o teclado"
+                aria-label="Sinclair QL screen; click to use the keyboard"
               ></canvas>
-              <div id="screen-message" class="screen-message">A carregar a Minerva…</div>
+              <div id="screen-message" class="screen-message">Loading Minerva…</div>
             </div>
-            <span class="microdrive-led microdrive-led-1" data-drive-led="1" role="img" aria-label="MDV1: motor parado"></span>
-            <span class="microdrive-led microdrive-led-2" data-drive-led="2" role="img" aria-label="MDV2: motor parado"></span>
-            <button class="microdrive-port microdrive-port-1" type="button" data-open-drive="1" aria-label="Gerir MDV1" aria-haspopup="dialog" aria-controls="drive-menu"><span>Gerir MDV1</span></button>
-            <button class="microdrive-port microdrive-port-2" type="button" data-open-drive="2" aria-label="Gerir MDV2" aria-haspopup="dialog" aria-controls="drive-menu"><span>Gerir MDV2</span></button>
+            <span class="microdrive-led microdrive-led-1" data-drive-led="1" role="img" aria-label="MDV1: motor stopped"></span>
+            <span class="microdrive-led microdrive-led-2" data-drive-led="2" role="img" aria-label="MDV2: motor stopped"></span>
+            <button class="microdrive-port microdrive-port-1" type="button" data-open-drive="1" aria-label="Manage MDV1" aria-haspopup="dialog" aria-controls="drive-menu"><span>Manage MDV1</span></button>
+            <button class="microdrive-port microdrive-port-2" type="button" data-open-drive="2" aria-label="Manage MDV2" aria-haspopup="dialog" aria-controls="drive-menu"><span>Manage MDV2</span></button>
           </div>
-          <p class="drive-discovery"><span class="drive-image-hint">Clique numa microdrive para gerir os seus cartuchos.</span><span class="drive-buttons-hint">Escolha MDV1 ou MDV2 para gerir os seus cartuchos.</span></p>
-          <div class="drive-shortcuts" role="group" aria-label="Gerir os cartuchos de cada unidade">
-            <span>Cartuchos</span>
-            <button type="button" data-open-drive="1" aria-haspopup="dialog" aria-controls="drive-menu">MDV1 <small data-drive-label="1">vazia</small></button>
-            <button type="button" data-open-drive="2" aria-haspopup="dialog" aria-controls="drive-menu">MDV2 <small data-drive-label="2">vazia</small></button>
+          <p class="drive-discovery"><span class="drive-image-hint">Click a Microdrive to manage its cartridges.</span><span class="drive-buttons-hint">Choose MDV1 or MDV2 to manage its cartridges.</span></p>
+          <div class="drive-shortcuts" role="group" aria-label="Manage cartridges in each drive">
+            <span>Cartridges</span>
+            <button type="button" data-open-drive="1" aria-haspopup="dialog" aria-controls="drive-menu">MDV1 <small data-drive-label="1">empty</small></button>
+            <button type="button" data-open-drive="2" aria-haspopup="dialog" aria-controls="drive-menu">MDV2 <small data-drive-label="2">empty</small></button>
           </div>
           <dialog id="drive-menu" class="drive-menu" aria-labelledby="drive-menu-title" aria-describedby="drive-menu-activity">
-            <header class="drive-menu-heading"><div><span class="eyebrow">MICRODRIVES</span><h2 id="drive-menu-title">Gestor de MDV1</h2></div><button type="button" data-menu-action="close" autofocus>Fechar</button></header>
-            <div class="drive-menu-units" role="group" aria-label="Escolher a unidade a gerir"><button type="button" data-menu-slot="1" aria-pressed="true">MDV1</button><button type="button" data-menu-slot="2" aria-pressed="false">MDV2</button></div>
+            <header class="drive-menu-heading"><div><span class="eyebrow">MICRODRIVES</span><h2 id="drive-menu-title">MDV1 manager</h2></div><button type="button" data-menu-action="close" autofocus>Close</button></header>
+            <div class="drive-menu-units" role="group" aria-label="Choose the drive to manage"><button type="button" data-menu-slot="1" aria-pressed="true">MDV1</button><button type="button" data-menu-slot="2" aria-pressed="false">MDV2</button></div>
             <p id="drive-menu-medium" class="drive-menu-medium"></p>
             <p id="drive-menu-activity"></p>
-            <button type="button" data-menu-action="resume" hidden>Retomar QL para concluir a operação</button>
+            <button type="button" data-menu-action="resume" hidden>Resume QL to finish the operation</button>
             <div id="drive-mounted-actions" class="drive-mounted-actions" hidden>
-              <button type="button" data-menu-action="project" data-guard="save">Guardar projeto</button>
-              <button type="button" data-menu-action="save" data-guard="save">Exportar .mdv</button>
-              <button type="button" data-menu-action="protection" data-guard="protection">Proteger</button>
-              <button type="button" data-menu-action="eject" data-guard="eject">Retirar</button>
-              <button type="button" data-menu-action="boot" data-guard="boot">Reiniciar e arrancar de MDV1</button>
+              <button type="button" data-menu-action="project" data-guard="save">Save project</button>
+              <button type="button" data-menu-action="save" data-guard="save">Export .mdv</button>
+              <button type="button" data-menu-action="protection" data-guard="protection">Protect</button>
+              <button type="button" data-menu-action="eject" data-guard="eject">Eject</button>
+              <button type="button" data-menu-action="boot" data-guard="boot">Restart and boot from MDV1</button>
             </div>
-            <div class="drive-menu-sources" role="group" aria-label="Origem do cartucho">
-              <button type="button" data-menu-action="new" data-guard="new">Novo cartucho</button>
-              <button type="button" data-menu-action="projects">Os meus projetos</button>
-              <button type="button" data-menu-action="library">Biblioteca de software</button>
-              <button type="button" data-menu-action="file" data-guard="mount">Abrir do computador…</button>
+            <div class="drive-menu-sources" role="group" aria-label="Cartridge source">
+              <button type="button" data-menu-action="new" data-guard="new">New cartridge</button>
+              <button type="button" data-menu-action="projects">My projects</button>
+              <button type="button" data-menu-action="library">Software library</button>
+              <button type="button" data-menu-action="file" data-guard="mount">Open from computer…</button>
             </div>
             <input id="drive-menu-file" type="file" accept=".mdv,.qlpak,.zip" hidden>
             <form id="drive-new-form" class="drive-menu-form" hidden>
-              <label for="drive-new-name">Nome do cartucho</label>
-              <input id="drive-new-name" name="name" required maxlength="10" pattern="[A-Za-z][A-Za-z0-9_]{0,9}" value="trabalho1" title="Comece por uma letra; até 10 letras, números ou sublinhados.">
-              <p>Um cartucho virgem precisa de FORMAT. «Criar e preparar» envia esse comando ao QL, apenas para o novo cartucho. O QL deve estar pronto no SuperBASIC (F1 no arranque); um programa em execução será interrompido.</p>
-              <button type="submit" value="format" data-guard="boot">Criar e preparar no QL (FORMAT)</button>
-              <button type="submit" value="blank" data-guard="new">Criar virgem — formatar depois</button>
+              <label for="drive-new-name">Cartridge name</label>
+              <input id="drive-new-name" name="name" required maxlength="10" pattern="[A-Za-z][A-Za-z0-9_]{0,9}" value="work1" title="Start with a letter; up to 10 letters, numbers or underscores.">
+              <p>A blank cartridge needs FORMAT. ‘Create and prepare’ sends this command to the QL for the new cartridge only. The QL must be ready in SuperBASIC (F1 at startup); any running program will be interrupted.</p>
+              <button type="submit" value="format" data-guard="boot">Create and prepare in QL (FORMAT)</button>
+              <button type="submit" value="blank" data-guard="new">Create blank — format later</button>
             </form>
             <form id="drive-project-form" class="drive-menu-form" hidden>
-              <label for="drive-project-name">Nome da cópia do projeto</label>
+              <label for="drive-project-name">Project copy name</label>
               <input id="drive-project-name" name="name" required maxlength="80">
-              <p>Guarda uma nova cópia do cartucho inteiro neste navegador, disponível em Os meus projetos. Exporte também .mdv para conservar uma cópia independente no computador.</p>
-              <button type="submit" data-guard="save">Guardar nova cópia</button>
+              <p>Saves a new copy of the entire cartridge in this browser, available in My projects. Also export .mdv to keep a separate copy on your computer.</p>
+              <button type="submit" data-guard="save">Save new copy</button>
             </form>
             <div id="drive-menu-results" class="drive-menu-results" hidden></div>
             <p id="drive-menu-status" class="drive-menu-status" role="status" aria-live="polite"></p>
-            <button type="button" data-menu-action="all" class="drive-menu-all">Abrir biblioteca de software →</button>
-            <button type="button" data-menu-action="guide" class="drive-menu-all">Aprender a usar os Microdrives →</button>
+            <button type="button" data-menu-action="all" class="drive-menu-all">Open software library →</button>
+            <button type="button" data-menu-action="guide" class="drive-menu-all">Learn to use Microdrives →</button>
           </dialog>
           <div id="chat-launch" class="chat-launch" hidden>
             <p id="chat-launch-status" role="status"></p>
-            <progress id="chat-launch-progress" max="100" value="0" aria-label="Carregamento do terminal SuperBASIC"></progress>
-            <button id="chat-retry" type="button" hidden>Tentar novamente</button>
+            <progress id="chat-launch-progress" max="100" value="0" aria-label="Loading the SuperBASIC terminal"></progress>
+            <button id="chat-retry" type="button" hidden>Try again</button>
           </div>
           <section id="chat-history" class="chat-history" aria-labelledby="chat-history-title" hidden>
             <h2 id="chat-history-title">
               <button id="chat-history-toggle" class="chat-history-toggle" type="button" aria-expanded="false" aria-controls="chat-history-content">
-                <span>Histórico da conversa</span>
-                <span class="chat-history-toggle-action"><span id="chat-history-toggle-label">Mostrar conversa</span> <span id="chat-history-toggle-icon" aria-hidden="true">▼</span></span>
+                <span>Chat history</span>
+                <span class="chat-history-toggle-action"><span id="chat-history-toggle-label">Show conversation</span> <span id="chat-history-toggle-icon" aria-hidden="true">▼</span></span>
               </button>
             </h2>
             <div id="chat-history-content" hidden>
             <div class="chat-history-toolbar">
-              <div class="chat-scroll-controls" role="group" aria-label="Percorrer a conversa">
-                <button type="button" data-chat-scroll="-page" aria-label="Subir uma página" title="Subir uma página (Page Up)">⇈</button>
-                <button type="button" data-chat-scroll="-line" aria-label="Subir uma linha" title="Subir uma linha (↑)">↑</button>
-                <button type="button" data-chat-scroll="line" aria-label="Descer uma linha" title="Descer uma linha (↓)">↓</button>
-                <button type="button" data-chat-scroll="page" aria-label="Descer uma página" title="Descer uma página (Page Down)">⇊</button>
+              <div class="chat-scroll-controls" role="group" aria-label="Scroll through the conversation">
+                <button type="button" data-chat-scroll="-page" aria-label="Scroll up one page" title="Scroll up one page (Page Up)">⇈</button>
+                <button type="button" data-chat-scroll="-line" aria-label="Scroll up one line" title="Scroll up one line (↑)">↑</button>
+                <button type="button" data-chat-scroll="line" aria-label="Scroll down one line" title="Scroll down one line (↓)">↓</button>
+                <button type="button" data-chat-scroll="page" aria-label="Scroll down one page" title="Scroll down one page (Page Down)">⇊</button>
               </div>
-              <button id="chat-latest" type="button">Mais recente ↓</button>
-              <button id="chat-type" type="button" disabled>Escrever no QL</button>
+              <button id="chat-latest" type="button">Latest ↓</button>
+              <button id="chat-type" type="button" disabled>Type in QL</button>
             </div>
-            <p id="chat-scroll-hint" class="chat-scroll-hint">Roda do rato ou deslize para percorrer. Aqui: ↑ ↓ por linha · Page Up/Down por página · Home/End para início/fim.</p>
-            <div id="chat-transcript" class="chat-transcript" tabindex="0" role="region" aria-label="Mensagens da conversa" aria-describedby="chat-scroll-hint"></div>
+            <p id="chat-scroll-hint" class="chat-scroll-hint">Use the mouse wheel or swipe to scroll. Here: ↑ ↓ by line · Page Up/Down by page · Home/End to the beginning/end.</p>
+            <div id="chat-transcript" class="chat-transcript" tabindex="0" role="region" aria-label="Chat messages" aria-describedby="chat-scroll-hint"></div>
             <p id="chat-history-status" class="chat-history-status" role="status"></p>
             </div>
           </section>
@@ -195,7 +195,7 @@
       </section>
 
       <section class="explore-tools" aria-labelledby="explore-title">
-        <h2 id="explore-title" class="section-caption">Mais para explorar</h2>
+        <h2 id="explore-title" class="section-caption">More to explore</h2>
         <button id="open-guide" class="explore-card explore-guide" type="button" aria-expanded="false" aria-controls="guide-panel" aria-labelledby="explore-guide-title" aria-describedby="explore-guide-description">
           <span class="explore-icon" aria-hidden="true">
             <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false">
@@ -203,9 +203,9 @@
             </svg>
           </span>
           <span class="explore-copy">
-            <strong id="explore-guide-title">Guia de SuperBASIC</strong>
-            <span id="explore-guide-description">Aprenda a dar vida às suas ideias, comando a comando.</span>
-            <span class="explore-meta">32 lições · exemplos no próprio QL</span>
+            <strong id="explore-guide-title">SuperBASIC guide</strong>
+            <span id="explore-guide-description">Bring your ideas to life, one command at a time.</span>
+            <span class="explore-meta">32 lessons · examples on the QL itself</span>
           </span>
           <svg class="explore-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
         </button>
@@ -217,151 +217,151 @@
           </span>
           <span class="explore-copy">
             <strong id="explore-software-title">Software</strong>
-            <span id="explore-software-description">Descubra jogos e programas para o seu QL. Escreva os seus próprios programas no QL.</span>
+            <span id="explore-software-description">Discover games and software for your QL. Write your own programs on the QL.</span>
             <span class="explore-meta">.mdv · .qlpak · .zip</span>
           </span>
           <svg class="explore-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
         </button>
       </section>
 
-      <p id="status" class="machine-status" role="status" aria-live="polite">A carregar a Minerva…</p>
+      <p id="status" class="machine-status" role="status" aria-live="polite">Loading Minerva…</p>
 
       <details id="advanced-controls" class="advanced-controls">
-        <summary>Controlos avançados <span class="summary-note">ROM e diagnóstico</span></summary>
+        <summary>Advanced controls <span class="summary-note">ROM and diagnostics</span></summary>
         <div class="advanced-controls-body">
           <div class="advanced-step">
-            <button id="step" type="button" disabled>Executar uma instrução</button>
-            <p>Com o QL em pausa, avance uma instrução da CPU de cada vez.</p>
+            <button id="step" type="button" disabled>Execute one instruction</button>
+            <p>With the QL paused, step through one CPU instruction at a time.</p>
           </div>
           <label class="file-control">
-            <span>Carregar outra ROM</span>
+            <span>Load another ROM</span>
             <input id="rom-file" type="file" accept=".rom,.bin,application/octet-stream">
-            <small>Opcional. A Minerva já vem incluída. Mudar a ROM reinicia o QL.</small>
+            <small>Optional. Minerva is already included. Changing the ROM restarts the QL.</small>
           </label>
-          <div class="machine-diagnostics"><span class="section-caption">Estado da máquina</span><code id="machine-diagnostics">A aguardar a ROM.</code></div>
+          <div class="machine-diagnostics"><span class="section-caption">Machine status</span><code id="machine-diagnostics">Waiting for the ROM.</code></div>
         </div>
       </details>
-      <p class="keyboard-hint">Clique no ecrã para usar o teclado. <kbd>Backspace</kbd> apaga à esquerda; <kbd>Ctrl</kbd> + <kbd>→</kbd> apaga sob o cursor.</p>
+      <p class="keyboard-hint">Click the screen to use the keyboard. <kbd>Backspace</kbd> deletes to the left; <kbd>Ctrl</kbd> + <kbd>→</kbd> deletes under the cursor.</p>
       <footer class="legal-footer">
-        <a class="legal-card" href="./legal.html" target="_blank" rel="noopener" aria-label="Homenagens, créditos, licenças e privacidade (abre numa nova aba)">
+        <a class="legal-card" href="./legal.html" target="_blank" rel="noopener" aria-label="Tributes, credits, licences and privacy (opens in a new tab)">
           <span class="legal-card-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20 5.5a5 5 0 0 0-8 1 5 5 0 0 0-8-1c-2 2-1.5 5 0 7L12 20l8-7.5c1.5-2 2-5 0-7Z"/></svg>
           </span>
           <span class="legal-card-copy">
-            <strong>Homenagens e créditos</strong>
-            <span>O legado do QL, as licenças e a sua privacidade.</span>
+            <strong>Tributes and credits</strong>
+            <span>The QL legacy, licences and your privacy.</span>
           </span>
           <svg class="legal-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg>
         </a>
         <div class="author-contact-entry">
-          <a href="./legal.html#contactar-autor" data-author-contact>Contactar o Autor</a>
-          <span>Direitos, conteúdos e respeito pela comunidade.</span>
+          <a href="./legal.html#contactar-autor" data-author-contact>Contact the author</a>
+          <span>Rights, content and respect for the community.</span>
         </div>
-        <span class="legal-footer-note">Projeto independente, sem afiliação ou aprovação dos titulares das marcas.</span>
+        <span class="legal-footer-note">An independent project, with no affiliation or endorsement from the trade mark holders.</span>
       </footer>
 
       <section id="ql-materials" class="ql-materials" aria-labelledby="ql-materials-title">
         <div class="ql-materials-heading">
-          <span class="eyebrow">MEMÓRIA E DESCOBERTA</span>
-          <h2 id="ql-materials-title">Mais sobre o QL</h2>
-          <p>Histórias, ideias e memórias para ir mais longe.</p>
+          <span class="eyebrow">MEMORIES AND DISCOVERY</span>
+          <h2 id="ql-materials-title">More about the QL</h2>
+          <p>Stories, ideas and memories to explore further.</p>
         </div>
         <div class="ql-video-heading">
-          <h3 id="ql-videos-title">Vídeos sobre o QL</h3>
-          <span>Abrem numa janela separada. O seu QL fica aqui.</span>
+          <h3 id="ql-videos-title">Videos about the QL</h3>
+          <span>They open in a separate window. Your QL stays here.</span>
         </div>
         <div class="ql-video-grid" role="group" aria-labelledby="ql-videos-title">
           <a class="ql-video-card" href="https://www.youtube.com/watch?v=kRSr8CYGseA&amp;t=0s" target="_blank" rel="noopener noreferrer" aria-labelledby="ql-video-karlin-title" aria-describedby="ql-video-karlin-channel">
-            <span class="ql-video-topline"><span class="ql-video-category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4Z"/></svg>Entrevista</span><span class="ql-video-duration" aria-label="32 minutos e 57 segundos">32:57</span></span>
-            <h4 id="ql-video-karlin-title">O QL, contado por quem o criou</h4>
-            <p>David Karlin recorda a criação do QL e os seus dias na Sinclair Research, numa conversa no Museu LOAD ZX Spectrum.</p>
-            <span class="ql-video-bottomline"><span id="ql-video-karlin-channel">LOAD ZX Spectrum</span><span class="ql-video-action">Ver no YouTube <span aria-hidden="true">↗</span></span></span>
+            <span class="ql-video-topline"><span class="ql-video-category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4Z"/></svg>Interview</span><span class="ql-video-duration" aria-label="32 minutes and 57 seconds">32:57</span></span>
+            <h4 id="ql-video-karlin-title">The QL, as told by its designer</h4>
+            <p>David Karlin recalls creating the QL and his days at Sinclair Research in a conversation at the LOAD ZX Spectrum Museum.</p>
+            <span class="ql-video-bottomline"><span id="ql-video-karlin-channel">LOAD ZX Spectrum</span><span class="ql-video-action">Watch on YouTube <span aria-hidden="true">↗</span></span></span>
           </a>
           <a class="ql-video-card" href="https://www.youtube.com/watch?v=jLJoxGHEEsE&amp;t=0s" target="_blank" rel="noopener noreferrer" aria-labelledby="ql-video-facts-title" aria-describedby="ql-video-facts-channel">
-            <span class="ql-video-topline"><span class="ql-video-category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4Z"/></svg>Curiosidades</span><span class="ql-video-duration" aria-label="23 minutos e 22 segundos">23:22</span></span>
-            <h4 id="ql-video-facts-title">Dez curiosidades para redescobrir o QL</h4>
-            <p>Dez pequenas histórias convidam a olhar de novo para o QL e a descobrir os pormenores menos conhecidos do seu percurso.</p>
-            <span class="ql-video-bottomline"><span id="ql-video-facts-channel">The Laird's Lair</span><span class="ql-video-action">Ver no YouTube <span aria-hidden="true">↗</span></span></span>
+            <span class="ql-video-topline"><span class="ql-video-category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4Z"/></svg>Trivia</span><span class="ql-video-duration" aria-label="23 minutes and 22 seconds">23:22</span></span>
+            <h4 id="ql-video-facts-title">Ten facts to rediscover the QL</h4>
+            <p>Ten short stories invite you to look at the QL again and discover the lesser-known details of its history.</p>
+            <span class="ql-video-bottomline"><span id="ql-video-facts-channel">The Laird's Lair</span><span class="ql-video-action">Watch on YouTube <span aria-hidden="true">↗</span></span></span>
           </a>
           <a class="ql-video-card" href="https://www.youtube.com/watch?v=rA7aUBgXA90&amp;t=0s" target="_blank" rel="noopener noreferrer" aria-labelledby="ql-video-history-title" aria-describedby="ql-video-history-channel">
-            <span class="ql-video-topline"><span class="ql-video-category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4Z"/></svg>História</span><span class="ql-video-duration" aria-label="42 minutos e 32 segundos">42:32</span></span>
-            <h4 id="ql-video-history-title">A promessa de um salto quântico</h4>
-            <p>Da ambição do lançamento aos obstáculos do mercado: a história de um computador que quis tornar o futuro acessível.</p>
-            <span class="ql-video-bottomline"><span id="ql-video-history-channel">Fallen Tech</span><span class="ql-video-action">Ver no YouTube <span aria-hidden="true">↗</span></span></span>
+            <span class="ql-video-topline"><span class="ql-video-category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4Z"/></svg>History</span><span class="ql-video-duration" aria-label="42 minutes and 32 seconds">42:32</span></span>
+            <h4 id="ql-video-history-title">The promise of a quantum leap</h4>
+            <p>From an ambitious launch to the challenges of the market: the story of a computer that set out to make the future accessible.</p>
+            <span class="ql-video-bottomline"><span id="ql-video-history-channel">Fallen Tech</span><span class="ql-video-action">Watch on YouTube <span aria-hidden="true">↗</span></span></span>
           </a>
           <a class="ql-video-card" href="https://www.youtube.com/watch?v=yU_VUN9VVcM&amp;t=0s" target="_blank" rel="noopener noreferrer" aria-labelledby="ql-video-review-title" aria-describedby="ql-video-review-channel">
-            <span class="ql-video-topline"><span class="ql-video-category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4Z"/></svg>Retrospetiva</span><span class="ql-video-duration" aria-label="18 minutos e 51 segundos">18:51</span></span>
-            <h4 id="ql-video-review-title">Por dentro de um clássico</h4>
-            <p>Uma visita ao hardware, aos programas e aos jogos do QL, guiada pela história e pelo olhar de Nostalgia Nerd.</p>
-            <span class="ql-video-bottomline"><span id="ql-video-review-channel">Nostalgia Nerd</span><span class="ql-video-action">Ver no YouTube <span aria-hidden="true">↗</span></span></span>
+            <span class="ql-video-topline"><span class="ql-video-category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4Z"/></svg>Retrospective</span><span class="ql-video-duration" aria-label="18 minutes and 51 seconds">18:51</span></span>
+            <h4 id="ql-video-review-title">Inside a classic</h4>
+            <p>A tour of the QL’s hardware, programs and games, guided by its history and Nostalgia Nerd’s perspective.</p>
+            <span class="ql-video-bottomline"><span id="ql-video-review-channel">Nostalgia Nerd</span><span class="ql-video-action">Watch on YouTube <span aria-hidden="true">↗</span></span></span>
           </a>
         </div>
       </section>
 
       <dialog id="original-ql-mode" class="chat-settings original-ql-dialog" aria-labelledby="original-ql-title" aria-describedby="original-ql-description original-ql-reset-note">
-        <span class="eyebrow">REDESCOBRIR O ORIGINAL</span>
-        <h2 id="original-ql-title">Voltar ao QL de sempre.</h2>
-        <p id="original-ql-description">Um cursor à espera das suas ideias. Uma linha de SuperBASIC que faz algo acontecer. Um jogo por descobrir. Aqui, o QL volta a ser o computador que convida a experimentar — ao seu ritmo, comando a comando.</p>
-        <p>Para abrir <strong id="original-ql-destination">o Guia de SuperBASIC</strong>, vamos encerrar o chat e reiniciar o QL. Passará a usar o emulador como a máquina original, sem recorrer ao Gemini ou a outro modelo de IA.</p>
-        <p id="original-ql-reset-note" class="chat-prerequisite">O reinício limpa o programa em memória, incluindo o terminal de chat. Os cartuchos montados são mantidos. No ecrã inicial do QL, prima <kbd>F1</kbd> para entrar no SuperBASIC.</p>
+        <span class="eyebrow">REDISCOVER THE ORIGINAL</span>
+        <h2 id="original-ql-title">Back to the classic QL.</h2>
+        <p id="original-ql-description">A cursor waiting for your ideas. A line of SuperBASIC that makes something happen. A game to discover. Here, the QL is once again a computer that invites you to experiment — at your own pace, one command at a time.</p>
+        <p>To open <strong id="original-ql-destination">the SuperBASIC guide</strong>, we will end the chat and restart the QL. You will use the emulator as the original machine, without Gemini or another AI model.</p>
+        <p id="original-ql-reset-note" class="chat-prerequisite">Restarting clears the program in memory, including the chat terminal. Mounted cartridges are kept. At the QL startup screen, press <kbd>F1</kbd> to enter SuperBASIC.</p>
         <div class="original-ql-actions">
-          <button id="original-ql-confirm" class="primary-button" type="button">Reiniciar e abrir o guia</button>
-          <button id="original-ql-cancel" type="button" autofocus>Continuar no chat</button>
+          <button id="original-ql-confirm" class="primary-button" type="button">Restart and open the guide</button>
+          <button id="original-ql-cancel" type="button" autofocus>Continue chatting</button>
         </div>
         <p id="original-ql-status" role="status" aria-live="polite"></p>
-        <p class="gemini-fine-print">Quando quiser voltar a conversar, abra QL Chat. A sua configuração Gemini fica guardada.</p>
+        <p class="gemini-fine-print">When you want to chat again, open QL Chat. Your Gemini settings are kept.</p>
       </dialog>
 
       <dialog id="gemini-setup" class="gemini-setup" aria-labelledby="gemini-setup-title" aria-describedby="gemini-setup-intro">
-        <span class="eyebrow">O SEU QL · À SUA MANEIRA</span>
-        <h2 id="gemini-setup-title" tabindex="-1" autofocus>Um clássico.<br>Novas conversas.</h2>
-        <p id="gemini-setup-intro">Explore o SuperBASIC, carregue software e use o QL livremente. Como complemento, pode conversar com o QL através do Gemini, com a sua própria chave API.</p>
+        <span class="eyebrow">YOUR QL · YOUR WAY</span>
+        <h2 id="gemini-setup-title" tabindex="-1" autofocus>A classic.<br>New conversations.</h2>
+        <p id="gemini-setup-intro">Explore SuperBASIC, load software and use the QL freely. As an optional extra, you can chat through the QL using Gemini with your own API key.</p>
         <div class="gemini-instructions">
-          <h3>A sua chave, em três passos</h3>
+          <h3>Your key in three steps</h3>
           <ol>
-            <li>Abra o <a id="gemini-ai-studio" href="https://aistudio.google.com/api-keys" target="_blank" rel="noopener noreferrer" aria-describedby="gemini-return-hint">Google AI Studio numa nova janela ↗</a> e entre com a sua conta Google.</li>
-            <li>Escolha <strong>Create API key</strong> (Criar chave API) e selecione ou crie um projeto. Confirme que o plano é <strong>Free</strong>, sem faturação ativada.</li>
-            <li>Copie a <strong>chave API</strong> (não o ID do projeto) e cole-a abaixo. Cada utilizador deve criar a sua; não existe uma chave partilhada.</li>
+            <li>Open <a id="gemini-ai-studio" href="https://aistudio.google.com/api-keys" target="_blank" rel="noopener noreferrer" aria-describedby="gemini-return-hint">Google AI Studio in a new window ↗</a> and sign in with your Google account.</li>
+            <li>Choose <strong>Create API key</strong> and select or create a project. Check that the plan is <strong>Free</strong>, with billing disabled.</li>
+            <li>Copy the <strong>API key</strong> (not the project ID) and paste it below. Each user must create their own; there is no shared key.</li>
           </ol>
-          <p id="gemini-return-hint" class="gemini-fine-print">O emulador continua aberto nesta janela. Depois de copiar a chave, volte aqui para a colar e guardar.</p>
+          <p id="gemini-return-hint" class="gemini-fine-print">The emulator stays open in this window. After copying the key, come back here to paste and save it.</p>
         </div>
         <form id="gemini-setup-form" autocomplete="off">
           <fieldset id="gemini-setup-fields" disabled>
-            <label for="gemini-api-key">A sua chave Gemini</label>
-            <input id="gemini-api-key" type="password" autocomplete="off" spellcheck="false" autocapitalize="none" placeholder="Cole a chave API, não o ID do projeto" aria-describedby="gemini-key-warning gemini-key-privacy gemini-setup-status">
-            <p id="gemini-key-warning" class="gemini-key-warning"><strong>Atenção: o identificador do projeto não é a chave API.</strong> Um valor como <code>gen-lang-client-…</code> identifica apenas o projeto. No Google AI Studio, copie o valor da <strong>chave API</strong>, não o nome, o número ou o ID do projeto.</p>
-            <label class="gemini-confirmation" for="gemini-free-only"><input id="gemini-free-only" type="checkbox"><span>Confirmei no Google AI Studio que o projeto desta chave está no plano Free, sem faturação ativada.</span></label>
-            <p class="gemini-fine-print">Esta confirmação permite ativar o chat; não verifica nem altera a faturação Google. Sem confirmação, Gemini fica desligado.</p>
-            <div class="gemini-save-actions"><button type="submit" class="primary-button">Guardar neste computador</button><button id="gemini-remove-key" type="button" class="quiet-button" hidden>Remover chave</button></div>
+            <label for="gemini-api-key">Your Gemini key</label>
+            <input id="gemini-api-key" type="password" autocomplete="off" spellcheck="false" autocapitalize="none" placeholder="Paste the API key, not the project ID" aria-describedby="gemini-key-warning gemini-key-privacy gemini-setup-status">
+            <p id="gemini-key-warning" class="gemini-key-warning"><strong>Please note: the project ID is not the API key.</strong> A value such as <code>gen-lang-client-…</code> only identifies the project. In Google AI Studio, copy the <strong>API key</strong>value, not the project name, number or ID.</p>
+            <label class="gemini-confirmation" for="gemini-free-only"><input id="gemini-free-only" type="checkbox"><span>I have checked in Google AI Studio that this key’s project is on the Free plan, with billing disabled.</span></label>
+            <p class="gemini-fine-print">This confirmation allows chat to be enabled; it does not check or change Google billing. Without confirmation, Gemini stays disabled.</p>
+            <div class="gemini-save-actions"><button type="submit" class="primary-button">Save on this computer</button><button id="gemini-remove-key" type="button" class="quiet-button" hidden>Remove key</button></div>
           </fieldset>
         </form>
         <p id="gemini-setup-status" class="gemini-status" role="status" aria-live="polite"></p>
-        <p id="gemini-key-privacy" class="gemini-fine-print">A chave e a confirmação são guardadas no ficheiro <code>.env</code> na raiz do projeto, junto de <code>package.json</code>. Este ficheiro está excluído pelo <code>.gitignore</code> e bloqueado no servidor web. Não o partilhe nem o inclua num ZIP do projeto. A chave não é guardada no navegador; o servidor local usa-a para contactar o Google quando escolhe Gemini, enviando as mensagens e um contexto recente. <a href="./legal.html" target="_blank" rel="noopener">Privacidade e condições</a>.</p>
-        <button id="gemini-continue" class="gemini-continue" type="button">Continuar para o emulador <span aria-hidden="true">→</span></button>
-        <p class="gemini-later">Não precisa de uma chave. Pode configurar Gemini mais tarde.</p>
+        <p id="gemini-key-privacy" class="gemini-fine-print">The key and confirmation are saved in the <code>.env</code> file in the project root, alongside <code>package.json</code>. This file is excluded by <code>.gitignore</code> and blocked by the web server. Do not share it or include it in a project ZIP. The key is not stored in the browser; the local server uses it to contact Google when you choose Gemini, sending your messages and recent context. <a href="./legal.html" target="_blank" rel="noopener">Privacy and terms</a>.</p>
+        <button id="gemini-continue" class="gemini-continue" type="button">Continue to the emulator <span aria-hidden="true">→</span></button>
+        <p class="gemini-later">You do not need a key. You can set up Gemini later.</p>
       </dialog>
 
       <dialog id="chat-settings" class="chat-settings" aria-labelledby="chat-title">
-        <form method="dialog"><button class="dialog-close" type="submit">Fechar</button></form>
-        <span class="eyebrow">CONVERSAR COM O QL</span>
-        <h2 id="chat-title">A próxima conversa começa aqui.</h2>
-        <p>O QL recebe um pequeno programa SuperBASIC. Veja-o ser escrito no ecrã e, depois, converse pelo teclado original.</p>
-        <p class="chat-prerequisite"><strong>Do arranque à conversa</strong> Se o QL estiver desligado ou no ecrã F1/F2, o arranque é automático. O programa só começa a ser escrito quando o SuperBASIC estiver pronto.</p>
-        <label for="chat-provider">Com quem quer conversar?</label>
+        <form method="dialog"><button class="dialog-close" type="submit">Close</button></form>
+        <span class="eyebrow">CHAT WITH THE QL</span>
+        <h2 id="chat-title">Your next conversation starts here.</h2>
+        <p>The QL receives a small SuperBASIC program. Watch it being typed on the screen, then chat using the original keyboard interface.</p>
+        <p class="chat-prerequisite"><strong>From startup to conversation</strong> If the QL is off or at the F1/F2 screen, startup is automatic. The program is only typed once SuperBASIC is ready.</p>
+        <label for="chat-provider">Who would you like to chat with?</label>
         <select id="chat-provider">
-          <option value="demo">Demonstração local — sem IA nem API</option>
+          <option value="demo">Local demo — no AI or API</option>
           <option value="gemini" disabled>Google AI Studio — gemini-3.5-flash-lite (Free)</option>
         </select>
-        <p id="chat-connection" role="status">A verificar o host local…</p>
-        <button type="button" class="text-button" data-open-gemini aria-haspopup="dialog" aria-controls="gemini-setup">Configurar a minha chave Gemini</button>
-        <p class="chat-load-note">O programa atual em memória será substituído. O carregamento é visível e demora algumas dezenas de segundos. Aguarde <strong>Terminal pronto</strong> antes de escrever.</p>
-        <button id="start-chat" class="primary-button" type="button">Carregar e iniciar chat <span aria-hidden="true">→</span></button>
-        <p class="chat-shortcuts"><code>/new</code> nova conversa <span aria-hidden="true">·</span> <code>/quit</code> sair</p>
+        <p id="chat-connection" role="status">Checking the local host…</p>
+        <button type="button" class="text-button" data-open-gemini aria-haspopup="dialog" aria-controls="gemini-setup">Set up my Gemini key</button>
+        <p class="chat-load-note">The current program in memory will be replaced. Loading is visible and takes several tens of seconds. Wait for <strong>Terminal ready</strong> before typing.</p>
+        <button id="start-chat" class="primary-button" type="button">Load and start chat <span aria-hidden="true">→</span></button>
+        <p class="chat-shortcuts"><code>/new</code> new conversation <span aria-hidden="true">·</span> <code>/quit</code> quit</p>
         <details class="chat-service-details">
-          <summary>Sobre a ligação e a privacidade</summary>
-          <p>A demonstração local testa o terminal, sem IA nem envio de mensagens a terceiros.</p>
-          <p>Com Gemini, conversa com uma IA: as mensagens e um histórico curto são enviados ao Google. A chave fica no servidor local. Confirme os factos importantes noutras fontes.</p>
-          <p>Use um projeto Free sem faturação. Quota esgotada: o chat para, sem tentativas automáticas nem alternativa paga. Consulte as condições de utilização nos <a href="./legal.html" target="_blank" rel="noopener">créditos e privacidade</a>.</p>
+          <summary>About the connection and privacy</summary>
+          <p>The local demo tests the terminal without AI or sending messages to third parties.</p>
+          <p>With Gemini, you are chatting with an AI: your messages and a short history are sent to Google. The key stays on the local server. Check important facts against other sources.</p>
+          <p>Use a Free project with billing disabled. When the quota is exhausted, chat stops, with no automatic retries or paid fallback. See the terms of use in <a href="./legal.html" target="_blank" rel="noopener">credits and privacy</a>.</p>
         </details>
       </dialog>
 
@@ -369,17 +369,17 @@
         <div class="software-library-header">
           <div>
             <span class="eyebrow">SOFTWARE</span>
-            <h2 id="software-library-title">Biblioteca de software</h2>
-            <p class="software-introduction">Escolha um título e carregue-o no QL. Ou escreva os seus próprios programas e guarde-os num cartucho.</p>
+            <h2 id="software-library-title">Software library</h2>
+            <p class="software-introduction">Choose a title and load it on the QL. Or write your own programs and save them on a cartridge.</p>
           </div>
           <form method="dialog">
-            <button class="dialog-close" type="submit" aria-label="Fechar a biblioteca">Fechar</button>
+            <button class="dialog-close" type="submit" aria-label="Close the library">Close</button>
           </form>
         </div>
 
         <div class="software-source-actions">
           <label class="software-picker-button">
-            Adicionar ficheiros
+            Add files
             <input
               id="software-files"
               class="software-picker"
@@ -389,7 +389,7 @@
             >
           </label>
           <label class="software-picker-button">
-            Abrir pasta
+            Open folder
             <input
               id="software-folder"
               class="software-picker"
@@ -399,36 +399,36 @@
               accept=".mdv,.qlpak,.zip,application/zip,application/x-qdos-qlpak,application/octet-stream"
             >
           </label>
-          <p>Também pode arrastar ficheiros .mdv, .qlpak ou .zip para esta janela.</p>
+          <p>You can also drag .mdv, .qlpak or .zip files into this window.</p>
         </div>
 
         <div class="software-library-layout" tabindex="0" role="region" aria-labelledby="software-files-title">
           <section class="software-browser" aria-labelledby="software-files-title">
             <div class="software-section-heading">
-              <h3 id="software-files-title">Prontos a explorar</h3>
+              <h3 id="software-files-title">Ready to explore</h3>
               <span id="software-count" class="software-count">0</span>
             </div>
             <div id="software-dropzone" class="software-dropzone">
-              <div id="software-file-list" class="software-file-list" role="group" aria-label="Cartuchos disponíveis">
-                <p class="software-empty">Escolha uma pasta ou adicione ficheiros MDV, QLPAK ou ZIP.</p>
+              <div id="software-file-list" class="software-file-list" role="group" aria-label="Available cartridges">
+                <p class="software-empty">Choose a folder or add MDV, QLPAK or ZIP files.</p>
               </div>
             </div>
           </section>
 
           <details id="software-destinations" class="microdrive-panel">
-            <summary>Escolher outra unidade ou gerir cartuchos</summary>
+            <summary>Choose another drive or manage cartridges</summary>
             <div class="microdrive-panel-heading">
-              <p id="selected-cartridge">Escolha um título acima para o inserir sem reiniciar o QL.</p>
-              <p id="microdrive-activity">Duas unidades independentes. Inserir um cartucho não reinicia o QL.</p>
-              <button id="resume-microdrives" type="button" hidden>Retomar QL para concluir a operação</button>
+              <p id="selected-cartridge">Choose a title above to insert it without restarting the QL.</p>
+              <p id="microdrive-activity">Two independent drives. Inserting a cartridge does not restart the QL.</p>
+              <button id="resume-microdrives" type="button" hidden>Resume QL to finish the operation</button>
             </div>
             <div id="microdrive-rack" class="microdrive-rack"></div>
-            <button id="library-microdrive-guide" type="button" class="guide-open-button">Guia de Microdrives — começar com FORMAT →</button>
+            <button id="library-microdrive-guide" type="button" class="guide-open-button">Microdrive guide — start with FORMAT →</button>
           </details>
         </div>
 
         <p id="software-library-status" class="software-library-status" role="status" aria-live="polite">
-          Carregar e arrancar usa MDV1 e reinicia o QL. Para gerir cartuchos, clique em MDV1 ou MDV2 na imagem da máquina.
+          Load and boot uses MDV1 and restarts the QL. To manage cartridges, click MDV1 or MDV2 on the machine image.
         </p>
       </dialog>
 
@@ -445,26 +445,26 @@
       </div>
       <header class="guide-header">
         <div>
-          <span class="eyebrow">APRENDER</span>
-          <h2 id="guide-title">Guia interativo do QL</h2>
+          <span class="eyebrow">LEARN</span>
+          <h2 id="guide-title">Interactive QL guide</h2>
         </div>
-        <button id="close-guide" class="guide-close-button" type="button" aria-label="Fechar o guia">
-          Fechar
+        <button id="close-guide" class="guide-close-button" type="button" aria-label="Close the guide">
+          Close
         </button>
       </header>
 
       <div class="guide-discovery">
-        <div class="guide-topic-shortcuts" role="group" aria-label="Acessos às lições de Microdrives">
-          <button id="guide-microdrives-start" type="button">Microdrives — começar aqui</button>
-          <button id="guide-microdrives-reference" type="button">Comandos de mdv_</button>
+        <div class="guide-topic-shortcuts" role="group" aria-label="Microdrive lesson shortcuts">
+          <button id="guide-microdrives-start" type="button">Microdrives — start here</button>
+          <button id="guide-microdrives-reference" type="button">mdv_ commands</button>
         </div>
-        <label for="guide-search">Procurar no guia</label>
-        <input id="guide-search" type="search" placeholder="PRINT, gráficos, programas…" autocomplete="off">
+        <label for="guide-search">Search the guide</label>
+        <input id="guide-search" type="search" placeholder="PRINT, graphics, programs…" autocomplete="off">
         <div class="guide-course-progress">
-          <span id="guide-course-status">A carregar lições…</span>
+          <span id="guide-course-status">Loading lessons…</span>
           <div class="guide-course-track" aria-hidden="true"><span id="guide-course-bar"></span></div>
         </div>
-        <nav id="guide-lessons" class="guide-lessons" aria-label="Lições do guia"></nav>
+        <nav id="guide-lessons" class="guide-lessons" aria-label="Guide lessons"></nav>
       </div>
 
       <article id="guide-lesson" class="guide-lesson" aria-live="polite">
@@ -487,23 +487,23 @@
             <span>SuperBASIC</span>
             <span id="guide-code-kind"></span>
           </div>
-          <ol id="guide-code" class="guide-code" aria-label="Código SuperBASIC"></ol>
+          <ol id="guide-code" class="guide-code" aria-label="SuperBASIC code"></ol>
         </div>
 
         <div class="guide-actions">
-          <button id="guide-load" type="button">Carregar no QL</button>
-          <button id="guide-run" class="guide-run-button" type="button">Carregar e executar</button>
+          <button id="guide-load" type="button">Load into QL</button>
+          <button id="guide-run" class="guide-run-button" type="button">Load and run</button>
         </div>
 
         <section class="guide-experiment" aria-labelledby="guide-experiment-title">
-          <h4 id="guide-experiment-title">Experimente agora</h4>
+          <h4 id="guide-experiment-title">Try it now</h4>
           <p id="guide-experiment"></p>
         </section>
 
-        <nav class="guide-pagination" aria-label="Percorrer o guia">
-          <button id="guide-previous" type="button">← Anterior</button>
+        <nav class="guide-pagination" aria-label="Browse the guide">
+          <button id="guide-previous" type="button">← Previous</button>
           <span id="guide-sequence"></span>
-          <button id="guide-next" type="button">Seguinte →</button>
+          <button id="guide-next" type="button">Next →</button>
         </nav>
       </article>
 
@@ -512,8 +512,8 @@
           <span id="guide-progress-bar"></span>
         </div>
         <div class="guide-status-row">
-          <p id="guide-status" role="status" aria-live="polite">Escolha uma lição para começar.</p>
-          <button id="guide-cancel" type="button" hidden>Cancelar</button>
+          <p id="guide-status" role="status" aria-live="polite">Choose a lesson to begin.</p>
+          <button id="guide-cancel" type="button" hidden>Cancel</button>
         </div>
       </footer>
       </aside>

@@ -24,7 +24,7 @@ export function createChatService({
     get enabled() { return configured && !blocked; },
     get paused() { return blocked; },
     async reply(id, prompt, { signal } = {}) {
-      if (!configured) throw new ChatError('Gemini disabled. In your browser, open QL Chat and select "Configurar a minha chave Gemini". Enter your own API key, not the project ID (such as gen-lang-client-...). Confirm that its project is Free with billing disabled, then choose "Guardar neste computador". You can also keep using the emulator without Gemini.');
+      if (!configured) throw new ChatError('Gemini disabled. In your browser, open QL Chat and select "Set up my Gemini key". Enter your own API key, not the project ID (such as gen-lang-client-...). Confirm that its project is Free with billing disabled, then choose "Save on this computer". You can also keep using the emulator without Gemini.');
       if (typeof id !== "string" || !/^[a-zA-Z0-9-]{16,64}$/.test(id)
         || typeof prompt !== "string" || !prompt.trim() || prompt.length > 1024) {
         throw new ChatError("Invalid message (maximum 1024 characters).", 400);

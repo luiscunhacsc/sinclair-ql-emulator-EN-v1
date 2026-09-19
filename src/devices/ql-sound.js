@@ -12,7 +12,7 @@ function byteFromBits(bits, offset) {
 /** Decode the 64-bit parameter block accepted by IPC command 10. */
 export function decodeIpcSoundBits(bits) {
   if (!Array.isArray(bits) || bits.length !== 64 || bits.some((bit) => bit !== 0 && bit !== 1)) {
-    throw new RangeError("O comando de som IPC requer exatamente 64 bits binários.");
+    throw new RangeError("The IPC sound command requires exactly 64 binary bits.");
   }
 
   const bytes = Array.from({ length: 8 }, (_, index) => byteFromBits(bits, index * 8));
@@ -44,7 +44,7 @@ export function qlPitchFrequency(pitch) {
 export class QLSoundSynthesizer {
   constructor({ sampleRate, random = Math.random, amplitude = 0.16 } = {}) {
     if (!Number.isFinite(sampleRate) || sampleRate <= 0) {
-      throw new RangeError("A frequência de amostragem deve ser positiva.");
+      throw new RangeError("The sample rate must be positive.");
     }
     this.sampleRate = sampleRate;
     this.random = random;

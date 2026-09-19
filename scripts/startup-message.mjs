@@ -11,8 +11,8 @@ export function startupMessage({ enabled, paused }, { autoOpenBrowser = true } =
   ------------------------------------------------------------
 
   ${autoOpenBrowser ? "Opening your default browser:" : "Open in your browser:"} ${EMULATOR_URL}
-  Fullscreen: choose "Ecrã inteiro" in the emulator.
-  On Windows, F11 toggles fullscreen for the whole browser.
+  Full screen: choose "Full screen" in the emulator.
+  On Windows, F11 toggles full screen for the whole browser.
 
   YOUR QL, READY TO EXPLORE
   Use it as a regular QL: write programs, play games and explore.

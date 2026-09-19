@@ -1,31 +1,31 @@
-# Autoria e âmbito das licenças
+# Authorship and licence scope
 
 Copyright (C) 2026 Luís Simões da Cunha.
 
-O código original do emulador, os seus testes originais, scripts, interface e
-documentação original são disponibilizados sob a **GNU GPL versão 2 apenas**
-(`GPL-2.0-only`). Consulte [LICENSE](LICENSE). O histórico do projeto documenta
-as revisões; os componentes externos conservam os seus créditos e termos próprios.
+The emulator’s original code, original tests, scripts, interface and original
+documentation are available under **GNU GPL version 2 only** (`GPL-2.0-only`).
+See [LICENSE](LICENSE). Project history documents revisions; external components
+retain their own credits and terms.
 
-## Componentes com termos próprios
+## Components with their own terms
 
-| Conteúdo | Autoria / titular indicado | Termos |
+| Content | Author / identified rights holder | Terms |
 | --- | --- | --- |
-| `src/`, `scripts/`, `tools/`, testes originais, HTML/CSS e documentação original | Luís Simões da Cunha | GPL-2.0-only |
-| `roms/minerva/minerva-1.98a1.bin` e arquivo de fontes Minerva | Laurence Reeves; manutenção/publicação por Marcel Kilgus | GPL-2.0-or-later; avisos originais preservados |
-| `tests/fixtures/m68000-v1.json` | SingleStepTests, amostra transformada pelo script do projeto | MIT; licença integral em `third_party/m68000-single-step/LICENSE` |
-| `local-software/PsionChess.qlpak` | Richard Lang; © 1984 Psion Ltd. | Freeware, segundo [a fonte](https://www.terdina.net/ql/software.html) |
-| `local-software/chess_mk.zip` | Psion Chess; edição executável de Jochen Hassler, correção 3D de Marcel Kilgus | Edição do jogo freeware publicada no [arquivo QL](https://sinclairql.net/djw/games/index.html); [proveniência](local-software/README.md) |
-| `local-software/Spook.zip` | © 1985 Damon Chaplin | Domínio público, segundo [a fonte](https://www.terdina.net/ql/software.html) |
-| Seis imagens PNG em `assets/` | Produção assistida por IA; referências e créditos no registo visual | Licenças e permissões em revisão, separadas da GPL do código; ver [proveniência](assets/PROVENANCE.md) |
-| Outras ROMs e software escolhidos pelo utilizador | Respetivos titulares | Não fornecidos nem relicenciados pelo emulador |
+| `src/`, `scripts/`, `tools/`, original tests, HTML/CSS and original documentation | Luís Simões da Cunha | GPL-2.0-only |
+| `roms/minerva/minerva-1.98a1.bin` and Minerva source archive | Laurence Reeves; maintained/published by Marcel Kilgus | GPL-2.0-or-later; original notices preserved |
+| `tests/fixtures/m68000-v1.json` | SingleStepTests, sample transformed by the project script | MIT; complete licence in `third_party/m68000-single-step/LICENSE` |
+| `local-software/PsionChess.qlpak` | Richard Lang; © 1984 Psion Ltd. | Freeware, according to [the source](https://www.terdina.net/ql/software.html) |
+| `local-software/chess_mk.zip` | Psion Chess; executable edition by Jochen Hassler, 3D fix by Marcel Kilgus | Freeware game edition published in the [QL archive](https://sinclairql.net/djw/games/index.html); [provenance](local-software/README.md) |
+| `local-software/Spook.zip` | © 1985 Damon Chaplin | Public domain, according to [the source](https://www.terdina.net/ql/software.html) |
+| Six PNG images in `assets/` | AI-assisted production; references and credits in the visual record | Licences and permissions under review, separate from the code’s GPL; see [provenance](assets/PROVENANCE.md) |
+| Other ROMs and software selected by the user | Respective rights holders | Neither supplied nor relicensed by the emulator |
 
-Os avisos Minerva e MIT são preservados nos respetivos diretórios em
-`third_party/`. O campo `yyyy` é conservado tal como consta do aviso Minerva.
-A GPL do código permite utilização comercial nos termos da própria licença.
-Os nomes de produtos identificam os sistemas e serviços referidos; este é um
-projeto independente.
+Minerva and MIT notices are preserved in their respective `third_party/`
+directories. The literal `yyyy` field is kept as it appears in the Minerva
+notice. The code’s GPL permits commercial use under the licence’s own terms.
+Product names identify the systems and services mentioned; this is an
+independent project.
 
-Ver [avisos de terceiros](THIRD_PARTY_NOTICES.md),
-[proveniência das imagens](assets/PROVENANCE.md) e
-[registo de distribuição](docs/LEGAL_REVIEW.md).
+See [third-party notices](THIRD_PARTY_NOTICES.md),
+[image provenance](assets/PROVENANCE.md) and the
+[distribution record](docs/LEGAL_REVIEW.md).
