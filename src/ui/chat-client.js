@@ -15,9 +15,9 @@ export async function requestChatReply({ token, session, message, signal,
     body = await response.json();
   } catch (error) {
     if (signal?.aborted) throw error;
-    if (timeout.aborted) throw new Error("LOCAL SERVER TIMEOUT. The request was cancelled. Check npm start. No automatic retry was made.");
-    if (response) throw new Error(`LOCAL SERVER ERROR (HTTP ${response.status}). Invalid or interrupted reply. Check npm start. No automatic retry was made.`);
-    throw new Error("LOCAL SERVER DISCONNECTED. Check that npm start is running. If restarted, reopen QL Chat. No automatic retry was made.");
+    if (timeout.aborted) throw new Error("LOCAL SERVER TIMEOUT. The request was cancelled. Check that the emulator launcher is still running. No automatic retry was made.");
+    if (response) throw new Error(`LOCAL SERVER ERROR (HTTP ${response.status}). Invalid or interrupted reply. Check that the emulator launcher is still running. No automatic retry was made.`);
+    throw new Error("LOCAL SERVER DISCONNECTED. Check that the emulator launcher is running. If restarted, reopen QL Chat. No automatic retry was made.");
   }
   if (!response.ok) {
     if (body?.code === "HOST_SESSION_EXPIRED") {

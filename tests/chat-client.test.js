@@ -9,7 +9,7 @@ const options = { token: "local-token", session: "test-session-0001", message: "
 test("client sends one request and distinguishes Google errors from local disconnections", async () => {
   for (const [fetchImpl, pattern] of [
     [async () => Response.json({ error: "Gemini temporarily unavailable (Google HTTP 503)." }, { status: 502 }), /Google HTTP 503/],
-    [async () => { throw new TypeError("NetworkError when attempting to fetch resource."); }, /LOCAL SERVER DISCONNECTED.*npm start/],
+    [async () => { throw new TypeError("NetworkError when attempting to fetch resource."); }, /LOCAL SERVER DISCONNECTED.*emulator launcher/],
     [async () => new Response("<html>error</html>", { status: 502 }), /LOCAL SERVER ERROR \(HTTP 502\)/],
     [async () => Response.json({ answer: null }), /No displayable reply/],
   ]) {

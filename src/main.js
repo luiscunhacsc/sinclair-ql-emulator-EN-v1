@@ -1171,7 +1171,7 @@ async function refreshChatConfiguration() {
       : config.paused ? "Gemini suspended due to quota or configuration. See the README before unlocking. Demo available."
       : "Demo ready. To use Gemini, click Set up my Gemini key below. Paste your API key — please note: a project ID such as gen-lang-client-… is not the key. Confirm that the project is on the Free plan with billing disabled and choose Save on this computer. You can continue using the emulator without Gemini.";
   } catch {
-    chatConnection.textContent = "Demo ready. A Gemini connection requires the project’s local server (npm start).";
+    chatConnection.textContent = "Demo ready. A Gemini connection requires the project’s local server (start the emulator launcher).";
   }
 }
 function startChat() {
@@ -1494,5 +1494,5 @@ initializeGeminiSetup({ onSaved: () => { if (chatSettings.open) void refreshChat
 void loadSoftwareExamples().then((files) => {
   for (const file of files.filter(Boolean)) softwareFiles.set(softwareFileKey(file), file);
   renderSoftwareLibrary();
-  if (files.some((file) => !file)) setSoftwareLibraryStatus("To make the local examples available, restart the server with npm start. You can also add the files using the button above.");
+  if (files.some((file) => !file)) setSoftwareLibraryStatus("To make the local examples available, restart the server with the emulator launcher. You can also add the files using the button above.");
 });

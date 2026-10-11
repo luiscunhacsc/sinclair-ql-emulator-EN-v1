@@ -57,7 +57,7 @@ export function initializeGeminiSetup({ onSaved = () => {} } = {}) {
       token = config.token;
       applySettings(config);
     } catch {
-      status.textContent = "To save a key only on your computer, run npm start in your copy of the project and open http://localhost:8080. Here you can continue using the emulator and local demo.";
+      status.textContent = "To save a key only on your computer, start the emulator launcher in your copy of the project and open http://localhost:8080. Here you can continue using the emulator and local demo.";
     }
   }
 

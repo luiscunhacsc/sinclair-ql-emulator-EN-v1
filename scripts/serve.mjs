@@ -28,7 +28,7 @@ server.on("error", (error) => {
   if (error.code === "EADDRINUSE") {
     console.error("Port 8080 is already in use. No second server was started.");
     console.error("If the emulator is already running, open http://localhost:8080.");
-    console.error("To restart it, press Ctrl+C in its original terminal, then run npm start again.");
+    console.error("To restart it, press Ctrl+C in its original window, then run the emulator launcher again.");
     console.error("If another application uses this port, close that application first.");
   } else {
     console.error(`Could not start the local server (${error.code ?? error.name}).`);

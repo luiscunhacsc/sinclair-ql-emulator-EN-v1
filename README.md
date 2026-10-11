@@ -66,15 +66,21 @@ and [third-party notices](THIRD_PARTY_NOTICES.md).
 
 ## Run
 
-Node.js 20.12 or later is required only for the local server and tests.
+To run the emulator locally, Node.js 20.12 or later must be installed. The
+launchers start the server directly; you do not need to use npm:
 
-```sh
-npm start
-```
+- **Windows:** double-click `Start Sinclair QL.bat`.
+- **macOS:** double-click `Start Sinclair QL.command`. If macOS says it is not
+  executable, run `chmod +x "Start Sinclair QL.command"` once in Terminal.
+- **Linux:** run `sh ./start-sinclair-ql.sh` from a terminal. To launch it
+  directly instead, first run `chmod +x start-sinclair-ql.sh`.
 
-When ready, the server opens `http://localhost:8080` in the default browser on
-Windows, macOS or Linux. If it does not open, open that address manually.
-To start only the server:
+Install Node.js from [nodejs.org](https://nodejs.org/) if it is not already
+installed. Keep the launcher window open while using the emulator; **Ctrl+C**
+stops the server. When ready, it opens `http://localhost:8080` in the default
+browser. If it does not open, enter that address manually.
+
+For development, the server can also be started without opening a browser:
 
 ```sh
 npm run start:server
@@ -84,7 +90,7 @@ Choose **Full screen** for the emulator’s full screen view. On Windows, **F11*
 toggles full screen for the whole browser, keeping the interface available.
 The page does not force this at startup: the
 [Fullscreen API requires user interaction](https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen#security_considerations).
-Keep the terminal open while using the emulator; **Ctrl+C** stops the server.
+Keep the launcher window open while using the emulator; **Ctrl+C** stops the server.
 
 Minerva loads automatically. Set the **OFF / ON** switch to **ON** to power up.
 **OFF** cuts the emulated power, clears memory, ends chat and leaves a black
@@ -146,7 +152,7 @@ Instructions are in **QL Chat**:
    the percentage. Wait for **Terminal ready**.
 4. Click the screen, type after `>` and press **Enter**. History is below the monitor.
 
-For Gemini, keep `npm start` running. Visible keyboard loading is always retained.
+For Gemini, keep the emulator launcher running. Visible keyboard loading is always retained.
 
 QL Chat runs a real SuperBASIC terminal: MODE 4, 84 columns, green title, white
 text and a separate input area. Minerva uses `ser1ir`; the ZX8302 delivers
@@ -199,7 +205,7 @@ verified on the web and can contain factual errors; removing the prompt does
 not guarantee these disappear. The local 1,024-token limit and short history
 remain. Temperature and top-p use API defaults because none were specified
 in the advanced settings panel. Compare questions using `/new` and a fresh
-Playground conversation. Restart `npm start` after updating the server.
+Playground conversation. Restart the emulator launcher after updating the server.
 
 Each user needs their own account and key. **Do not publish a shared key on
 GitHub, in browser JavaScript or through a public endpoint.** The static page
@@ -213,7 +219,7 @@ this from the key alone and does not change billing. **Local limits and
 `confirmed` do not guarantee zero spending on a paid project.** Do not enable
 the integration while the plan is uncertain.
 
-**Dialogue setup (recommended):** run `npm start` and open
+**Dialogue setup (recommended):** start the emulator with its launcher and open
 `http://localhost:8080`. The first-visit introduction explains that chat is
 optional. **Continue to the emulator** needs no key: program in SuperBASIC,
 load software and try the demo. Reopen **Set up optional Gemini** at the top
@@ -268,7 +274,7 @@ check the filename is `.env`, not `.env.txt`. The server blocks HTTP access
 to these files. `confirmed` is your declaration, not Google verification or
 a billing lock. Old `GROQ_API_KEY` and `QL_GROQ_FREE_ONLY` variables are unused.
 
-Start with `npm start`. The project-root `.env` does not override system
+Start the emulator with its launcher. The project-root `.env` does not override system
 environment values. Restart after manual edits. Without it, or with empty
 fields, the emulator and demo work with Gemini disabled. System variables and
 `node --env-file=... scripts/serve.mjs` take priority; the dialogue is then
@@ -301,7 +307,7 @@ If chat reports a connection error:
 - **Google HTTP 500/503/504:** provider failure, unavailability or delay.
   The HTTP code appears in the terminal; try manually later. These errors
   are not treated as quota exhaustion.
-- **LOCAL SERVER DISCONNECTED:** check `npm start` is running; keep its window open.
+- **LOCAL SERVER DISCONNECTED:** check the emulator launcher is running; keep its window open.
 - **LOCAL SESSION EXPIRED:** the server restarted. Reopen **QL Chat** for a
   new session; that message did not reach Google.
 - **GEMINI TIMEOUT / LOCAL SERVER TIMEOUT:** the server waits 45 seconds for

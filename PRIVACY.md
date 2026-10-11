@@ -1,7 +1,7 @@
 # Data and privacy
 
 Updated on 19 September 2026. This document describes local execution of the
-emulator through `npm start`.
+emulator through its Windows, macOS or Linux launcher.
 
 ## Emulator and files
 

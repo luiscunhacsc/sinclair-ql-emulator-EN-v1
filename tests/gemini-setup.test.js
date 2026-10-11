@@ -92,7 +92,7 @@ test("public pages keep credential input disabled and explain local setup", asyn
   const { elements: e, requests } = harness(t, { publicPage: true });
   await settle();
   assert.equal(e["gemini-setup-fields"].disabled, true);
-  assert.match(e["gemini-setup-status"].textContent, /npm start/);
+  assert.match(e["gemini-setup-status"].textContent, /emulator launcher/);
   e["gemini-setup-form"].dispatchEvent(new Event("submit", { cancelable: true }));
   await settle();
   assert.equal(requests.length, 0);
